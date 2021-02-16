@@ -3,7 +3,6 @@ const app = express();
 const bodyParser = require('body-parser'); 
 const config = require('./config/keys'); 
 
-console.log('test'); 
 
 app.use(bodyParser.json()); 
 app.use(require('./routes')); 

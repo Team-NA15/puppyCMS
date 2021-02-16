@@ -47,11 +47,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     routing_number: {
       type: DataTypes.STRING,
-      allowNull: true,
     },  
     account_number: {
-      type: DataTypes.STRING,
-      allowNull: true,
+      type: DataTypes.STRING
     }, 
   }, {
     sequelize,
@@ -62,12 +60,11 @@ module.exports = (sequelize, DataTypes) => {
     user.id = uuid.v4();
     user.password = jwt.sign({password: user.password}, config.SECRET); 
   }); 
-  // Users.beforeBulkCreate((users, options) => {
-  //   users.forEach(user => {
-  //     user.id = uuid.v4(); 
-  //     user.password = jwt.sign({password: user.password}, config.SECRET); 
-  //   })
-  // })
+
+  Users.beforeUpdate((user, options) => {
+    user.updatedAt
+  })
+
 
   Users.associate = models => {
     Users.hasMany(models.Organizations, {
@@ -79,9 +76,7 @@ module.exports = (sequelize, DataTypes) => {
       through: 'OrgUsers', 
       as: 'MyOrgs'
     }); 
-    // Users.hasMany(models.Organizations, {as: 'Organizations'})
-
-    // Users.hasOne(models.Organizations); 
+   
   }
   return Users;
 };

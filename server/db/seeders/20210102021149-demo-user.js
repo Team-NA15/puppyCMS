@@ -5,15 +5,6 @@ const config = require('../../config/keys');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
    const password = jwt.sign({password: 'password'}, config.SECRET); 
    const newID = () => uuid.v4(); 
    await queryInterface.bulkInsert('Users', [ 
