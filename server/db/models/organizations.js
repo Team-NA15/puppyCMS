@@ -46,6 +46,8 @@ module.exports = (sequelize, DataTypes) => {
   });
   Organizations.beforeCreate((organization, options) => {
     organization.id = uuid.v4(); 
+    dog.created_at = new Date(); 
+    dog.updated_at = new Date(); 
   })
 
   Organizations.associate = models => {

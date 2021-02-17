@@ -14,33 +14,37 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   appointments.init({
-    dog_id: DataTypes.UUID,
-    dog_name: DataTypes.STRING,
+    dog_id: DataTypes.UUID, 
+    dog_name: DataTypes.STRING, 
     last_name: DataTypes.STRING,
-    breed: DataTypes.STRING,
-    service: DataTypes.ENUM,
-    arrival_date: DataTypes.DATE,
-    depart_date: DataTypes.DATE,
-    depart_time: DataTypes.TIME,
-    cubby: DataTypes.INTEGER,
-    breakfast: DataTypes.BOOLEAN,
-    breakfast_quant: DataTypes.STRING,
-    lunch: DataTypes.BOOLEAN,
-    lunch_quant: DataTypes.STRING,
-    dinner: DataTypes.BOOLEAN,
-    dinner_quant: DataTypes.STRING,
-    morn_meds: DataTypes.BOOLEAN,
-    morn_meds_dir: DataTypes.STRING,
-    noon_meds: DataTypes.BOOLEAN,
-    noon_meds_dir: DataTypes.STRING,
-    night_meds: DataTypes.BOOLEAN,
-    night_meds_dir: DataTypes.STRING,
-    belongings: DataTypes.STRING,
-    cost: DataTypes.DOUBLE
+    breed: DataTypes.STRING, 
+    service: DataTypes.STRING, 
+    arrival_date: DataTypes.DATE, 
+    depart_date: DataTypes.DATE, 
+    depart_time: DataTypes.TIME, 
+    breakfast: DataTypes.BOOLEAN, 
+    breakfast_quant: DataTypes.STRING, 
+    lunch: DataTypes.BOOLEAN, 
+    lunch_quant: DataTypes.BOOLEAN, 
+    dinner: DataTypes.BOOLEAN, 
+    dinner_quant: DataTypes.STRING, 
+    morn_meds: DataTypes.BOOLEAN, 
+    morn_meds_dir: DataTypes.STRING, 
+    noon_meds: DataTypes.BOOLEAN, 
+    noon_meds_dir: DataTypes.STRING, 
+    night_meds: DataTypes.BOOlEAN, 
+    night_meds_dir: DataTypes.STRING, 
+    belongings: DataTypes.STRING, 
+    cost: DataTypes.DOUBLE, 
   }, {
     sequelize,
     modelName: 'appointments',
     underscored: true,
   });
+
+  appointments.beforeCreate((appt, options) => {
+    appt.created_at = new Date(); 
+    appt.updated_at = new Date(); 
+  }); 
   return appointments;
 };

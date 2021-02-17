@@ -58,7 +58,9 @@ module.exports = (sequelize, DataTypes) => {
   });
   Users.beforeCreate((user,options) => {
     user.id = uuid.v4();
-    user.password = jwt.sign({password: user.password}, config.SECRET); 
+    user.password = jwt.sign({password: user.password}, config.SECRET);
+    dog.created_at = new Date(); 
+    dog.updated_at = new Date();  
   }); 
 
   Users.beforeUpdate((user, options) => {

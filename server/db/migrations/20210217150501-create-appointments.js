@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.UUID, 
         references: {
           model: {
-            tableName: 'Dog',
+            tableName: 'dogs',
           }, 
           key: 'id',
         },
@@ -20,19 +20,24 @@ module.exports = {
         onUpdate: 'CASCADE',
       },
       dog_name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING, 
+        allowNull: false, 
       },
       last_name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING, 
+        allowNull: false, 
       },
       breed: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING, 
+        allowNull: false, 
       },
       service: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING, 
+        allowNull: false, 
       },
       arrival_date: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE, 
+        allowNull: false,
       },
       depart_date: {
         type: Sequelize.DATE
@@ -44,37 +49,43 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       breakfast: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN, 
+        defaultValue: false,
       },
       breakfast_quant: {
         type: Sequelize.STRING
       },
       lunch: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN, 
+        defaultValue: false,
       },
       lunch_quant: {
         type: Sequelize.STRING
       },
       dinner: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN, 
+        defaultValue: false,
       },
       dinner_quant: {
         type: Sequelize.STRING
       },
       morn_meds: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN, 
+        defaultValue: false,
       },
       morn_meds_dir: {
         type: Sequelize.STRING
       },
       noon_meds: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN, 
+        defaltValue: false, 
       },
       noon_meds_dir: {
         type: Sequelize.STRING
       },
       night_meds: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN, 
+        defaultValue: false,
       },
       night_meds_dir: {
         type: Sequelize.STRING
@@ -87,11 +98,13 @@ module.exports = {
       },
       created_at: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE, 
+        defaultValue: new Date(), 
       },
       updated_at: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE, 
+        defaultValue: new Date(), 
       }
     });
   },
