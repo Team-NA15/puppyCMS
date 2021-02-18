@@ -93,6 +93,18 @@ module.exports = {
       belongings: {
         type: Sequelize.STRING
       },
+      checked_in: {
+        type: Sequelize.BOOLEAN, 
+        defaultValue: false, 
+      }, 
+      checked_out: {
+        type: Sequelize.BOOLEAN, 
+        defaultValue: false, 
+      },
+      new_dog: {
+        type: Sequelize.BOOLEAN, 
+        defaultValue: false, 
+      },
       cost: {
         type: Sequelize.DOUBLE
       },
