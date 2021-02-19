@@ -40,10 +40,7 @@ module.exports = {
         allowNull: false,
       },
       depart_date: {
-        type: Sequelize.DATE
-      },
-      depart_time: {
-        type: Sequelize.TIME
+        type: Sequelize.DATE, 
       },
       cubby: {
         type: Sequelize.INTEGER

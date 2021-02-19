@@ -1,9 +1,8 @@
 const Users = require('../../../db/models').Users; 
-const jwt = require('jsonwebtoken'); 
-const config = require('../../../config/keys'); 
-const uuid = require('uuid'); 
+
 
 module.exports = async (req,res) => {
+    //below is an example of what creating a user will look like, will be replaced in later iteration
     const user = {
         where: {
             email: 'johnwick@gmail.com'

@@ -21,7 +21,6 @@ module.exports = (sequelize, DataTypes) => {
     service: DataTypes.STRING, 
     arrival_date: DataTypes.DATE, 
     depart_date: DataTypes.DATE, 
-    depart_time: DataTypes.TIME, 
     breakfast: DataTypes.BOOLEAN, 
     breakfast_quant: DataTypes.STRING, 
     lunch: DataTypes.BOOLEAN, 
