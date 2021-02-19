@@ -1,7 +1,6 @@
 module.exports = {
     HOSTNAME : process.env.HOSTNAME, 
-    PORT: process.env.PORT, 
-    // DB: process.env.MONGODB_URI, 
+    PORT: process.env.PORT,  
     MYSQL: {
         HOSTNAME: process.env.MYSQL_HOSTNAME, 
         PORT: process.env.MYSQL_PORT, 

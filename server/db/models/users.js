@@ -3,7 +3,7 @@ const {
   Model, UUID
 } = require('sequelize');
 const uuid = require('uuid'); 
-const jwt = require('jsonwebtoken'); 
+const {encryptPassword} = require('../../controllers/user/createAccount');  
 const config = require('../../config/keys'); 
 module.exports = (sequelize, DataTypes) => {
   class Users extends Model {
@@ -47,27 +47,26 @@ module.exports = (sequelize, DataTypes) => {
     },
     routing_number: {
       type: DataTypes.STRING,
-      allowNull: true,
     },  
     account_number: {
-      type: DataTypes.STRING,
-      allowNull: true,
+      type: DataTypes.STRING
     }, 
   }, {
     sequelize,
     modelName: 'Users',
     underscored: true,
   });
-  Users.beforeCreate((user,options) => {
+  Users.beforeCreate(async (user,options) => {
     user.id = uuid.v4();
-    user.password = jwt.sign({password: user.password}, config.SECRET); 
+    user.password = await encryptPassword(user.password, config.SALT);
+    dog.created_at = new Date(); 
+    dog.updated_at = new Date();  
   }); 
-  // Users.beforeBulkCreate((users, options) => {
-  //   users.forEach(user => {
-  //     user.id = uuid.v4(); 
-  //     user.password = jwt.sign({password: user.password}, config.SECRET); 
-  //   })
-  // })
+
+  Users.beforeUpdate((user, options) => {
+    user.updatedAt
+  })
+
 
   Users.associate = models => {
     Users.hasMany(models.Organizations, {
@@ -79,9 +78,7 @@ module.exports = (sequelize, DataTypes) => {
       through: 'OrgUsers', 
       as: 'MyOrgs'
     }); 
-    // Users.hasMany(models.Organizations, {as: 'Organizations'})
-
-    // Users.hasOne(models.Organizations); 
+   
   }
   return Users;
 };
