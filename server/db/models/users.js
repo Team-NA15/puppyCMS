@@ -3,7 +3,7 @@ const {
   Model, UUID
 } = require('sequelize');
 const uuid = require('uuid'); 
-const jwt = require('jsonwebtoken'); 
+const {encryptPassword} = require('../../controllers/user/createAccount');  
 const config = require('../../config/keys'); 
 module.exports = (sequelize, DataTypes) => {
   class Users extends Model {
@@ -56,9 +56,9 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Users',
     underscored: true,
   });
-  Users.beforeCreate((user,options) => {
+  Users.beforeCreate(async (user,options) => {
     user.id = uuid.v4();
-    user.password = jwt.sign({password: user.password}, config.SECRET);
+    user.password = await encryptPassword(user.password, config.SALT);
     dog.created_at = new Date(); 
     dog.updated_at = new Date();  
   }); 

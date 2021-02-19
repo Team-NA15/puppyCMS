@@ -2,10 +2,11 @@
 const jwt = require('jsonwebtoken'); 
 const uuid = require('uuid'); 
 const config = require('../../config/keys'); 
+const {encryptPassword} = require('../../controllers/user/createAccount'); 
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-   const password = jwt.sign({password: 'password'}, config.SECRET); 
+   const password = await encryptPassword('password', config.SALT); 
    const newID = () => uuid.v4(); 
    await queryInterface.bulkInsert('Users', [ 
   {

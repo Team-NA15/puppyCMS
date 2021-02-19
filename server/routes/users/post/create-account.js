@@ -1,6 +1,6 @@
-const Users = require('../../../../db/models').Users; 
+const Users = require('../../../db/models').Users; 
 const jwt = require('jsonwebtoken'); 
-const config = require('../../../../config/keys'); 
+const config = require('../../../config/keys'); 
 const uuid = require('uuid'); 
 
 module.exports = async (req,res) => {
@@ -9,7 +9,6 @@ module.exports = async (req,res) => {
             email: 'johnwick@gmail.com'
         }, 
         defaults: {
-            // password: jwt.sign({password: 'password'}, config.SECRET),
             password: 'password', 
             first_name: 'john', 
             last_name: 'wick', 
