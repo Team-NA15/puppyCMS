@@ -16,7 +16,7 @@ const Dashboard = () => {
             <InputGroup size="lg">
                 <FormControl placeholder="Find a Dog" aria-label="Enter the name of the dog." />
                 <InputGroup.Append>
-                    <Button id="searchbtn" variant="dark">
+                    <Button type="submit" variant="dark">
                         <FontAwesomeIcon icon={faSearch} />
                     </Button>
                 </InputGroup.Append>

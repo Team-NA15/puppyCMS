@@ -19,7 +19,7 @@ const App = () => {
             <Navigation />
             <Container >
                 <Switch>
-                    <Route exact path="/dashboard" component={Dashboard} />
+                    <Route exact path="/" component={Dashboard} />
                     <Route path="/appointments" component={Appointment} />
                     <Route path="/addappointment" component={AddAppointment} />
                     <Route path="/add" component={AddDog} />
