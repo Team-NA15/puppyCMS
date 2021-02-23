@@ -1,0 +1,15 @@
+#root {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+.container {
+    background-color: #EADECE;
+    height: 100%;
+    .main {
+        max-width: 70%;
+        margin: auto;
+    
+    }
+}
