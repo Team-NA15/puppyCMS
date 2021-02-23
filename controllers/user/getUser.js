@@ -1,9 +1,8 @@
 const config = require('../../config/keys'); 
-const User = require('../../server/db/models').User;
-
+const Users = require('../../db/models').Users; 
 const getUserById = id => {
     return new Promise( async (resolve, reject) => { 
-        const user = await User.findByPk(id); 
+        const user = await Users.findByPk(id); 
         if (!user) return reject('Could not retrieve user')
         else if (user instanceof User) return resolve(user)  
     })
