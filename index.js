@@ -19,6 +19,6 @@ app.use(express.static(path.join(__dirname, './client/build/index.html')));
 app.use(require('./routes')); 
 
 
-app.listen(config.PORT, () => {
-    console.log(`Server started on port ${config.PORT}`); 
+app.listen(5000, () => {
+    console.log(`Server started on port 5000`); 
 })
