@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken'); 
-const config = require('../../config/keys');
-const {getUserById} = require('../../controllers/user/getUser');  
+const config = require('../config/keys');
+const {getUserById} = require('../controllers/user/getUser');  
 
 module.exports = async(req,res,next) => {
     try{
