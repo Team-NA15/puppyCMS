@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt'); 
-const Users = require('../../db/models').Users; 
+const Users = require('../../server/db/models').Users; 
 const jwt = require('jsonwebtoken'); 
 const config = require('../../config/keys'); 
 

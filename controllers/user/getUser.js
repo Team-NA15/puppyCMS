@@ -1,5 +1,5 @@
 const config = require('../../config/keys'); 
-const User = require('../../db/models').User;
+const User = require('../../server/db/models').User;
 
 const getUserById = id => {
     return new Promise( async (resolve, reject) => { 
