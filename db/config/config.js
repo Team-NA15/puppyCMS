@@ -1,4 +1,4 @@
-const config = require('../../../config/keys'); 
+const config = require('../../config/keys'); 
 const Sequelize = require('../../../node_modules/Sequelize'); 
 
 module.exports = {
