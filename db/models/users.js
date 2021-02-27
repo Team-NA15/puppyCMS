@@ -3,7 +3,7 @@ const {
   Model, UUID
 } = require('sequelize');
 const uuid = require('uuid'); 
-const {encryptPassword} = require('../../controllers/user/createAccount');  
+const encryptPassword = require('../../util/encrypt');  
 const config = require('../../config/keys'); 
 module.exports = (sequelize, DataTypes) => {
   class Users extends Model {

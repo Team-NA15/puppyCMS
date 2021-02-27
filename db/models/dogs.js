@@ -30,7 +30,8 @@ module.exports = (sequelize, DataTypes) => {
     neutered_spayed: DataTypes.BOOLEAN
   }, {
     sequelize,
-    modelName: 'dogs',
+    modelName: 'Dogs',
+    underscored: true, 
   });
 
 
@@ -45,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
   })
 
   Dogs.associate = models => {
-    dogs.hasMany(models.appointments, {
+    Dogs.hasMany(models.appointments, {
       foreignKey: 'dog_id'
     }); 
   }

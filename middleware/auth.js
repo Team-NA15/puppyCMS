@@ -1,11 +1,12 @@
 const jwt = require('jsonwebtoken'); 
 const config = require('../config/keys');
-const {getUserById} = require('../controllers/user/getUser');  
+const {getUserById} = require('../controllers/user/CRUD/getUser');  
 
 module.exports = async(req,res,next) => {
     try{
         const decoded = jwt.verify(req.header('Authorization'),config.JWT_SECRET); 
-        const userInstance = await getUserById(decoded.id);  
+        const userInstance = await getUserById(decoded.id)
+        .catch(err => res.status(403).send({error: 'Invalid token'})) 
         res.locals.user = userInstance;  
         next();  
     }
