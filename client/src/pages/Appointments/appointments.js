@@ -1,15 +1,13 @@
 import React from 'react';
+import { Container } from 'react-bootstrap'
 import './appointments.scss'
 
 const Appointment = () => {
     return (
-        <section className="main">
-            <h2>All Appointments</h2>
-            <label for="date">Date:</label>
-            <input type="date" id="date"/>
-            <label for="name">Name:</label>
-            <input type="text" id="name" />
-            
+        <section className="main mt-3">
+            <Container>
+                <h2 className="display-4">All Appointments</h2>
+            </Container>
         </section>
     )
 }
