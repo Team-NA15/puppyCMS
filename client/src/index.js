@@ -9,7 +9,8 @@ import Navigation from './components/Navigation/Navigation.jsx';
 import Dashboard from './pages/Dashboard/dashboard';
 import Appointment from './pages/Appointments/appointments';
 import AddDog from './pages/AddDog/addDog';
-import AddAppointment from './pages/AddAppointment/addAppointment'
+import AddAppointment from './pages/AddAppointment/addAppointment';
+import Login from './pages/Login/login'
 import './index.scss'
 
 const App = () => {
