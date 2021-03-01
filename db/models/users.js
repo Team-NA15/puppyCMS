@@ -59,8 +59,8 @@ module.exports = (sequelize, DataTypes) => {
   Users.beforeCreate(async (user,options) => {
     user.id = uuid.v4();
     user.password = await encryptPassword(user.password, config.SALT);
-    dog.created_at = new Date(); 
-    dog.updated_at = new Date();  
+    user.created_at = new Date(); 
+    user.updated_at = new Date();  
   }); 
 
   Users.beforeUpdate((user, options) => {

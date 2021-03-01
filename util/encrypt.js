@@ -10,7 +10,7 @@ module.exports = value => {
         const encrypted = await bcrypt.genSalt(config.SALT)
         .then(async salt => {
             return await bcrypt.hash(value, salt)
-        .catch(err => reject(err)); 
+            .catch(err => reject(err)); 
         })
         .catch(err => reject(err)); 
         return resolve(encrypted); 
