@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
     cost: DataTypes.DOUBLE, 
   }, {
     sequelize,
-    modelName: 'appointments',
+    modelName: 'Appointments',
     underscored: true,
   });
 

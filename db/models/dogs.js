@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
   })
 
   Dogs.associate = models => {
-    Dogs.hasMany(models.appointments, {
+    Dogs.hasMany(models.Appointments, {
       foreignKey: 'dog_id'
     }); 
   }

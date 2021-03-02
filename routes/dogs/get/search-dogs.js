@@ -6,6 +6,6 @@ module.exports = async (req, res) => {
     const dogs = await searchDogs(names)
     .catch(err => res.status(400).send({error: 'an error occurred'})); 
     const end = new Date().getMilliseconds() - start; 
-    console.log('exec time: ', end);  
+    console.log('exec time: ', end);   
     return res.status(200).send({data: {dogs}}); 
 }
