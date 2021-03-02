@@ -7,8 +7,8 @@ const {Op} = require('sequelize');
  * Finds all possible combinations of owner names and dog names with user input and 
  * returns results of the search
  * TODO: modify to except array of any number name inputs 
- * @param {*} first  all possible names to search the database for
- * @return {*} successful ? an array of dogs found with user input, possibly none : an error 
+ * @param {array} first  all possible names to search the database for
+ * @return {array} successful ? an array of dogs found with user input, possibly none : an error 
  */
 module.exports = async names => { 
     return new Promise(async(resolve, reject) => { 
@@ -52,6 +52,12 @@ const search = ([name, owner_first_name, owner_last_name]) => {
     }); 
 }
 
+/**
+ * Swaps array elements provided their position 
+ * @param {array} arr array of elements to be modified 
+ * @param {number} x position of first element
+ * @param {number} y position of second element
+ */
 const swap = (arr, x, y) => {
     const temp = arr[x]; 
     arr[x] = arr[y]; 
@@ -63,8 +69,8 @@ const permuteAndSearch = async (names, permCount) => {
     let promises = []; 
     /**
     * A recursive function using heaps algorithm to find all permutations of a given array of names
-    * @param {Array} names array of names to find permutations for
-    * @param {Number} size size of the array
+    * @param {array} names array of names to find permutations for
+    * @param {number} size size of the array
     * @return  
     */
     const heapPermute = async (names, size) => {
