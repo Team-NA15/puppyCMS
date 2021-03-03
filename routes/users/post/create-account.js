@@ -6,7 +6,10 @@ const {createAccount} = require('../../../controllers/user/CRUD/createAccount');
  * @param {*} res 
  */
 module.exports = async (req,res) => {
-    //below is an example of what creating a user will look like, will be replaced in later iteration
+    if (!req.body.email || !req.body.password || !req.body.first_name || !req.body.last_name || !req.body.address || !req.body.phone_number || !req.body.role){
+        let error = new Error('Missing required values for account creation'); 
+        return res.status(400).send({error})
+    }
     if (req.body.role === 1) return res.status(404).send({error: 'Not allowed to create super users'}); 
     const user = {
         where: {
@@ -22,7 +25,10 @@ module.exports = async (req,res) => {
         }
     }
     const newUser = await createAccount(user)
-    .catch(err => res.status(404).send({name: err.name, message:err.message}));
-    if (!(newUser instanceof Users)) return res.status(404).send({error: 'User not created, may already exist'});
-    else return res.status(200).send(); 
+    .catch(error => res.status(500).send({error}));
+    if (!(newUser instanceof Users)) {
+        const error = new Error('User not created, may already exist'); 
+        return res.status(400).send(error); 
+    }
+    else return res.status(201).send(); 
 }
