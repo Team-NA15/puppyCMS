@@ -2,7 +2,7 @@
 const jwt = require('jsonwebtoken'); 
 const uuid = require('uuid'); 
 const config = require('../../config/keys'); 
-const {encryptPassword} = require('../../controllers/user/createAccount'); 
+const encryptPassword = require('../../util/encrypt'); 
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {

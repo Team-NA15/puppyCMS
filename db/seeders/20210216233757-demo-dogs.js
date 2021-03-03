@@ -2,7 +2,7 @@
 const uuid = require('uuid'); 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert('dogs', [
+    await queryInterface.bulkInsert('Dogs', [
       {
         id: uuid.v4(), 
         name: 'Roscoe', 
@@ -37,7 +37,7 @@ module.exports = {
       }, 
       {
         id: uuid.v4(), 
-        name: 'Dro', 
+        name: 'Pugz', 
         owner_first_name: 'Brandon', 
         owner_last_name: 'Corn', 
         address: '4225 University Ave', 
@@ -51,6 +51,38 @@ module.exports = {
         age: '11', 
         neutered_spayed: false,
       }, 
+      {
+        id: uuid.v4(), 
+        name: 'Dro', 
+        owner_first_name: 'Brandon', 
+        owner_last_name: 'Corn', 
+        address: '4225 University Ave', 
+        city: 'Columbus', 
+        state: 'Georgia', 
+        zip: '31909', 
+        color: 'black/brown', 
+        breed: 'german shephard', 
+        gender: 'male',
+        weight: 80, 
+        age: '11', 
+        neutered_spayed: false,
+      },
+      {
+        id: uuid.v4(), 
+        name: 'Romeo', 
+        owner_first_name: 'Robert', 
+        owner_last_name: 'Corn', 
+        address: '4225 University Ave', 
+        city: 'Columbus', 
+        state: 'Georgia', 
+        zip: '31909', 
+        color: 'black/brown', 
+        breed: 'german shephard', 
+        gender: 'male',
+        weight: 80, 
+        age: '11', 
+        neutered_spayed: false,
+      },
       {
         id: uuid.v4(), 
         name: 'Tabi', 
@@ -71,6 +103,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('dogs', null, {}); 
+    await queryInterface.bulkDelete('Dogs', null, {}); 
   }
 };
