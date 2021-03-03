@@ -1,0 +1,35 @@
+{
+  "name": "pups-service-site",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "server": "node index.js",
+    "test": "mocha tests/**/*.test.js  --recursive --grep",
+    "client": "cd client && npm start",
+    "database": "npx sequelize-cli db:migrate --prefix db && npx sequelize-cli db:seed:all --prefix db",
+    "heroku-postbuild": "cd client/ && npm install && npm run build",
+    "dev": "concurrently \"npm run start\" \"npm run client\"",
+    "production": "concurrently \"npm run start\" \"npm run client\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.3.5",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "chai": "^4.3.1",
+    "chai-http": "^4.3.0",
+    "concurrently": "^6.0.0",
+    "mocha": "^8.3.0",
+    "sequelize-cli": "^6.2.0"
+  }
+}
