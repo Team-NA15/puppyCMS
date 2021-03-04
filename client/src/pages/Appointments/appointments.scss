@@ -1,0 +1,24 @@
+.boarding, .daycare, .grooming {
+    margin-right: 10px;
+}
+
+.card {
+    margin-top: 1rem;
+
+    .filterIcon {
+        
+        max-width: 50px;
+    }
+}
+.card-text {
+    display: inline-block;
+}
+.boarding {
+    background-color: #0F52C0;
+}
+.daycare {
+    background-color: #81A716;
+}
+.grooming {
+    background-color: #A71616;
+}

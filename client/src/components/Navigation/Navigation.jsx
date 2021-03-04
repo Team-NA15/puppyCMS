@@ -32,7 +32,7 @@ const Navigation = () => {
             </Navbar.Collapse>
 
             <div className="user">
-                Hello, User! <a href='#'>Logout?</a>
+                Hello, User! <Link to="/login">Logout?</Link>
             </div>
         </Navbar>
     )
