@@ -1,8 +1,9 @@
 const newAppointment = require('../../../controllers/appointments/CRUD/newAppointment'); 
+const Appt = require('../../../db/models').Appt; 
 
 module.exports = async (req, res) => {
     const apptData = {
-        dog_name: req.body.name, 
+        dog_name: req.body.dog_name, 
         last_name: req.body.last_name, 
         breed: req.body.service,
         service: req.body.service, 
@@ -10,7 +11,7 @@ module.exports = async (req, res) => {
         depart_date: req.body.depart_date || null, 
         new_dog: req.body.new_dog || false
     }
-    const newAppt = await newAppointment(apptData)
-    .catch(err => res.status(404).send({error: 'Error creating appointment', name: err.name, message: err.message})); 
-    return res.status(200).send({newAppt}); 
+    const appt = await newAppointment(apptData)
+    if (appt instanceof Error) return res.status(400).send({name: appt.name, message: appt.message}); 
+    else return res.status(201).send(); 
 }

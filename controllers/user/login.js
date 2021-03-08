@@ -20,7 +20,7 @@ const comparePasswords = async user => {
 
         else if (dbUser instanceof Users) {
             const match = await bcrypt.compare(user.password, dbUser.password)
-            .catch(err => new Error(err)); 
+            .catch(err => err); 
 
             if (!match) return ['Incorrect Password', null]
 
@@ -29,7 +29,7 @@ const comparePasswords = async user => {
     }
     catch(err){ 
         console.log(err); 
-        return ['Something went wrong', null]; 
+        return Promise.reject(err);  
     }    
 }
 

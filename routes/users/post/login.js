@@ -6,13 +6,17 @@ const {comparePasswords, newAccessToken} = require('../../../controllers/user/lo
  * @return {string} successful? an access token for authorization : error message
  */
 module.exports = async (req,res) => {
+    if(!req.body.email || !req.body.password) return res.status(400).send({error: new Error('Missing required fields')})
     const reqUser = {
         email: req.body.email, 
         password: req.body.password,
     }  
     const [error, user] = await comparePasswords(reqUser)
-    .catch(err => res.status({error: err.message, name: err.name}))
-    if (error) return res.status(400).send({error}); 
+    .catch(err => res.status(500).send(err))
+    if (error) {
+        const error = new Error('Incorrect Username or Password'); 
+        return res.status(400).send({error: error}); 
+    }
     else {
         const accessToken = await newAccessToken(user)
         .catch(err => res.status(404).send({error: err.message, name: err.name}));  
