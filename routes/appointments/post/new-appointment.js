@@ -4,9 +4,7 @@ const Appt = require('../../../db/models').Appointments;
 module.exports = async (req, res) => {
     let appt; 
     try{
-        if (res.locals.dog) appt = await newAppointment(res.locals.dog);
-        else appt = await newAppointment(req.body);  
-        
+        appt = await newAppointment(res.locals.dog); 
         if (appt instanceof Error) return res.status(400).send({name: appt.name, message: appt.message}); 
         else return res.status(201).send();
     }

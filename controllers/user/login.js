@@ -15,20 +15,19 @@ const comparePasswords = async user => {
                 email: user.email,
             }
         })
-        .catch(err => new Error(err))
-        if (dbUser === null) return ['No user found', null]
-
+        .catch(err => err); 
+        if (dbUser === null) return [new Error('No user found'), null]
         else if (dbUser instanceof Users) {
             const match = await bcrypt.compare(user.password, dbUser.password)
             .catch(err => err); 
 
-            if (!match) return ['Incorrect Password', null]
-
+            if (!match) return [new Error('Incorrect Password'), null]
+            
             else return [null, dbUser]
         } 
     }
     catch(err){ 
-        console.log(err); 
+        console.error(err); 
         return Promise.reject(err);  
     }    
 }

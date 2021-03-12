@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const auth = require('../../../middleware/auth');  
-const isNewDogAppt = require('../../../middleware/newDogAppt'); 
+const newAppt = require('../../../middleware/newAppt'); 
 
-router.post('/new-appointment', auth, isNewDogAppt, require('./new-appointment')); 
+router.post('/new-appointment', auth, newAppt, require('./new-appointment')); 
 
 
 module.exports = router; 

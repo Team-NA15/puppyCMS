@@ -10,19 +10,26 @@ const asyncLogin = async data => {
 }
 
 describe('/POST login', () => {
-    test('Missing Fields', async() => {
+    it('should login the user', async() => {
+        const data = {email: 'charlie_day@gmail.com', password: 'password'}; 
+        const response = await asyncLogin(data); 
+        expect(response.status).toBe(200); 
+        expect(response.body.access_token).toBeDefined(); 
+    }); 
+
+    it('should be missing fields', async() => {
         const data = {password: 'password'}; 
         const response = await asyncLogin(data); 
         expect(response.status).toBe(400); 
-        expect(response.badRequest).toBe(true); 
-    })
+        expect(response.badRequest).toBe(true);
+        expect(response.error).toBeDefined();  
+    });
 
-    test('Incorrect Password/Username', async() => {
-        const data = {email: 'charlie_day@gmail.com', password: 'passwod'}
+    it('should be incorrect password/username', async() => {
+        const data = {email: 'charlie_day@gmail.com', password: 'passwod'};
         const response = await asyncLogin(data); 
         expect(response.status).toBe(400); 
         expect(response.badRequest).toBe(true);
-    })
-
-    //TODO finish tests for story
+        expect(response.error).toBeDefined(); 
+    }); 
 })
