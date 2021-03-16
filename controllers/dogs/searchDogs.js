@@ -76,7 +76,6 @@ const permuteAndSearch = async (names, permCount) => {
     const heapPermute = async (names, size) => {
         for(let i = 0; i < size; i++){
             if (size === 1) {
-                console.log(names); 
                 promises.push(search(names.slice(0,3)).then(
                 res => {
                     for(let dog of res) result[dog.id] = dog; 
