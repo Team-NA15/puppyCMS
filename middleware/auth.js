@@ -13,12 +13,13 @@ module.exports = async(req,res,next) => {
     try{
         const decoded = jwt.verify(req.header('Authorization'),config.JWT_SECRET); 
         const userInstance = await getUserById(decoded.id)
-        .catch(err => res.status(404).send({error: 'error retrieving user', name: err.name, message: err.message}));  
+        .catch(err => err);  
+        if (userInstance instanceof Error) return res.status(404).send({name: userInstance.name, message: userInstance.message})
         res.locals.user = userInstance;  
         next();  
     }
     catch (err){
-        console.log(err); 
+        console.error(err); 
         return res.status(403).send('Invalid Token'); 
     }
 }
