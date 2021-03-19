@@ -1,9 +1,15 @@
 const { expect } = require('@jest/globals');
 const request = require('supertest'); 
-const app = require('../../../../index'); 
+const app = require('../../../../server'); 
 
-const asyncSearchDogs = async data => {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkNTA5MTliLTVkNmYtNDIwYi04ODU0LWEzMjMyZWE2MTMxZiIsImVtYWlsIjoiY2hhcmxpZV9kYXlAZ21haWwuY29tIiwiaWF0IjoxNjE1OTMyNTMxfQ.XhYbkB8GTBc8V0BD2VHNlz3YG4k6WDNKA6ES53UCc28'; 
+const getToken = async () => {
+    const access = await request(app)
+    .post('/login')
+    .send({email: "charlie_day@gmail.com", password: "password"});
+    return access.body.access_token; 
+}
+
+const asyncSearchDogs = async (data, token) => { 
     const response = await request(app)
     .get('/search-dogs')
     .set('Authorization', token)
@@ -14,14 +20,19 @@ const asyncSearchDogs = async data => {
 describe('/GET search-dogs', () => {
     const validQuery = {query: 'brandon'}
     const invalidQuery = {}
+    let token; 
+
+    beforeAll(async () => {
+        token = await getToken(); 
+    }); 
 
     it('should retrieve dogs from query', async () => {
-        const response = await asyncSearchDogs(validQuery);
+        const response = await asyncSearchDogs(validQuery, token);
         expect(response.status).toEqual(200); 
     }); 
 
     it('should not retrieve dogs from invalid query', async () => {
-        const response = await asyncSearchDogs(invalidQuery); 
+        const response = await asyncSearchDogs(invalidQuery, token); 
         expect(response.status).toEqual(400); 
     }); 
 }); 

@@ -1,5 +1,5 @@
 const request = require('supertest'); 
-const app = require('../../../../index');
+const app = require('../../../../server');
 const Users = require('../../../../db/models').Users;  
 
 const asyncCreateAccount = async data => {
@@ -10,7 +10,15 @@ const asyncCreateAccount = async data => {
 }
 
 describe('/create-account', () => {
-  const data = {email: 'blank@gmail.com', password: 'password', first_name: 'first', last_name: 'last', address: 'address', phone_number: 'digits', role: 2}
+  const data = {
+    email: 'blank@gmail.com', 
+    password: 'password', 
+    first_name: 'first', 
+    last_name: 'last', 
+    address: 'address', 
+    phone_number: 'digits', 
+    role: 2
+  }
 
   afterAll(async () => {
     await Users.destroy({
