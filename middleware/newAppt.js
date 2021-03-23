@@ -1,35 +1,34 @@
 const Dogs = require('../db/models').Dogs; 
+const { findDogByOwner } = require('../controllers/dogs/CRUD/getDog'); 
 
 module.exports = async (req, res, next) => {
-    //map the request body to make sure we have all the correct values in the request body
-    res.locals.dog = dogApptMapper(req.body);
     let dog;  
     try{
-        dog = await Dogs.findOne({
-            where: {
-                name: res.locals.dog_name, 
-                owner_last_name: res.locals.dog.last_name
-            }
-        }); 
+        //map the request body to make sure we have all the correct values in the request body
+        const apptData = dogApptMapper(req.body);
+        dog = await findDogByOwner(apptData.dog_name, apptData.owner_first_name, 
+            apptData.last_name)
     }
     catch(err){
         return res.status(400).send({name: err.name, message: 'Error searching for dog'}); 
     }
     if (dog instanceof Dogs){
-        res.locals.dog.dog_id = dog.id; 
-        res.locals.dog.dog_name = dog.name; 
-        res.locals.dog.last_name = dog.owner_last_name; 
-        res.locals.dog.breed = dog.breed; 
-        res.locals.dog.new_dog = false; 
+        apptData.dog_id = dog.id; 
+        apptData.dog_name = dog.name; 
+        apptData.last_name = dog.owner_last_name; 
+        apptData.breed = dog.breed; 
+        apptData.new_dog = false; 
     }  
-    else res.locals.dog.new_dog = true; 
+    else apptData.new_dog = true;
+    res.locals.dog = apptData;  
     next();  
 }
 
 const dogApptMapper = (dog) => {
     return {
-        dog_name: dog.dog_name, 
-        last_name: dog.last_name, 
+        dog_name: dog.dog_name,
+        owner_first_name: dog.owner_first_name, 
+        last_name: dog.owner_last_name, 
         breed: dog.breed, 
         service: dog.service,
         arrival_date: dog.arrival_date, 

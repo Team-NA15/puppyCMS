@@ -8,6 +8,7 @@ module.exports = {
     "host": config.MYSQL.HOSTNAME,
     "port": config.MYSQL.PORT,
     "dialect": "mysql", 
+    "timezone": "-04:00"
   },
   "test": {
     "username": config.MYSQL.USER,
@@ -16,6 +17,8 @@ module.exports = {
     "host": config.MYSQL.HOSTNAME,
     "port": config.MYSQL.PORT,
     "dialect": "mysql",
+    "timezone": "-04:00"
+
   },
   "production": {
     "username": config.MYSQL.USER,
@@ -24,5 +27,7 @@ module.exports = {
     "host": config.MYSQL.HOSTNAME,
     "port": config.MYSQL.PORT,
     "dialect": "mysql",
+    "timezone": "-04:00"
+
   }
 }

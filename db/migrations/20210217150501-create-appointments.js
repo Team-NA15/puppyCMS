@@ -50,45 +50,52 @@ module.exports = {
         defaultValue: false,
       },
       breakfast_quant: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: "",
       },
       lunch: {
         type: Sequelize.BOOLEAN, 
         defaultValue: false,
       },
       lunch_quant: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: "",
       },
       dinner: {
         type: Sequelize.BOOLEAN, 
         defaultValue: false,
       },
       dinner_quant: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: "",
       },
       morn_meds: {
         type: Sequelize.BOOLEAN, 
         defaultValue: false,
       },
       morn_meds_dir: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: "",
       },
       noon_meds: {
         type: Sequelize.BOOLEAN, 
         defaltValue: false, 
       },
       noon_meds_dir: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: "",
       },
       night_meds: {
         type: Sequelize.BOOLEAN, 
         defaultValue: false,
       },
       night_meds_dir: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: "",
       },
       belongings: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: "",
       },
       checked_in: {
         type: Sequelize.BOOLEAN, 
@@ -108,12 +115,12 @@ module.exports = {
       created_at: {
         allowNull: false,
         type: Sequelize.DATE, 
-        defaultValue: new Date(), 
+        defaultValue: new Date()
       },
       updated_at: {
         allowNull: false,
         type: Sequelize.DATE, 
-        defaultValue: new Date(), 
+        defaultValue: new Date()
       }
     });
   },
