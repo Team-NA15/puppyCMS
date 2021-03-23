@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { ButtonGroup, InputGroup, Button, Container, Form } from 'react-bootstrap';
 import { Appointment } from '../../components/components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -13,22 +13,14 @@ function date() {
 
 const Dashboard = () => {
 
-    const [searchText, setSearchText] = useState('');
-    const [filterBy, setFilterBy] = useState('')
-
-    const handleSubmit = (evt) => {
-        evt.preventDefault();
-        setSearchText(evt.target.value)
-    } 
-    const handleChange = (evt) => {
-        setSearchText(evt.target.value)
-    }
-
-    const filterApts = (evt, filterKey) => {
-        alert(filterKey)
-    }
-
     const doggos = [
+        {
+            "name": "Xander Bliss",
+            "type": "boarding",
+            "dropoff": "03/06/21 4:30PM",
+            "pickup": "03/06/21 6:00PM",
+            "checkin": true
+        },
         {
             "name": "Charlie Boone",
             "type": "boarding",
@@ -72,12 +64,58 @@ const Dashboard = () => {
             "checkin": false
         }
     ]
+
+    const [searchText, setSearchText] = useState('');
+    const [filterBy, setFilterBy] = useState();
+    const [filteredList, setFilteredList] = useState()
+
+    //const card = <Appointment name={dog.name} type={dog.type} checkin={dog.checkin} dropoff={dog.dropoff} pickup={dog.pickup} />
+
+    const handleSubmit = (evt) => {
+        evt.preventDefault();
+        setSearchText(evt.target.value)
+    } 
+    const handleChange = (evt) => {
+        setSearchText(evt.target.value)
+    }
+
+    useEffect(() => {
+        filterApts(filterBy);
+
+
+    }, [filterBy, setFilterBy])
+
+    useEffect(() => {
+        console.log("Filtered List: " + filteredList)
+    }, [filteredList, setFilteredList])
+
+    const filterApts = (filterKey) => {
+        let filteredList ;
+        
+        if (filterBy == 'B') {
+            filteredList = doggos.filter((dog) => {
+                return dog.type == 'boarding';
+            })
+        } else if ( filterBy == 'D') {
+            filteredList = doggos.filter((dog) => {
+                return dog.type == 'daycare'
+            })
+        } else if ( filterBy == 'G') {
+            filteredList = doggos.filter((dog) => {
+                return dog.type == 'grooming'
+            }) 
+        }
+
+        setFilteredList(filteredList);
+    }
+
+
     return (
         <section className="main mt-3 mb-4">
             <Container>
                 <Form onSubmit={handleSubmit}>
                     <InputGroup>
-                        <Form.Control value={searchText} onChange={handleChange} type="text" placeholder="Find a Dog" id="searchbox" />
+                        <Form.Control value={searchText} size="lg" onChange={handleChange} type="text" placeholder="Find a Dog" id="searchbox" />
                         <InputGroup.Append>
                             <Button type="submit">
                                 <FontAwesomeIcon icon={faSearch} />
@@ -90,18 +128,16 @@ const Dashboard = () => {
                 <h2 className="display-4 mt-3">{date()}</h2>
 
                 
-                <ButtonGroup>
-                    <Button className="boarding" onClick={() => filterApts(EventTarget, "B")}>B</Button>
-                    <Button className="daycare" onClick={() => filterApts(EventTarget, "D")}>D</Button>
-                    <Button className="grooming" onClick={() => filterApts(EventTarget, "G")}>G</Button>
-                </ButtonGroup>
+                <ButtonGroup size="lg">
+                    <Button className="boarding" onClick={() => setFilterBy('B')}>B</Button>
+                    <Button className="daycare" onClick={() => setFilterBy('D')}>D</Button>
+                    <Button className="grooming" onClick={() => setFilterBy('G')}>G</Button>
+                    <Button className="clear" variant="secondary" onClick={() => setFilterBy('')}> Clear</Button>
+                </ButtonGroup> 
 
-                {
-                doggos.map(dog => {
+                {doggos.map(dog => {
                     return <Appointment name={dog.name} type={dog.type} checkin={dog.checkin} dropoff={dog.dropoff} pickup={dog.pickup} />
-                })
-                }
-                
+                })}
             </Container>
         </section>
     )

@@ -10,6 +10,8 @@ import { Login, AddAppointment, AppointmentsPage, Dashboard, AddDog} from './pag
 import './index.scss'
 
 const App = () => {
+    // authenticate users and grab object.
+    
     return (
         <Router>
             <Navigation />

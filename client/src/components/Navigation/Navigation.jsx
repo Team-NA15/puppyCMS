@@ -7,7 +7,7 @@ import { faPaw, faCalendarCheck, faPlus, faHome } from '@fortawesome/free-solid-
 
 const Navigation = () => {
     return (
-        <Navbar className="navigation flex-column sticky-top" variant="dark">
+        <Navbar className="navigation flex-column sticky-top" variant="dark" expand="lg">
             <Navbar.Brand>puppyCMS</Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse>
