@@ -1,6 +1,6 @@
 const { expect } = require('@jest/globals');
 const request = require('supertest'); 
-const app = require('../../../../index'); 
+const app = require('../../../../server'); 
 
 const asyncLogin = async data => {
     const response = await request(app)

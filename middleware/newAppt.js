@@ -2,10 +2,10 @@ const Dogs = require('../db/models').Dogs;
 const { findDogByOwner } = require('../controllers/dogs/CRUD/getDog'); 
 
 module.exports = async (req, res, next) => {
-    let dog;  
+    let dog, apptData;  
     try{
         //map the request body to make sure we have all the correct values in the request body
-        const apptData = dogApptMapper(req.body);
+        apptData = dogApptMapper(req.body);
         dog = await findDogByOwner(apptData.dog_name, apptData.owner_first_name, 
             apptData.last_name)
     }
