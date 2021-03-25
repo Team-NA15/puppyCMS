@@ -49,5 +49,7 @@ module.exports = (sequelize, DataTypes) => {
     appt.created_at = new Date(); 
     appt.updated_at = new Date(); 
   }); 
+
+
   return Appointments;
 };
