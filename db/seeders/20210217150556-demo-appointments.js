@@ -8,7 +8,7 @@ module.exports = {
     {
       dog_id: dogs[0][0].id,
       dog_name: 'Roscoe',
-      last_name: 'Johnson',
+      owner_last_name: 'Johnson',
       breed:'Yorkie',
       service: 'Grooming',
       arrival_date: new Date(),
@@ -19,7 +19,7 @@ module.exports = {
     {
       dog_id: dogs[0][1].id,
       dog_name: 'Dro',
-      last_name: 'Corn',
+      owner_last_name: 'Corn',
       breed:'G. Shep',
       service: 'Daycare',
       arrival_date: new Date(),

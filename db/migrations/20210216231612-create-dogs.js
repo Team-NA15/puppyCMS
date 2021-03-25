@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.UUID,
         defaultValue: uuid.v4(), 
       },
-      name: {
+      dog_name: {
         type: Sequelize.STRING
       },
       owner_first_name: {

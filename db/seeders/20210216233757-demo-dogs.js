@@ -5,7 +5,7 @@ module.exports = {
     await queryInterface.bulkInsert('Dogs', [
       {
         id: uuid.v4(), 
-        name: 'Roscoe', 
+        dog_name: 'Roscoe', 
         owner_first_name: 'Fred', 
         owner_last_name: 'Johnson', 
         address: '12345 bouldercrest rd', 
@@ -21,7 +21,7 @@ module.exports = {
       }, 
       {
         id: uuid.v4(), 
-        name: 'Tibby', 
+        dog_name: 'Tibby', 
         owner_first_name: 'Ted', 
         owner_last_name: 'Bundy', 
         address: '900 Hazen St', 
@@ -37,7 +37,7 @@ module.exports = {
       }, 
       {
         id: uuid.v4(), 
-        name: 'Pugz', 
+        dog_name: 'Pugz', 
         owner_first_name: 'Brandon', 
         owner_last_name: 'Corn', 
         address: '4225 University Ave', 
@@ -53,7 +53,7 @@ module.exports = {
       }, 
       {
         id: uuid.v4(), 
-        name: 'Dro', 
+        dog_name: 'Dro', 
         owner_first_name: 'Brandon', 
         owner_last_name: 'Corn', 
         address: '4225 University Ave', 
@@ -69,7 +69,7 @@ module.exports = {
       },
       {
         id: uuid.v4(), 
-        name: 'Romeo', 
+        dog_name: 'Romeo', 
         owner_first_name: 'Robert', 
         owner_last_name: 'Corn', 
         address: '4225 University Ave', 
@@ -85,7 +85,7 @@ module.exports = {
       },
       {
         id: uuid.v4(), 
-        name: 'Tabi', 
+        dog_name: 'Tabi', 
         owner_first_name: 'Maya', 
         owner_last_name: 'Mahone', 
         address: '12345 happy ave', 

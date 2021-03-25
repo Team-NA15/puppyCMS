@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Dogs.init({
-    name: DataTypes.STRING,
+    dog_name: DataTypes.STRING,
     owner_first_name: DataTypes.STRING,
     owner_last_name: DataTypes.STRING,
     address: DataTypes.STRING,

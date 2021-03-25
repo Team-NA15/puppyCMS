@@ -1,9 +1,9 @@
 const Dogs = require('../../../db/models').Dogs; 
 
-const findDogByOwner = async (name, owner_first_name, owner_last_name) => {
+const findDogByOwner = async (dog_name, owner_first_name, owner_last_name) => {
     const dog = await Dogs.findOne({
         where: {
-            name, owner_first_name, owner_last_name 
+            dog_name, owner_first_name, owner_last_name 
         }
     })
     .catch(err => {  

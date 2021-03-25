@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   Appointments.init({
     dog_id: DataTypes.UUID, 
     dog_name: DataTypes.STRING, 
-    last_name: DataTypes.STRING,
+    owner_last_name: DataTypes.STRING,
     breed: DataTypes.STRING, 
     service: DataTypes.STRING, 
     arrival_date: DataTypes.DATE, 

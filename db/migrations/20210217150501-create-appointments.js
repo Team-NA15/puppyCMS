@@ -23,7 +23,7 @@ module.exports = {
         type: Sequelize.STRING, 
         allowNull: false, 
       },
-      last_name: {
+      owner_last_name: {
         type: Sequelize.STRING, 
         allowNull: false, 
       },
