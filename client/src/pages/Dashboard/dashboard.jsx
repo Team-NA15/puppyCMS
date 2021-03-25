@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { ButtonGroup, InputGroup, Button, Container, Form } from 'react-bootstrap';
+import { ButtonGroup, InputGroup, Button, Container, Form, CardDeck } from 'react-bootstrap';
 import { Appointment } from '../../components/components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilter, faSearch } from '@fortawesome/free-solid-svg-icons'
@@ -17,6 +17,7 @@ const Dashboard = () => {
         {
             "name": "Xander Bliss",
             "type": "boarding",
+            "cubby": 1,
             "dropoff": "03/06/21 4:30PM",
             "pickup": "03/06/21 6:00PM",
             "checkin": true
@@ -24,6 +25,7 @@ const Dashboard = () => {
         {
             "name": "Charlie Boone",
             "type": "boarding",
+            "cubby": 2,
             "dropoff": "03/05/21 4:30PM",
             "pickup": "03/06/21 12:00PM",
             "checkin": false
@@ -31,6 +33,7 @@ const Dashboard = () => {
         {
             "name": "Rex Reese",
             "type": "grooming",
+            "cubby": 3,
             "dropoff": "03/03/21 2:30PM",
             "pickup": "03/06/21 1:00PM",
             "checkin": true
@@ -38,6 +41,7 @@ const Dashboard = () => {
         {
             "name": "Simon Dog",
             "type": "daycare",
+            "cubby": 4,
             "dropoff": "03/05/21 4:30PM",
             "pickup": "03/06/21 11:00PM",
             "checkin": false
@@ -45,6 +49,7 @@ const Dashboard = () => {
         {
             "name": "Charlie Peck",
             "type": "boarding",
+            "cubby": 5,
             "dropoff": "03/05/21 4:30PM",
             "pickup": "03/06/21 12:00PM",
             "checkin": false
@@ -52,6 +57,7 @@ const Dashboard = () => {
         {
             "name": "Rex Reese",
             "type": "grooming",
+            "cubby": 6,
             "dropoff": "03/03/21 2:30PM",
             "pickup": "04/01/21 1:00PM",
             "checkin": true
@@ -59,6 +65,7 @@ const Dashboard = () => {
         {
             "name": "Simon Dog Land",
             "type": "daycare",
+            "cubby": 7,
             "dropoff": "03/06/21 4:30PM",
             "pickup": "03/06/21 11:00PM",
             "checkin": false
@@ -135,9 +142,11 @@ const Dashboard = () => {
                     <Button className="clear" variant="secondary" onClick={() => setFilterBy('')}> Clear</Button>
                 </ButtonGroup> 
 
-                {doggos.map(dog => {
-                    return <Appointment name={dog.name} type={dog.type} checkin={dog.checkin} dropoff={dog.dropoff} pickup={dog.pickup} />
-                })}
+                
+                    {doggos.map(dog => {
+                        return <Appointment name={dog.name} type={dog.type} cubby={dog.cubby} checkin={dog.checkin} dropoff={dog.dropoff} pickup={dog.pickup} />
+                    })}
+               
             </Container>
         </section>
     )
