@@ -1,6 +1,7 @@
 const request = require('supertest'); 
 const app = require('../../../../server'); 
 const Dog = require('../../../../db/models').Dogs; 
+const Appt = require('../../../../db/models').Appointments; 
 const checkIn = require('../../../../routes/appointments/post/check-in-no-appt'); 
 const newAppt = require('../../../../controllers/appointments/CRUD/newAppointment'); 
 let getDog = require('../../../../controllers/dogs/CRUD/getDog'); 
@@ -10,7 +11,7 @@ jest.mock('../../../../controllers/appointments/CRUD/newAppointment', () => {
     const apptData = {
         dog_name: "Dro", 
         owner_first_name: "Brandon",
-        last_name: "Corn",   
+        owner_last_name: "Corn",   
         breed: "German Shephard",
         service: "daycare",
         arrival_date: "03/16/2021",
@@ -20,8 +21,9 @@ jest.mock('../../../../controllers/appointments/CRUD/newAppointment', () => {
         breakfast_quant: "1 bag", 
     }
     let mockAppt = Appt.build(apptData); 
-    return jest.fn().mockResolvedValue(mockAppt); 
+    return jest.fn().mockResolvedValue([mockAppt, 1]); 
 }); 
+
   
 jest.mock('../../../../controllers/dogs/CRUD/getDog');  
 
@@ -35,7 +37,8 @@ const mockResponse = () => {
     const res = {}; 
     res.send = jest.fn().mockReturnValue(res); 
     res.status = jest.fn().mockReturnValue(res);  
-    res.json = jest.fn().mockReturnValue(res);   
+    res.json = jest.fn().mockReturnValue(res);  
+    res.message = jest.fn().mockReturnValue(res);  
     return res; 
 }
 
@@ -44,7 +47,7 @@ describe('POST/check-in-no-appointment', () => {
     const validAppt = {
         "dog_name": "Dro", 
         "owner_first_name": "Brandon",
-        "last_name": "Corn",   
+        "owner_last_name": "Corn",   
         "breed": "German Shephard",
         "service": "daycare",
         "arrival_date": "03/16/2021",
@@ -60,6 +63,7 @@ describe('POST/check-in-no-appointment', () => {
     }); 
 
     it('should check in a dog', async () => { 
+        const appt = Appt.build(validAppt); 
         const mockDog = Dog.build({
             id: 'e9117ea0-bac0-4d21-9ec9-93f1805323a8',
             dog_name: 'Dro', 
@@ -67,11 +71,11 @@ describe('POST/check-in-no-appointment', () => {
             owner_last_name: 'Corn', 
             breed: 'German Shephard'
         }); 
-        jest.spyOn(getDog, 'findDogByOwner').mockResolvedValue(mockDog);  
+        jest.spyOn(getDog, 'findDogByOwner').mockResolvedValue(mockDog);   
         let req = mockRequest({}, validAppt);  
         const res = mockResponse();
-        await checkIn(req, res)
-        expect(res.status).toHaveBeenCalledWith(201)     
+        await checkIn(req, res); 
+        expect(res.status).toHaveBeenCalledWith(201); 
     }); 
 
     it('should not check in a dog', async () => {

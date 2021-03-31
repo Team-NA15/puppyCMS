@@ -3,15 +3,9 @@ const Appt = require('../../../db/models').Appointments;
 /**
  * Saves a new appointment to the database given the dogs information 
  * @param {Object} dogInfo 
- * @return Promise<model> the Appointment instance created
+ * @return Promise<[model,boolean]> the Appointment instance created or retrieved and boolean if it was created 
  */
-module.exports = async dogInfo => {
-    // const appt = await Appt.create(dogInfo)
-    // .catch(err => {
-    //     console.log(err); 
-    //     throw new Error('Error creating appointment'); 
-    // });  
-    // return appt;  
+module.exports = async dogInfo => { 
     const {dog_name, owner_last_name, service, breed, arrival_date} = dogInfo; 
     const [appt, created] = await Appt.findOrCreate({
         where: {
