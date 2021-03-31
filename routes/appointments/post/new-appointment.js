@@ -3,17 +3,20 @@ const Appt = require('../../../db/models').Appointments;
 const { findDogByOwner } = require('../../../controllers/dogs/CRUD/getDog');  
 
 module.exports = async (req, res) => {
-    let appt, dog; 
+    let appt, created, dog; 
     try{
+        req.body.arrival_date = new Date(req.body.arrival_date); 
         if(req.query.newDog == 'true'){
-            req.body.new_dog = true; 
-            appt = await newAppointment(req.body); 
+            req.body.new_dog = true;
+            [appt, created] = await newAppointment(req.body); 
+            if (created === false && appt instanceof Appt) return res.status(400).send({name: 'Error', message: 'Appointment already exists', appt});  
             return res.status(201).send(); 
         }
         else{
             req.body.new_dog = false; 
-            [dog, appt] = await Promise.all([findDogByOwner(req.body.dog_name, req.body.owner_first_name, req.body.owner_last_name),
-                newAppointment(req.body)]); 
+            [dog, [appt, created]] = await Promise.all([findDogByOwner(req.body.dog_name, req.body.owner_first_name, req.body.owner_last_name),
+                newAppointment(req.body)]);
+            if (created === false && appt instanceof Appt) return res.status(400).send({name: 'Error', message: 'Appointment already exists', appt});  
             dog.addAppointment(appt.id);  
             return res.status(201).send();
         }
