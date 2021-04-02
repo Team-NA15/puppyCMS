@@ -63,7 +63,6 @@ describe('POST/check-in-no-appointment', () => {
     }); 
 
     it('should check in a dog', async () => { 
-        const appt = Appt.build(validAppt); 
         const mockDog = Dog.build({
             id: 'e9117ea0-bac0-4d21-9ec9-93f1805323a8',
             dog_name: 'Dro', 

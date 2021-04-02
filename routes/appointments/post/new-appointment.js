@@ -4,11 +4,11 @@ const { findDogByOwner } = require('../../../controllers/dogs/CRUD/getDog');
 
 module.exports = async (req, res) => {
     let appt, created, dog; 
-    try{
+    try{ 
         req.body.arrival_date = new Date(req.body.arrival_date); 
         if(req.query.newDog == 'true'){
             req.body.new_dog = true;
-            [appt, created] = await newAppointment(req.body); 
+            [appt, created] = await newAppointment(req.body);  
             if (created === false && appt instanceof Appt) return res.status(400).send({name: 'Error', message: 'Appointment already exists', appt});  
             return res.status(201).send(); 
         }
