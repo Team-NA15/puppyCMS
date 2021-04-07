@@ -1,23 +1,34 @@
 const Users = require('../../../db/models').Users; 
-
-
+const {createAccount} = require('../../../controllers/user/CRUD/createAccount'); 
+/**
+ * Request Enpoint for User Account Creation
+ * @param {*} req 
+ * @param {*} res 
+ */
 module.exports = async (req,res) => {
-    //below is an example of what creating a user will look like, will be replaced in later iteration
+    if (!req.body.email || !req.body.password || !req.body.first_name || !req.body.last_name || !req.body.address || !req.body.phone_number || !req.body.role){
+        let error = new Error('Missing required values for account creation'); 
+        return res.status(400).send({error})
+    }
+    if (req.body.role === 1) return res.status(404).send({error: 'Not allowed to create super users'}); 
     const user = {
         where: {
-            email: 'johnwick@gmail.com'
+            email: req.body.email
         }, 
         defaults: {
-            password: 'password', 
-            first_name: 'john', 
-            last_name: 'wick', 
-            address: 'New York', 
-            phone_number: '958-222-4938', 
-            role: 2, 
+            password: req.body.password, 
+            first_name: req.body.first_name, 
+            last_name: req.body.last_name, 
+            address: req.body.address, 
+            phone_number: req.body.phone_number, 
+            role: req.body.role, 
         }
     }
-    const [newUser, created] = await Users.findOrCreate(user); 
-    console.log(newUser); 
-    if (!created) return res.send('user not created');  
-    else return res.send(newUser);  
+    const newUser = await createAccount(user)
+    .catch(error => res.status(500).send({error}));
+    if (!(newUser instanceof Users)) {
+        const error = new Error('User not created, may already exist'); 
+        return res.status(400).send(error); 
+    }
+    else return res.status(201).send(); 
 }

@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class appointments extends Model {
+  class Appointments extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -13,14 +13,15 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
-  appointments.init({
+  Appointments.init({
     dog_id: DataTypes.UUID, 
     dog_name: DataTypes.STRING, 
-    last_name: DataTypes.STRING,
+    owner_last_name: DataTypes.STRING,
     breed: DataTypes.STRING, 
     service: DataTypes.STRING, 
     arrival_date: DataTypes.DATE, 
-    depart_date: DataTypes.DATE, 
+    depart_date: DataTypes.DATE,
+    cubby: DataTypes.INTEGER,  
     breakfast: DataTypes.BOOLEAN, 
     breakfast_quant: DataTypes.STRING, 
     lunch: DataTypes.BOOLEAN, 
@@ -40,13 +41,15 @@ module.exports = (sequelize, DataTypes) => {
     cost: DataTypes.DOUBLE, 
   }, {
     sequelize,
-    modelName: 'appointments',
+    modelName: 'Appointments',
     underscored: true,
   });
 
-  appointments.beforeCreate((appt, options) => {
+  Appointments.beforeCreate((appt, options) => {
     appt.created_at = new Date(); 
     appt.updated_at = new Date(); 
   }); 
-  return appointments;
+
+
+  return Appointments;
 };

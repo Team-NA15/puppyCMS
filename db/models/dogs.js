@@ -4,7 +4,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class dogs extends Model {
+  class Dogs extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
-  dogs.init({
-    name: DataTypes.STRING,
+  Dogs.init({
+    dog_name: DataTypes.STRING,
     owner_first_name: DataTypes.STRING,
     owner_last_name: DataTypes.STRING,
     address: DataTypes.STRING,
@@ -30,27 +30,28 @@ module.exports = (sequelize, DataTypes) => {
     neutered_spayed: DataTypes.BOOLEAN
   }, {
     sequelize,
-    modelName: 'dogs',
+    modelName: 'Dogs',
+    underscored: true, 
   });
 
 
-  dogs.beforeCreate((dog, options) => {
+  Dogs.beforeCreate((dog, options) => {
     dog.id = uuid.v4(); 
     dog.created_at = new Date(); 
     dog.updated_at = new Date(); 
   })
 
-  dogs.beforeUpdate((dog, options) => {
+  Dogs.beforeUpdate((dog, options) => {
     dog.updated_at = new Date(); 
   })
 
-  dogs.associate = models => {
-    dogs.hasMany(models.appointments, {
+  Dogs.associate = models => {
+    Dogs.hasMany(models.Appointments, {
       foreignKey: 'dog_id'
     }); 
   }
 
 
 
-  return dogs;
+  return Dogs;
 };

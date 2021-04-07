@@ -2,14 +2,14 @@
 const uuid = require('uuid'); 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('dogs', {
+    await queryInterface.createTable('Dogs', {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
         defaultValue: uuid.v4(), 
       },
-      name: {
+      dog_name: {
         type: Sequelize.STRING
       },
       owner_first_name: {
@@ -61,6 +61,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('dogs');
+    await queryInterface.dropTable('Dogs');
   }
 };

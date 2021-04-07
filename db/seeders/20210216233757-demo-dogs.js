@@ -2,10 +2,10 @@
 const uuid = require('uuid'); 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert('dogs', [
+    await queryInterface.bulkInsert('Dogs', [
       {
         id: uuid.v4(), 
-        name: 'Roscoe', 
+        dog_name: 'Roscoe', 
         owner_first_name: 'Fred', 
         owner_last_name: 'Johnson', 
         address: '12345 bouldercrest rd', 
@@ -21,7 +21,7 @@ module.exports = {
       }, 
       {
         id: uuid.v4(), 
-        name: 'Tibby', 
+        dog_name: 'Tibby', 
         owner_first_name: 'Ted', 
         owner_last_name: 'Bundy', 
         address: '900 Hazen St', 
@@ -37,7 +37,7 @@ module.exports = {
       }, 
       {
         id: uuid.v4(), 
-        name: 'Dro', 
+        dog_name: 'Pugz', 
         owner_first_name: 'Brandon', 
         owner_last_name: 'Corn', 
         address: '4225 University Ave', 
@@ -53,7 +53,39 @@ module.exports = {
       }, 
       {
         id: uuid.v4(), 
-        name: 'Tabi', 
+        dog_name: 'Dro', 
+        owner_first_name: 'Brandon', 
+        owner_last_name: 'Corn', 
+        address: '4225 University Ave', 
+        city: 'Columbus', 
+        state: 'Georgia', 
+        zip: '31909', 
+        color: 'black/brown', 
+        breed: 'german shephard', 
+        gender: 'male',
+        weight: 80, 
+        age: '11', 
+        neutered_spayed: false,
+      },
+      {
+        id: uuid.v4(), 
+        dog_name: 'Romeo', 
+        owner_first_name: 'Robert', 
+        owner_last_name: 'Corn', 
+        address: '4225 University Ave', 
+        city: 'Columbus', 
+        state: 'Georgia', 
+        zip: '31909', 
+        color: 'black/brown', 
+        breed: 'german shephard', 
+        gender: 'male',
+        weight: 80, 
+        age: '11', 
+        neutered_spayed: false,
+      },
+      {
+        id: uuid.v4(), 
+        dog_name: 'Tabi', 
         owner_first_name: 'Maya', 
         owner_last_name: 'Mahone', 
         address: '12345 happy ave', 
@@ -71,6 +103,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('dogs', null, {}); 
+    await queryInterface.bulkDelete('Dogs', null, {}); 
   }
 };
