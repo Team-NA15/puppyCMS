@@ -5,28 +5,25 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 // Styles and Components
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Navigation from './components/Navigation/Navigation';
-import Dashboard from './pages/Dashboard/dashboard';
-import Appointment from './pages/Appointments/appointments';
-import AddDog from './pages/AddDog/addDog';
-import AddAppointment from './pages/AddAppointment/addAppointment'
+import { Navigation, Appointment, ProtectedRoute} from './components/components';
+import { Login, AddAppointment, AppointmentsPage, Dashboard, AddDog} from './pages/pages'
 import './index.scss'
-import { Container } from 'react-bootstrap';
 
 const App = () => {
+    // authenticate users and grab object.
+    
     return (
         <Router>
             <Navigation />
-            <Container >
-                <Switch>
-                    <Route exact path="/" component={Dashboard} />
-                    <Route path="/appointments" component={Appointment} />
-                    <Route path="/addappointment" component={AddAppointment} />
-                    <Route path="/add" component={AddDog} />
-                </Switch>
-            </Container>
+            <Switch>
+                <Route path="/login" component={Login} />
+                <ProtectedRoute exact path="/" component={Dashboard} />
+                <Route path="/login" component={Login} />
+                <ProtectedRoute path="/appointments" component={AppointmentsPage} />
+                <ProtectedRoute path="/addappointment" component={AddAppointment} />
+                <ProtectedRoute path="/add" component={AddDog} />
+            </Switch>
         </Router>
     )
 }
-
 ReactDOM.render(<App />, document.getElementById('root'));
