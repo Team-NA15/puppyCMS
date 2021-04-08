@@ -1,9 +1,15 @@
 import React from 'react';
+import { Container } from 'react-bootstrap';
 
 const AddAppointment = () => {
     return ( 
-        <section className="main">
-            <h2>Add New Appointment</h2>
+        <section className="main mt-3">
+            <Container>
+                <h2 className="display-4">Add New Appointment</h2>
+
+                        
+                
+            </Container>
         </section>
      );
 }

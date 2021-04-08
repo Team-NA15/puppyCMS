@@ -7,12 +7,12 @@ import { faPaw, faCalendarCheck, faPlus, faHome } from '@fortawesome/free-solid-
 
 const Navigation = () => {
     return (
-        <Navbar className="navigation flex-column" variant="dark">
+        <Navbar className="navigation flex-column sticky-top" variant="dark" expand="lg">
             <Navbar.Brand>puppyCMS</Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse>
-            <Nav defaultActiveKey="/dashboard" className="flex-column">
-                <Nav.Link as={Link} to="/dashboard" eventKey="/dashboard">
+            <Nav defaultActiveKey="/" className="flex-column" expand>
+                <Nav.Link as={Link} to="/" eventKey="/">
                     <FontAwesomeIcon icon={faHome} size='3x' />
                     <p>Home</p>
                 </Nav.Link>
@@ -32,7 +32,7 @@ const Navigation = () => {
             </Navbar.Collapse>
 
             <div className="user">
-                Hello, User! <a href='#'>Logout?</a>
+                Hello, User! <Link to="/login">Logout?</Link>
             </div>
         </Navbar>
     )
