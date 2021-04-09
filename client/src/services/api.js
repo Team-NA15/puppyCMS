@@ -27,9 +27,10 @@ const create = baseURL => {
 
     }); 
 
-    const setAuthToken = data => {
-        return api.setHeader('Authorization',data.access_token)
-    }
+    const setAuthToken = data => api.setHeader('Authorization', data.access_token)
+
+    const removeAuthToken = () => api.deleteHeader('Authorization'); 
+    
 
     const signIn = requestData => api.post('/login', {
         email: requestData.email ? requestData.email : '', 
@@ -40,6 +41,7 @@ const create = baseURL => {
     return {
         signIn, 
         setAuthToken, 
+        removeAuthToken,
     }
 }
 

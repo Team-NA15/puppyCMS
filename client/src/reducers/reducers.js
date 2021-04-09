@@ -6,6 +6,7 @@ const {Types, Creators} = createActions({
     actionSignInFailure: ["signInFailure"],
     actionSignInSuccess: ["signInSuccess"], 
     actionSetApiToken: ['setApiToken'], 
+    actionSignOutRequest:['signOutRequest'], 
 }); 
 
 export const ActionTypes = Types; 
@@ -16,6 +17,7 @@ export const INITIAL_STATE = Imutable({
     signInFailure: null,
     signInFetching: false,
     signedIn: false,
+    access_token: null
 });
 
 
@@ -34,16 +36,23 @@ export const actionSignInSuccess = (state, { signInSuccess }) =>
         signInSuccess,
         signedIn: true,
     });
-export const actionSignInFailure = (state, { signInFailure }) =>
-    state.merge({ signInSuccess: null, signInFetching: false, signInFailure 
-});
 
-export const actionSetApiToken = state => state; 
+export const actionSignInFailure = (state, { signInFailure }) =>
+    state.merge({
+        signInSuccess: null,
+        signInFetching: false, 
+        signInFailure 
+    });
+
+export const actionSetApiToken = (state, {setApiToken}) => state.merge({access_token: setApiToken}); 
+
+export const actionSignOutRequest = state => state; 
+
 
 export const reducer = createReducer(INITIAL_STATE, {
     [Types.ACTION_SIGN_IN_REQUEST]: actionSignInRequest, 
     [Types.ACTION_SIGN_IN_SUCCESS]: actionSignInSuccess,
     [Types.ACTION_SIGN_IN_FAILURE]: actionSignInFailure,
     [Types.ACTION_SET_API_TOKEN]: actionSetApiToken,
-
+    [Types.ACTION_SIGN_OUT_REQUEST]: actionSignOutRequest, 
 }); 

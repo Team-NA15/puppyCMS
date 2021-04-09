@@ -11,7 +11,7 @@ export const reducers = combineReducers({
 
 export default () => {
     const rootReducer = (state, action) => {
-        if (action.type === "SIGN_OUT_REQUEST") {
+        if (action.type === "ACTION_SIGN_OUT_REQUEST") {
             return reducers(
                 {
                     session: INITIAL_STATE, 
@@ -22,7 +22,21 @@ export default () => {
         return reducers(state, action); 
     }; 
 
-    const {store} = createStore(rootReducer, rootSaga); 
+    const {store, sagaManager, sagaMiddleware, persister} = createStore(rootReducer, rootSaga); 
 
-    return {store};
+    let mutableSagaManager = sagaManager; 
+
+    if (module.hot) {
+        module.hot.accept(() => {
+            const nextRootReducer = require("./").reducers;
+            store.replaceReducer(nextRootReducer);
+
+            const newYieldSagas = require("../sagas/saga").default;
+            mutableSagaManager.cancel();
+            sagaManager.done.then(() => {
+                mutableSagaManager = sagaMiddleware.run(newYieldSagas);
+            });
+        });
+    }
+    return { store, persister };
 }
