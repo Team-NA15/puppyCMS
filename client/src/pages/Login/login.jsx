@@ -26,19 +26,18 @@ const Login = (props) => {
                 email, 
                 password
             })
-        );
+        ); 
     }
+
+    useEffect(() => {
+        
+    },[session.access_token])
 
     const redirect = () => {
         return (
             <Redirect to = '/'/> 
         )
     }
-
-    useEffect(() => {
-        console.log(session); 
-    },[session])
-
 
     return (
         <section className="main w-50 m-auto">

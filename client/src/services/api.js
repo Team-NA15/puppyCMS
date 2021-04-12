@@ -27,7 +27,9 @@ const create = baseURL => {
 
     }); 
 
-    const setAuthToken = data => api.setHeader('Authorization', data.access_token)
+    const setAuthToken = token => api.setHeader('Authorization', token); 
+        
+    
 
     const removeAuthToken = () => api.deleteHeader('Authorization'); 
     
@@ -37,11 +39,14 @@ const create = baseURL => {
         password: requestData.password ? requestData.password : ''
     }); 
 
+    const getTodaysAppointments = () => api.get('/get-todays-appointments'); 
+
 
     return {
         signIn, 
         setAuthToken, 
         removeAuthToken,
+        getTodaysAppointments, 
     }
 }
 

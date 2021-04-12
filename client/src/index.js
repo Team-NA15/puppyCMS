@@ -15,22 +15,21 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 const App = () => {
     // authenticate users and grab object.
-    const { store, persister } = createStore();  
+    const { store } = createStore();  
     return (
         <Provider store = {store}> 
-        <PersistGate loading = {null} persistor = {persister}> 
+        {/* <PersistGate loading = {null} persistor = {persister}>  */}
         <Router>
             <Navigation />
             <Switch>
                 <Route path="/login" component={Login} />
                 <ProtectedRoute exact path="/" component={Dashboard} />
-                {/* <Route path="/login" component={Login} /> */}
                 <ProtectedRoute path="/appointments" component={AppointmentsPage} />
                 <ProtectedRoute path="/add-appointment" component={AddAppointment} />
                 <ProtectedRoute path="/add" component={AddDog} />
             </Switch>
         </Router>
-        </PersistGate> 
+        {/* </PersistGate>  */}
         </Provider> 
     )
 }

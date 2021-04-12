@@ -1,9 +1,11 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux'; 
 import { ButtonGroup, InputGroup, Button, Container, Form, CardDeck } from 'react-bootstrap';
 import { Appointment } from '../../components/components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilter, faSearch } from '@fortawesome/free-solid-svg-icons'
 import './dashboard.scss';
+import Actions from '../../reducers/reducers'; 
 
 
 function date() {
@@ -12,6 +14,10 @@ function date() {
 }
 
 const Dashboard = () => {
+    const dispatch = useDispatch(); 
+    const session = useSelector(state => state.session); 
+    
+       
 
     const doggos = [
         {
@@ -94,7 +100,12 @@ const Dashboard = () => {
 
     useEffect(() => {
         console.log("Filtered List: " + filteredList)
-    }, [filteredList, setFilteredList])
+    }, [filteredList, setFilteredList]); 
+    
+    // useEffect(() => {
+    //     if (!session.todaysAppointments) dispatch(Actions.actionGetTodaysAppointments());
+    // },[session.access_token])
+
 
     const filterApts = (filterKey) => {
         let filteredList ;
@@ -133,7 +144,7 @@ const Dashboard = () => {
                 
 
                 <h2 className="display-4 mt-3">{date()}</h2>
-
+                 <p> render </p> 
                 
                 <ButtonGroup size="lg">
                     <Button className="boarding" onClick={() => setFilterBy('B')}>B</Button>
@@ -143,9 +154,14 @@ const Dashboard = () => {
                 </ButtonGroup> 
 
                 
-                    {doggos.map(dog => {
+                    {/* {doggos.map(dog => {
                         return <Appointment name={dog.name} type={dog.type} cubby={dog.cubby} checkin={dog.checkin} dropoff={dog.dropoff} pickup={dog.pickup} />
-                    })}
+                    })} */}
+                    {/* {
+                         session.access_token ? session.todaysAppointments.map(appt => {
+                            return <Appointment name = {appt.dog_name} type = {appt.service} dropOff = {appt.arrival_date} pickup = {appt.depart_date} />  
+                        }) : ''
+                    } */}
                
             </Container>
         </section>
