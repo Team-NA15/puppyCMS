@@ -5,7 +5,7 @@ import './appointment.scss';
 const Appointment = ({name, type, cubby, arrival, departure, checkedIn, ...rest }) => {
     arrival = new Date(arrival); 
     departure = new Date(departure); 
-    
+
     return (
         <Card style={{ width: '50%'}}>
             <Card.Body>
@@ -25,7 +25,10 @@ const Appointment = ({name, type, cubby, arrival, departure, checkedIn, ...rest 
                     </Col>
                     <Col>
                         <Card.Text style = {{fontWeight: 'bold'}}> Pickup: </Card.Text>
-                        <Card.Text> {departure.toDateString()} <br /> {departure.toLocaleTimeString()} </Card.Text>
+                        {
+                            departure < arrival ? <Card.Text> No pickup date </Card.Text>: 
+                            <Card.Text> {departure.toDateString()} <br /> {departure.toLocaleTimeString()} </Card.Text>
+                        }
                     </Col>
                     <Col> 
                         <Button style = {{whiteSpace: 'nowrap'}}> {checkedIn ? 'Check In' : 'Check Out'} </Button> 
