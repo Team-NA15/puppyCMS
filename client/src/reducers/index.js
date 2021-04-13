@@ -22,21 +22,21 @@ export default () => {
         return reducers(state, action); 
     }; 
 
-    const {store, sagaManager, sagaMiddleware} = createStore(rootReducer, rootSaga); 
+    const {store, sagaManager, sagaMiddleware, persister } = createStore(rootReducer, rootSaga); 
 
-    // let mutableSagaManager = sagaManager; 
+    let mutableSagaManager = sagaManager; 
 
-    // if (module.hot) {
-    //     module.hot.accept(() => {
-    //         const nextRootReducer = require("./").reducers;
-    //         store.replaceReducer(nextRootReducer);
+    if (module.hot) {
+        module.hot.accept(() => {
+            const nextRootReducer = require("./").reducers;
+            store.replaceReducer(nextRootReducer);
 
-    //         const newYieldSagas = require("../sagas/saga").default;
-    //         mutableSagaManager.cancel();
-    //         sagaManager.done.then(() => {
-    //             mutableSagaManager = sagaMiddleware.run(newYieldSagas);
-    //         });
-    //     });
-    // }
-    return { store };
+            const newYieldSagas = require("../sagas/saga").default;
+            mutableSagaManager.cancel();
+            sagaManager.done.then(() => {
+                mutableSagaManager = sagaMiddleware.run(newYieldSagas);
+            });
+        });
+    }
+    return { store, persister };
 }

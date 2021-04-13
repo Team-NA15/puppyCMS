@@ -57,20 +57,19 @@ export const actionSignOutRequest = state => state;
 
 export const actionGetTodaysAppointmentsRequest = state => state; 
 
-export const actionGetTodaysAppointmentsSuccess = (state, {todaysAppointmentsSuccess}) => { 
-    console.log(todaysAppointmentsSuccess)
+export const actionGetTodaysAppointmentsSuccess = (state, {getTodaysAppointmentsSuccess}) => { 
     return state.merge({
-        todaysAppointments: todaysAppointmentsSuccess.data.appts,
+        todaysAppointments: getTodaysAppointmentsSuccess,
         getTodaysAppointmentsSuccess: true, 
         getTodaysAppointmentsFailure: null, 
     })
 }
 
-export const actionGetTodaysAppointmentsFailure = (state, {todaysAppointmentsFailure}) => 
+export const actionGetTodaysAppointmentsFailure = (state, {getTodaysAppointmentsFailure}) => 
     state.merge({
         todaysAppointments: null,
         getTodaysAppointmentsSuccess: null, 
-        getTodaysAppointmentsFailure: true,
+        getTodaysAppointmentsFailure,
     })
 
 

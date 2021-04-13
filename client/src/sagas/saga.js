@@ -30,7 +30,7 @@ function* signOut(api){
 function* todaysAppointments(api){
     const response = yield call(api.getTodaysAppointments); 
     if(response && response.ok){ 
-        yield put(Actions.actionGetTodaysAppointmentsSuccess(})); 
+        yield put(Actions.actionGetTodaysAppointmentsSuccess(response.data.appts)); 
     }
     else {
         console.log('failure'); 

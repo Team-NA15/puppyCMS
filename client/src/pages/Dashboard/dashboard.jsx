@@ -13,7 +13,7 @@ function date() {
     return new Intl.DateTimeFormat('en-US', options).format();
 }
 
-const Dashboard = () => {
+const Dashboard = (prop) => {
     const dispatch = useDispatch(); 
     const session = useSelector(state => state.session); 
     
@@ -101,10 +101,6 @@ const Dashboard = () => {
     useEffect(() => {
         console.log("Filtered List: " + filteredList)
     }, [filteredList, setFilteredList]); 
-    
-    // useEffect(() => {
-    //     if (!session.todaysAppointments) dispatch(Actions.actionGetTodaysAppointments());
-    // },[session.access_token])
 
 
     const filterApts = (filterKey) => {
@@ -144,7 +140,7 @@ const Dashboard = () => {
                 
 
                 <h2 className="display-4 mt-3">{date()}</h2>
-                 <p> render </p> 
+ 
                 
                 <ButtonGroup size="lg">
                     <Button className="boarding" onClick={() => setFilterBy('B')}>B</Button>
@@ -157,11 +153,12 @@ const Dashboard = () => {
                     {/* {doggos.map(dog => {
                         return <Appointment name={dog.name} type={dog.type} cubby={dog.cubby} checkin={dog.checkin} dropoff={dog.dropoff} pickup={dog.pickup} />
                     })} */}
-                    {/* {
-                         session.access_token ? session.todaysAppointments.map(appt => {
-                            return <Appointment name = {appt.dog_name} type = {appt.service} dropOff = {appt.arrival_date} pickup = {appt.depart_date} />  
+                    {
+                         session.todaysAppointments ? session.todaysAppointments.map(appt => {
+                            return <Appointment name = {appt.dog_name} type = {appt.service} arrival = {appt.arrival_date} 
+                            departure = {appt.depart_date} cubby = {appt.cubby} />  
                         }) : ''
-                    } */}
+                    }
                
             </Container>
         </section>

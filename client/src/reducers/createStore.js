@@ -8,21 +8,21 @@ import { apply } from '@redux-saga/core/effects';
 export default (rootReducer, rootSaga) => {
     const sagaMiddleware = createSagaMiddleware(); 
 
-    // const transformConfig = {
-    //     whiteListPerReducer: {
-    //         session: ['signInSuccess, signInFailure, signInRequest'], 
-    //     }
-    // }
+    const transformConfig = {
+        whiteListPerReducer: {
+            session: ['signInSuccess, signInFailure, signInRequest'], 
+        }
+    }
 
-    // const persistConfig = {
-    //     key: 'root', 
-    //     storage, 
-    //     stateReconciler: seamlessImmutableReconciler, 
-    //     transforms: [seamlessImmutableTransformCreator(transformConfig)]
-    // }
-    // const persistedReducer = persistReducer(persistConfig, rootReducer); 
-    const store = createStore(rootReducer, applyMiddleware(sagaMiddleware))
-    // const store = createStore(persistedReducer, applyMiddleware(sagaMiddleware));  
+    const persistConfig = {
+        key: 'root', 
+        storage, 
+        stateReconciler: seamlessImmutableReconciler, 
+        transforms: [seamlessImmutableTransformCreator(transformConfig)]
+    }
+    const persistedReducer = persistReducer(persistConfig, rootReducer); 
+    // const store = createStore(rootReducer, applyMiddleware(sagaMiddleware))
+    const store = createStore(persistedReducer, applyMiddleware(sagaMiddleware));  
 
     const sagaManager = sagaMiddleware.run(rootSaga); 
 
@@ -30,6 +30,6 @@ export default (rootReducer, rootSaga) => {
         store, 
         sagaManager, 
         sagaMiddleware, 
-        // persister: persistStore(store)
+        persister: persistStore(store)
     }
 }
