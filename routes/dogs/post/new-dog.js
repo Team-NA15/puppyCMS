@@ -1,4 +1,4 @@
-//Const Dogs = require('../../../controllers/dogs/  *CRUD/newAppointment')*???
+const newdog = require('../../../controllers/dogs/CRUD/newDog');
 //const Dogs = require('../../../db/models').dog; 
 module.exports = 
     async (req, res) => {
@@ -21,10 +21,12 @@ module.exports =
         // }
         try{
             const dog = await newdog(req.body); 
+            return res.status(201).send()
         }
         catch(err){
-
-        } 
+            return res.status(400).send({name: err.name, message: err.message})
+        }
+        
+        
     }
 
-}
