@@ -24,7 +24,8 @@ const Dashboard = (prop) => {
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        setSearchText(evt.target.value)
+        // setSearchText(evt.target.value)
+        searchFilter(); 
     } 
     const handleChange = (evt) => {
         setSearchText(evt.target.value)
@@ -32,7 +33,6 @@ const Dashboard = (prop) => {
 
     useEffect(() => {
         filterApts(filterBy);
-
     }, [filterBy, setFilterBy]); 
 
     useEffect(() => {
@@ -51,6 +51,16 @@ const Dashboard = (prop) => {
         else if (filterBy == 'G') filteredList = session.todaysAppointments.filter(appt => appt.service == 'Grooming'); 
         else filteredList = session.todaysAppointments; 
         setFilteredList(filteredList); 
+    }
+
+    const searchFilter = () => {
+        let filterNames = searchText.split(' '); 
+        let newList = []; 
+        for(let name of filterNames){
+            newList = newList.concat(filteredList.filter(appt => appt.dog_name.toLowerCase() == name.toLowerCase()  
+            || appt.owner_last_name.toLowerCase() == name.toLowerCase())) 
+        } 
+        setFilteredList(newList);  
     }
 
 
@@ -79,10 +89,15 @@ const Dashboard = (prop) => {
                     <Button className="clear" variant="secondary" onClick={() => setFilterBy('')}> Clear</Button>
                 </ButtonGroup> 
 
-                    {
+                    {/* {
                          filteredList ? filteredList.map(appt => {
                             return <Appointment name = {appt.dog_name} type = {appt.service} arrival = {appt.arrival_date} 
-                            departure = {appt.depart_date} cubby = {appt.cubby} />  
+                            departure = {appt.depart_date} cubby = {appt.cubby} checkedIn = {appt.checked_in} />  
+                        }) : ''
+                    } */}
+                    {
+                         filteredList ? filteredList.map(appt => {
+                            return <Appointment {...appt} />  
                         }) : ''
                     }
                

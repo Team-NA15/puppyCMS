@@ -1,10 +1,20 @@
 
-import React from 'react';
+import bodyParser from 'body-parser';
+import React, { useEffect, useState } from 'react';
 import { ButtonGroup, Card, Button, Row, Col, Badge } from 'react-bootstrap';
 import './appointment.scss';
-const Appointment = ({name, type, cubby, arrival, departure, checkedIn, ...rest }) => {
-    arrival = new Date(arrival); 
-    departure = new Date(departure); 
+import  AppointmentModal from './appointmentModal'; 
+
+// const Appointment = ({dog_name, service, owner_last_name, cubby, arrival_date, depart_date, checked_in, ...prop}) => {
+const Appointment = props => {
+    const {dog_name, service, owner_last_name, cubby, arrival_date, depart_date, checked_in} = props; 
+    let arrival = new Date(arrival_date); 
+    let departure = new Date(depart_date);   
+    const [showMore, setShowMore] = useState(false); 
+
+    const handleShowMoreModal = () => {
+        setShowMore(!showMore);   
+    }
 
     return (
         <Card style={{ width: '50%'}}>
@@ -14,8 +24,8 @@ const Appointment = ({name, type, cubby, arrival, departure, checkedIn, ...rest 
                 </Badge>
                 <Row>
                     <Col>
-                        <Button className={type}> {type.charAt(0).toUpperCase()}</Button>
-                        <Card.Text style = {{paddingLeft: '2rem'}}> {name} </Card.Text>
+                        <Button className={service}> {service.charAt(0).toUpperCase()}</Button>
+                        <Card.Text style = {{paddingLeft: '2rem'}}> {dog_name} </Card.Text>
                     </Col>                    
                 </Row>       
                 <Row>
@@ -31,10 +41,11 @@ const Appointment = ({name, type, cubby, arrival, departure, checkedIn, ...rest 
                         }
                     </Col>
                     <Col> 
-                        <Button style = {{whiteSpace: 'nowrap'}}> {checkedIn ? 'Check In' : 'Check Out'} </Button> 
+                        <Button style = {{whiteSpace: 'nowrap'}}> {!checked_in ? 'Check In' : 'Check Out'} </Button> 
                     </Col>
                     <Col> 
-                        <Button> More </Button> 
+                        <Button onClick = {handleShowMoreModal}> More </Button> 
+                        <AppointmentModal {...props} show = {showMore} handleShowModal = {handleShowMoreModal}/>
                     </Col>
                 </Row>
             </Card.Body>
