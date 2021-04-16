@@ -14,7 +14,8 @@ module.exports = {
       arrival_date: new Date(2021,3,13,8,0,0),
       depart_date: new Date(2021,4,24,14,30, 0),
       cubby: 10,
-      belongings:"gucci bag, gucci bed,gucci blanket"
+      belongings:"gucci bag, gucci bed,gucci blanket", 
+      checked_in: false, 
     },
     {
       dog_id: dogs[0][3].id,
@@ -27,8 +28,8 @@ module.exports = {
       cubby: 63,
       belongings:"pokemon collar",
       breakfast: true,
-      breakfast_quant: "2 bags"
-
+      breakfast_quant: "2 bags",
+      checked_in: false, 
     },
     {
       dog_id: dogs[0][4].id,
