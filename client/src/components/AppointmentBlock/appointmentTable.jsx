@@ -30,7 +30,7 @@ const AppointmentTable = props => {
             </tr>
         </thead>
         <tbody>
-        <tr>
+            <tr>
                 <th>Breakfast</th>
                 <th> Lunch </th>
                 <th> Dinner </th>
@@ -48,6 +48,12 @@ const AppointmentTable = props => {
                 <td> {props.night_meds ? props.night_meds_dir : 'X'} </td>   
                 <td> {props.belongings} </td>          
             </tr>
+            <tr> 
+                <th> Directions </th> 
+            </tr> 
+            <tr>
+                <td> {props.directions} </td> 
+            </tr> 
         </tbody>
     </Table>
     )
