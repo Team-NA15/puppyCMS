@@ -1,13 +1,25 @@
-import React, { useEffect, useState } from 'react'; 
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';  
 import { Modal, Row, Col, Button } from 'react-bootstrap'; 
 import AppointmentTable from './appointmentTable'; 
+import Actions from '../../reducers/reducers'; 
 
 const AppointmentModal = props => {
-    const [update, setUpdate] = useState(false); 
+    const [update, setUpdate] = useState(false);
+    const dispatch = useDispatch(); 
 
     const handleUpdate = () => setUpdate(!update); 
     //TODO fix modal shifting background to the left due to scroll bar
     
+    const updateAppointment = () => {
+        dispatch(Actions.actionUpdateAppointment({
+            prevAppt: props, 
+            updates: {
+                belongings: 'chevy with da buttafly doors', 
+            }
+        }))
+    }
+
     return (
         <Modal size = 'xl' show = {props.show} onHide = {props.handleShowModal} centered = {true}> 
             <Modal.Header closeButton>
@@ -18,7 +30,7 @@ const AppointmentModal = props => {
             </Modal.Body>
             <Modal.Footer> 
                 <Button onClick = {props.handleShowModal}> Close </Button> 
-                <Button > Update </Button>
+                <Button onClick = {updateAppointment}> Update </Button>
             </Modal.Footer>
         </Modal> 
     )

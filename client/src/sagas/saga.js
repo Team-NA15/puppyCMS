@@ -10,7 +10,7 @@ export const api =  API.create('http://localhost:5000');
 function* signIn(api, {signInRequest}){
     const response = yield call(api.signIn, signInRequest); 
     if(response && response.ok) { 
-        yield put(Actions.actionSignInSuccess(response)); 
+        yield put(Actions.actionSignInSuccess(response));  
         yield put(Actions.actionSetApiToken(response.data.access_token));  
         yield put(Actions.actionGetTodaysAppointmentsRequest(response)); 
     }
@@ -38,6 +38,18 @@ function* todaysAppointments(api){
     } 
 }
 
+function* updateAppointment(api, {updateAppointment}){ 
+    const response = yield call(api.updateAppointment, updateAppointment); 
+    if (response && response.ok){
+        console.log('updated');
+        yield put(Actions.actionUpdateAppointmentSuccess(response));  
+    }
+    else { 
+        console.log('failure'); 
+        yield put(Actions.actionUpdateAppointmentFailure(response)); 
+    } 
+}
+
 export default function* root(){
     yield all([
         // takeLatest(ActionTypes.ACTION_SIGN_IN_REQUEST, signIn, api), 
@@ -46,5 +58,6 @@ export default function* root(){
         takeLatest("ACTION_SET_API_TOKEN", setApiToken, api),
         takeLatest('ACTION_SIGN_OUT_REQUEST', signOut, api), 
         takeLatest('ACTION_GET_TODAYS_APPOINTMENTS_REQUEST', todaysAppointments, api), 
+        takeLatest('ACTION_UPDATE_APPOINTMENT', updateAppointment, api), 
     ]); 
 }
