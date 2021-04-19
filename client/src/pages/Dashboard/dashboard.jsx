@@ -89,12 +89,6 @@ const Dashboard = (prop) => {
                     <Button className="clear" variant="secondary" onClick={() => setFilterBy('')}> Clear</Button>
                 </ButtonGroup> 
 
-                    {/* {
-                         filteredList ? filteredList.map(appt => {
-                            return <Appointment name = {appt.dog_name} type = {appt.service} arrival = {appt.arrival_date} 
-                            departure = {appt.depart_date} cubby = {appt.cubby} checkedIn = {appt.checked_in} />  
-                        }) : ''
-                    } */}
                     {
                          filteredList ? filteredList.map(appt => {
                             return <Appointment {...appt} />  

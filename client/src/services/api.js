@@ -23,13 +23,12 @@ const create = baseURL => {
     }); 
 
     api.addRequestTransform((request) => {
-        console.log(request)
+        console.log('request', request)
 
     }); 
 
     const setAuthToken = token => api.setHeader('Authorization', token); 
         
-    
 
     const removeAuthToken = () => api.deleteHeader('Authorization'); 
     
@@ -41,12 +40,20 @@ const create = baseURL => {
 
     const getTodaysAppointments = () => api.get('/get-todays-appointments'); 
 
+    const updateAppointment = requestData => { 
+        return api.put('/appointment', {
+            prevAppt: requestData.prevAppt ? requestData.prevAppt : {}, 
+            updates: requestData.updates ? requestData.updates : {}
+        })
+    } 
+
 
     return {
         signIn, 
         setAuthToken, 
         removeAuthToken,
-        getTodaysAppointments, 
+        getTodaysAppointments,
+        updateAppointment 
     }
 }
 

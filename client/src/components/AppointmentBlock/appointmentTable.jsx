@@ -4,9 +4,7 @@ import { Table } from 'react-bootstrap';
 const AppointmentTable = props => { 
     const dropOff = new Date(props.arrival_date); 
     const pickUp = new Date(props.depart_date); 
-    useEffect(() => {
-        console.log(props.night_meds_dir);    
-    })
+    
     const ApptInfo = () => (
         <Table response='xl'>
         <thead>

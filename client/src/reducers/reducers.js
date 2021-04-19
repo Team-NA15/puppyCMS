@@ -10,6 +10,9 @@ const {Types, Creators} = createActions({
     actionGetTodaysAppointmentsRequest:['getTodaysAppointmentsRequest'], 
     actionGetTodaysAppointmentsSuccess: ['getTodaysAppointmentsSuccess'], 
     actionGetTodaysAppointmentsFailure: ['getTodaysAppointmentsFailure'], 
+    actionUpdateAppointment: ['updateAppointment'], 
+    actionUpdateAppointmentSuccess: ['updateAppointmentSuccess'], 
+    actionUpdateAppointmentFailure: ['updateAppointmentFailure'], 
 }); 
 
 export const ActionTypes = Types; 
@@ -24,6 +27,9 @@ export const INITIAL_STATE = Immutable({
     todaysAppointments: null,
     getTodaysAppointmentsSuccess: null, 
     getTodaysAppointmentsFailure: null, 
+    updatingAppointment: null,  
+    updateAppointmentSuccess: null, 
+    updateAppointmentFailure: null, 
 });
 
 
@@ -72,6 +78,29 @@ export const actionGetTodaysAppointmentsFailure = (state, {getTodaysAppointments
         getTodaysAppointmentsFailure,
     })
 
+export const actionUpdateAppointment = state => 
+    state.merge({
+        updatingAppointment: true
+    })
+
+export const actionUpdateAppointmentSuccess = (state, {updateAppointmentSuccess}) => {
+    console.log('updateAppointmentSuccess: ', updateAppointmentSuccess); 
+    return state.merge({
+        updatingAppointment: false, 
+        updateAppointmentSuccess: true, 
+        updateAppointmentFailure: null, 
+    });  
+}
+
+export const actionUpdateAppointmentFailure = (state, {updateAppointmentFailure}) => {
+    console.log('updateAppointmentFailure: ', updateAppointmentFailure); 
+    return state.merge({
+        updatingAppointment: false, 
+        updateAppointmentSuccess: false, 
+        updateAppointmentFailure
+    }); 
+}
+
 
 export const reducer = createReducer(INITIAL_STATE, {
     [Types.ACTION_SIGN_IN_REQUEST]: actionSignInRequest, 
@@ -82,4 +111,7 @@ export const reducer = createReducer(INITIAL_STATE, {
     [Types.ACTION_GET_TODAYS_APPOINTMENTS_REQUEST]: actionGetTodaysAppointmentsRequest, 
     [Types.ACTION_GET_TODAYS_APPOINTMENTS_SUCCESS]: actionGetTodaysAppointmentsSuccess, 
     [Types.ACTION_GET_TODAYS_APPOINTMENTS_FAILURE]: actionGetTodaysAppointmentsFailure, 
+    [Types.ACTION_UPDATE_APPOINTMENT]: actionUpdateAppointment, 
+    [Types.ACTION_UPDATE_APPOINTMENT_SUCCESS]: actionUpdateAppointmentSuccess, 
+    [Types.ACTION_UPDATE_APPOINTMENT_FAILURE]: actionUpdateAppointmentFailure, 
 }); 
