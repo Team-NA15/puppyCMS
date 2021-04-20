@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';  
 import { Modal, Row, Col, Button } from 'react-bootstrap'; 
 import AppointmentTable from './appointmentTable'; 
+import AppointmentForm from './appointmentForm'; 
 import Actions from '../../reducers/reducers'; 
 
 const AppointmentModal = props => {
@@ -26,11 +27,11 @@ const AppointmentModal = props => {
                 <Modal.Title> {props.dog_name} </Modal.Title>
             </Modal.Header>
             <Modal.Body> 
-                <AppointmentTable {...props} />  
+                {!update ? <AppointmentTable {...props} /> : <AppointmentForm {...props} /> }  
             </Modal.Body>
             <Modal.Footer> 
                 <Button onClick = {props.handleShowModal}> Close </Button> 
-                <Button onClick = {updateAppointment}> Update </Button>
+                <Button onClick = {handleUpdate}> Update </Button>
             </Modal.Footer>
         </Modal> 
     )
