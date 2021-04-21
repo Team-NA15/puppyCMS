@@ -35,7 +35,6 @@ const AppointmentTable = props => {
                 <th> Medicine AM </th>
                 <th> Medicine Noon </th>
                 <th> Medicine PM </th>
-                <th> Belongings </th>
             </tr>
             <tr>
                 <td>{props.breakfast ? props.breakfast_quant : 'X'}</td>
@@ -43,14 +42,15 @@ const AppointmentTable = props => {
                 <td> {props.dinner ? props.dinner_quant : 'X'} </td>
                 <td> {props.morn_meds ? props.morn_meds_dir : 'X'} </td>
                 <td> {props.noon_meds ? props.noon_meds_dir : 'X'} </td>               
-                <td> {props.night_meds ? props.night_meds_dir : 'X'} </td>   
-                <td> {props.belongings} </td>          
+                <td> {props.night_meds ? props.night_meds_dir : 'X'} </td>             
             </tr>
             <tr> 
                 <th> Directions </th> 
+                <th> Belongings </th>
             </tr> 
             <tr>
-                <td> {props.directions} </td> 
+                <td> {props.special_instructions ? props.special_instructions : 'X'} </td>
+                <td> {props.belongings ? props.belongings : 'X'} </td> 
             </tr> 
         </tbody>
     </Table>

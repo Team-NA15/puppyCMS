@@ -12,14 +12,6 @@ const AppointmentModal = props => {
     const handleUpdate = () => setUpdate(!update); 
     //TODO fix modal shifting background to the left due to scroll bar
     
-    const updateAppointment = () => {
-        dispatch(Actions.actionUpdateAppointment({
-            prevAppt: props, 
-            updates: {
-                belongings: 'chevy with da buttafly doors', 
-            }
-        }))
-    }
 
     return (
         <Modal size = 'xl' show = {props.show} onHide = {props.handleShowModal} centered = {true}> 
@@ -31,7 +23,7 @@ const AppointmentModal = props => {
             </Modal.Body>
             <Modal.Footer> 
                 <Button onClick = {props.handleShowModal}> Close </Button> 
-                <Button onClick = {handleUpdate}> Update </Button>
+                {!update ? <Button onClick = {handleUpdate}> Update </Button> : <Button onClick = {handleUpdate}> Back </Button> }
             </Modal.Footer>
         </Modal> 
     )

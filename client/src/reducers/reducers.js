@@ -84,20 +84,24 @@ export const actionUpdateAppointment = state =>
     })
 
 export const actionUpdateAppointmentSuccess = (state, {updateAppointmentSuccess}) => {
-    console.log('updateAppointmentSuccess: ', updateAppointmentSuccess); 
+    const updated = updateAppointmentSuccess.data.updateAppointment;
+       
     return state.merge({
         updatingAppointment: false, 
         updateAppointmentSuccess: true, 
-        updateAppointmentFailure: null, 
+        updateAppointmentFailure: null,
+        todaysAppointments: state.todaysAppointments.map(appt => {
+            if (appt.dog_name === updated.dog_name && appt.owner_last_name == updated.owner_last_name && appt.breed == updated.breed) return updated; 
+            else return appt; 
+        }) 
     });  
 }
 
-export const actionUpdateAppointmentFailure = (state, {updateAppointmentFailure}) => {
-    console.log('updateAppointmentFailure: ', updateAppointmentFailure); 
+export const actionUpdateAppointmentFailure = (state, {updateAppointmentFailure}) => { 
     return state.merge({
         updatingAppointment: false, 
         updateAppointmentSuccess: false, 
-        updateAppointmentFailure
+        updateAppointmentFailure,
     }); 
 }
 
