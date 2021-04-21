@@ -23,23 +23,37 @@ const create = baseURL => {
     }); 
 
     api.addRequestTransform((request) => {
-        console.log(request)
+        console.log('request', request)
 
     }); 
 
-    const setAuthToken = data => {
-        return api.setHeader('Authorization',data.access_token)
-    }
+    const setAuthToken = token => api.setHeader('Authorization', token); 
+        
+
+    const removeAuthToken = () => api.deleteHeader('Authorization'); 
+    
 
     const signIn = requestData => api.post('/login', {
         email: requestData.email ? requestData.email : '', 
         password: requestData.password ? requestData.password : ''
     }); 
 
+    const getTodaysAppointments = () => api.get('/get-todays-appointments'); 
+
+    const updateAppointment = requestData => { 
+        return api.put('/appointment', {
+            prevAppt: requestData.prevAppt ? requestData.prevAppt : {}, 
+            updates: requestData.updates ? requestData.updates : {}
+        })
+    } 
+
 
     return {
         signIn, 
         setAuthToken, 
+        removeAuthToken,
+        getTodaysAppointments,
+        updateAppointment 
     }
 }
 

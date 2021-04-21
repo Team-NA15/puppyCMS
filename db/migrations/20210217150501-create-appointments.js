@@ -97,6 +97,10 @@ module.exports = {
         type: Sequelize.STRING,
         defaultValue: "",
       },
+      directions: {
+        type: Sequelize.STRING, 
+        defaultValue: '', 
+      },
       checked_in: {
         type: Sequelize.BOOLEAN, 
         defaultValue: false, 

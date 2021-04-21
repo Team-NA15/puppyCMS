@@ -1,30 +1,45 @@
 import { createActions, createReducer } from "reduxsauce";
-import Imutable from "seamless-immutable";
+import Immutable from "seamless-immutable";
 
 const {Types, Creators} = createActions({
     actionSignInRequest: ['signInRequest'],
     actionSignInFailure: ["signInFailure"],
     actionSignInSuccess: ["signInSuccess"], 
     actionSetApiToken: ['setApiToken'], 
+    actionSignOutRequest:['signOutRequest'], 
+    actionGetTodaysAppointmentsRequest:['getTodaysAppointmentsRequest'], 
+    actionGetTodaysAppointmentsSuccess: ['getTodaysAppointmentsSuccess'], 
+    actionGetTodaysAppointmentsFailure: ['getTodaysAppointmentsFailure'], 
+    actionUpdateAppointment: ['updateAppointment'], 
+    actionUpdateAppointmentSuccess: ['updateAppointmentSuccess'], 
+    actionUpdateAppointmentFailure: ['updateAppointmentFailure'], 
 }); 
 
 export const ActionTypes = Types; 
 export default Creators; 
 
-export const INITIAL_STATE = Imutable({
+export const INITIAL_STATE = Immutable({
     signInSuccess: null,
     signInFailure: null,
     signInFetching: false,
     signedIn: false,
+    access_token: null,
+    todaysAppointments: null,
+    getTodaysAppointmentsSuccess: null, 
+    getTodaysAppointmentsFailure: null, 
+    updatingAppointment: null,  
+    updateAppointmentSuccess: null, 
+    updateAppointmentFailure: null, 
 });
 
 
-export const actionSignInRequest = state => 
-    state.merge({
+export const actionSignInRequest = state => {
+    return state.merge({
         signInFetching: true,
         signInSuccess: null,
         signInFailure: null,
     }); 
+}
     
 
 export const actionSignInSuccess = (state, { signInSuccess }) =>
@@ -34,16 +49,73 @@ export const actionSignInSuccess = (state, { signInSuccess }) =>
         signInSuccess,
         signedIn: true,
     });
-export const actionSignInFailure = (state, { signInFailure }) =>
-    state.merge({ signInSuccess: null, signInFetching: false, signInFailure 
-});
 
-export const actionSetApiToken = state => state; 
+export const actionSignInFailure = (state, { signInFailure }) =>
+    state.merge({
+        signInSuccess: null,
+        signInFetching: false, 
+        signInFailure 
+    });
+
+export const actionSetApiToken = (state, {setApiToken}) => state.merge({access_token: setApiToken}); 
+
+export const actionSignOutRequest = state => state;  
+
+export const actionGetTodaysAppointmentsRequest = state => state; 
+
+export const actionGetTodaysAppointmentsSuccess = (state, {getTodaysAppointmentsSuccess}) => { 
+    return state.merge({
+        todaysAppointments: getTodaysAppointmentsSuccess,
+        getTodaysAppointmentsSuccess: true, 
+        getTodaysAppointmentsFailure: null, 
+    })
+}
+
+export const actionGetTodaysAppointmentsFailure = (state, {getTodaysAppointmentsFailure}) => 
+    state.merge({
+        todaysAppointments: null,
+        getTodaysAppointmentsSuccess: null, 
+        getTodaysAppointmentsFailure,
+    })
+
+export const actionUpdateAppointment = state => 
+    state.merge({
+        updatingAppointment: true
+    })
+
+export const actionUpdateAppointmentSuccess = (state, {updateAppointmentSuccess}) => {
+    const updated = updateAppointmentSuccess.data.updateAppointment;
+       
+    return state.merge({
+        updatingAppointment: false, 
+        updateAppointmentSuccess: true, 
+        updateAppointmentFailure: null,
+        todaysAppointments: state.todaysAppointments.map(appt => {
+            if (appt.dog_name === updated.dog_name && appt.owner_last_name == updated.owner_last_name && appt.breed == updated.breed) return updated; 
+            else return appt; 
+        }) 
+    });  
+}
+
+export const actionUpdateAppointmentFailure = (state, {updateAppointmentFailure}) => { 
+    return state.merge({
+        updatingAppointment: false, 
+        updateAppointmentSuccess: false, 
+        updateAppointmentFailure,
+    }); 
+}
+
 
 export const reducer = createReducer(INITIAL_STATE, {
     [Types.ACTION_SIGN_IN_REQUEST]: actionSignInRequest, 
     [Types.ACTION_SIGN_IN_SUCCESS]: actionSignInSuccess,
     [Types.ACTION_SIGN_IN_FAILURE]: actionSignInFailure,
     [Types.ACTION_SET_API_TOKEN]: actionSetApiToken,
-
+    [Types.ACTION_SIGN_OUT_REQUEST]: actionSignOutRequest, 
+    [Types.ACTION_GET_TODAYS_APPOINTMENTS_REQUEST]: actionGetTodaysAppointmentsRequest, 
+    [Types.ACTION_GET_TODAYS_APPOINTMENTS_SUCCESS]: actionGetTodaysAppointmentsSuccess, 
+    [Types.ACTION_GET_TODAYS_APPOINTMENTS_FAILURE]: actionGetTodaysAppointmentsFailure, 
+    [Types.ACTION_UPDATE_APPOINTMENT]: actionUpdateAppointment, 
+    [Types.ACTION_UPDATE_APPOINTMENT_SUCCESS]: actionUpdateAppointmentSuccess, 
+    [Types.ACTION_UPDATE_APPOINTMENT_FAILURE]: actionUpdateAppointmentFailure, 
 }); 

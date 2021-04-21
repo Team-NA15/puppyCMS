@@ -35,6 +35,7 @@ module.exports = (sequelize, DataTypes) => {
     night_meds: DataTypes.BOOLEAN, 
     night_meds_dir: DataTypes.STRING, 
     belongings: DataTypes.STRING,
+    directions: DataTypes.STRING, 
     checked_in: DataTypes.BOOLEAN,
     checked_out: DataTypes.BOOLEAN,
     new_dog: DataTypes.BOOLEAN,   
