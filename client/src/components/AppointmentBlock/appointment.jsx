@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux'; 
 import { ButtonGroup, Card, Button, Row, Col, Badge } from 'react-bootstrap';
@@ -6,7 +5,6 @@ import './appointment.scss';
 import  AppointmentModal from './appointmentModal'; 
 import Actions from '../../reducers/reducers'; 
 
-// const Appointment = ({dog_name, service, owner_last_name, cubby, arrival_date, depart_date, checked_in, ...prop}) => {
 const Appointment = props => {
     const {dog_name, service, owner_last_name, cubby, arrival_date, depart_date, checked_in} = props;    
     const [showMore, setShowMore] = useState(false);
@@ -25,7 +23,7 @@ const Appointment = props => {
     } 
 
     const checkOutHandler = () => {
-        console.log('checking out'); 
+          
     }
 
 
@@ -58,9 +56,9 @@ const Appointment = props => {
                             {checked_in ? 'Check Out' : 'Check In'} </Button> 
                     </Col>
                     <Col> 
-                        <Button onClick = {handleShowMoreModal}> More </Button> 
+                        <Button onClick = {handleShowMoreModal} disabled = {checkIn}> More </Button> 
                         <AppointmentModal {...props} show = {showMore} handleShowModal = {handleShowMoreModal} isCheckIn = {checkIn} 
-                            update = {true} />
+                            update = {checkIn} />
                     </Col>
                 </Row>
             </Card.Body>
