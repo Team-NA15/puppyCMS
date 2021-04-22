@@ -20,11 +20,9 @@ const Dashboard = (prop) => {
     const [filterBy, setFilterBy] = useState('');
     const [filteredList, setFilteredList] = useState([])
 
-    //const card = <Appointment name={dog.name} type={dog.type} checkin={dog.checkin} dropoff={dog.dropoff} pickup={dog.pickup} />
-
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        setSearchText(evt.target.value)
+        searchFilter(); 
     } 
     const handleChange = (evt) => {
         setSearchText(evt.target.value)
@@ -32,7 +30,6 @@ const Dashboard = (prop) => {
 
     useEffect(() => {
         filterApts(filterBy);
-
     }, [filterBy, setFilterBy]); 
 
     useEffect(() => {
@@ -51,6 +48,16 @@ const Dashboard = (prop) => {
         else if (filterBy == 'G') filteredList = session.todaysAppointments.filter(appt => appt.service == 'Grooming'); 
         else filteredList = session.todaysAppointments; 
         setFilteredList(filteredList); 
+    }
+
+    const searchFilter = () => {
+        let filterNames = searchText.split(' '); 
+        let newList = []; 
+        for(let name of filterNames){
+            newList = newList.concat(filteredList.filter(appt => appt.dog_name.toLowerCase() == name.toLowerCase()  
+            || appt.owner_last_name.toLowerCase() == name.toLowerCase())) 
+        } 
+        setFilteredList(newList);  
     }
 
 
@@ -81,8 +88,7 @@ const Dashboard = (prop) => {
 
                     {
                          filteredList ? filteredList.map(appt => {
-                            return <Appointment name = {appt.dog_name} type = {appt.service} arrival = {appt.arrival_date} 
-                            departure = {appt.depart_date} cubby = {appt.cubby} />  
+                            return <Appointment {...appt} />  
                         }) : ''
                     }
                

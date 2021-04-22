@@ -12,7 +12,7 @@ async function getOneAppointment(apptInfo){
             dog_name, owner_last_name, breed, service, arrival_date
         }
     })
-    .catch(err => {
+    .catch(err => { 
         throw new Error('Error retrieving appointment'); 
     }); 
     return appt; 

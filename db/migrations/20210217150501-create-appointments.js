@@ -23,6 +23,10 @@ module.exports = {
         type: Sequelize.STRING, 
         allowNull: false, 
       },
+      owner_first_name: {
+        type: Sequelize.STRING, 
+        allowNull: false, 
+      },
       owner_last_name: {
         type: Sequelize.STRING, 
         allowNull: false, 
@@ -96,6 +100,10 @@ module.exports = {
       belongings: {
         type: Sequelize.STRING,
         defaultValue: "",
+      },
+      special_instructions: {
+        type: Sequelize.STRING, 
+        defaultValue: '', 
       },
       checked_in: {
         type: Sequelize.BOOLEAN, 
