@@ -3,7 +3,6 @@ const updateAppt = require('../../../controllers/appointments/CRUD/updateAppoint
 
 module.exports = async (req, res) => {
     try{
-        console.log(req.body);  
         const appt = await getAppt(req.body.prevAppt);  
         if (!appt) return res.status(400).send({name: 'Error', message: 'Error finding appointment'}); 
         const updated = await updateAppt(appt, req.body.updates); 
