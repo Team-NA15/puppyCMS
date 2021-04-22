@@ -1,4 +1,5 @@
 const Appt = require('../../../db/models').Appointments; 
+const { Op } = require('sequelize'); 
 /**
  * 
  * @param {Object} apptInfo key value pairs of apptInfo to make query for
@@ -28,6 +29,12 @@ async function getTodaysAppointments(){
                 arrival_date: {
                     [Op.between]: [startOf, endOf]
                 },
+                [Op.and]: {
+                    checked_out: true, 
+                    depart_date: {
+                        [Op.between]: [startOf, endOf]
+                    }
+                }
             }
         }
     }); 

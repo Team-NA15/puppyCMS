@@ -32,9 +32,9 @@ const Dashboard = (prop) => {
         filterApts(filterBy);
     }, [filterBy, setFilterBy]); 
 
-    useEffect(() => {
-        console.log("Filtered List: " + filteredList)
-    }, [filteredList, setFilteredList]); 
+    // useEffect(() => {
+    //     console.log("Filtered List: " + filteredList)
+    // }, [filteredList, setFilteredList]); 
 
     useEffect(() => {
         filterApts(filterBy); 

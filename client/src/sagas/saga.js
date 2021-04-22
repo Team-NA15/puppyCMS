@@ -63,6 +63,12 @@ function* checkInWithAppointment(api, {checkInWithAppointmentRequest}){
     else yield put(Actions.actionCheckInWithAppointmentFailure(response)); 
 }
 
+function* checkOutAppointment(api, {checkOutAppointmentRequest}){
+    const response = yield call(api.checkOutAppointment, checkOutAppointmentRequest); 
+    if (response && response.ok) yield put(Actions.actionCheckOutAppointmentSuccess(response)); 
+    else yield put(Actions.actionCheckOutAppointmentFailure(response)); 
+}
+
 export default function* root(){
     yield all([
         // takeLatest(ActionTypes.ACTION_SIGN_IN_REQUEST, signIn, api), 
@@ -74,5 +80,6 @@ export default function* root(){
         takeLatest('ACTION_UPDATE_APPOINTMENT', updateAppointment, api), 
         takeLatest('ACTION_SEARCH_DOGS_REQUEST', searchDogs, api), 
         takeLatest('ACTION_CHECK_IN_WITH_APPOINTMENT_REQUEST', checkInWithAppointment, api), 
+        takeLatest('ACTION_CHECK_OUT_APPOINTMENT_REQUEST', checkOutAppointment, api), 
     ]); 
 }

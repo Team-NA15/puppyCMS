@@ -166,12 +166,40 @@ export const actionCheckInWithAppointmentSuccess = (state, {checkInWithAppointme
     }); 
 }
 
-export const actionCheckInWithAppointmentFailure = (state, {checkInWithAppointmentFailure}) => 
-    state.merge({
+export const actionCheckInWithAppointmentFailure = (state, {checkInWithAppointmentFailure}) => {
+    return state.merge({
         checkInWithAppointmentFetching: null, 
         checkInWithAppointmentSuccess: false, 
         checkInWithAppointmentFailure: {...checkInWithAppointmentFailure},
-    })
+    }); 
+}
+
+export const actionCheckOutAppointmentRequest = (state, {checkOutAppointmentRequest}) => {
+    return state.merge({
+        checkOutAppointmentFetching: true, 
+    }); 
+}
+
+export const actionCheckOutAppointmentSuccess = (state, {checkOutAppointmentSuccess}) => {
+    const updated = checkOutAppointmentSuccess.data.updated; 
+    return state.merge({
+        checkOutAppointmentFetching: false, 
+        checkOutAppointmentSuccess: true, 
+        checkOutAppointmentFailure: false, 
+        todaysAppointments: state.todaysAppointments.map(appt => {
+            if (appt.dog_name === updated.dog_name && appt.owner_last_name == updated.owner_last_name && appt.breed == updated.breed) return updated; 
+            else return appt; 
+        })
+    }); 
+}
+
+export const actionCheckOutAppointmentFailure = (state, {checkOutAppointmentFailure}) => {
+    return state.merge({
+        checkOutAppointmentFetching: false, 
+        checkOutAppointmentSuccess: false, 
+        checkOutAppointmentFailure: {...checkOutAppointmentFailure},
+    }); 
+}
 
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -195,7 +223,7 @@ export const reducer = createReducer(INITIAL_STATE, {
     // [Types.ACTION_CHECK_IN_NO_APPOINTMENT_REQUEST]: actionCheckInNoAppointmentRequest, 
     // [Types.ACTION_CHECK_IN_NO_APPOINTMENT_SUCCESS]: actionCheckInNoAppointmentSuccess, 
     // [Types.ACTION_CHECK_IN_NO_APPOINTMENT_FAILURE]: actionCheckInNoAppointmentFailure, 
-    // [Types.ACTION_CHECK_OUT_APPOINTMENT_REQUEST]: actionCheckOutAppointmentRequest, 
-    // [Types.ACTION_CHECK_OUT_APPOINTMENT_SUCCESS]: actionCheckOutAppointmentSuccess, 
-    // [Types.ACTION_CHECK_OUT_APPOINTMENT_FAILURE]: actionCheckOutAppointmentFailure, 
+    [Types.ACTION_CHECK_OUT_APPOINTMENT_REQUEST]: actionCheckOutAppointmentRequest, 
+    [Types.ACTION_CHECK_OUT_APPOINTMENT_SUCCESS]: actionCheckOutAppointmentSuccess, 
+    [Types.ACTION_CHECK_OUT_APPOINTMENT_FAILURE]: actionCheckOutAppointmentFailure, 
 }); 

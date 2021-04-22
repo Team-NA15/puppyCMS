@@ -1,9 +1,9 @@
-const getAppt = require('../../../controllers/appointments/CRUD/getAppointment'); 
+const { getOneAppointment } = require('../../../controllers/appointments/CRUD/getAppointment'); 
 const updateAppt = require('../../../controllers/appointments/CRUD/updateAppointment'); 
 
 module.exports = async (req, res) => {
     try{
-        const appt = await getAppt(req.body.prevAppt);  
+        const appt = await getOneAppointment(req.body.prevAppt);  
         if (!appt) return res.status(400).send({name: 'Error', message: 'Error finding appointment'}); 
         const updated = await updateAppt(appt, req.body.updates); 
         if (!updated) return res.status(400).send({name: 'Error', message: 'Error updating appointment'}); 

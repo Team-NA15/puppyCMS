@@ -54,6 +54,8 @@ const create = baseURL => {
 
     const checkInWithAppointment = appt => api.put('/check-in-appointment', appt); 
 
+    const checkOutAppointment = appt => api.put('/check-out-appointment', appt); 
+
 
     return {
         signIn, 
@@ -63,6 +65,7 @@ const create = baseURL => {
         updateAppointment, 
         searchDogs,
         checkInWithAppointment,  
+        checkOutAppointment, 
     }
 }
 
