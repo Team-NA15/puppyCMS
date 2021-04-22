@@ -5,7 +5,7 @@ import Actions from '../../reducers/reducers';
 
 const AppointmentForm = props => {
     const apptData = {
-        cubby: props.cubby || '', 
+        cubby: props.cubby || 0, 
         dog_name: props.dog_name || "", 
         owner_first_name: props.owner_first_name || "", 
         owner_last_name: props.owner_last_name || "", 
@@ -35,7 +35,6 @@ const AppointmentForm = props => {
     const [departDate, setDepartDate] = useState(appt.depart_date.split('T')[0]); 
     const [departTime, setDepartTime] = useState(appt.depart_date.split('T')[1]); 
     const dispatch = useDispatch();
-    // const updatedSuccess = useSelector(session => session.) 
     
     const handleSetApptProp = e => {
         const { name, value } = e.target; 
@@ -75,6 +74,18 @@ const AppointmentForm = props => {
         ));  
     }
 
+    const submitAppointmentCheckIn = () => {
+        appt.arrival_date = new Date(arrivalDate + " " + arrivalTime).toISOString(); 
+        appt.depart_date = new Date(departDate + " " + departTime).toISOString(); 
+        dispatch(Actions.actionCheckInWithAppointmentRequest(appt)); 
+    }
+
+    const manageAppointmentSubmission = () => {
+        if (props.checkIn) submitAppointmentCheckIn();  
+        else submitAppointmentUpdate(); 
+        props.onExit(); 
+    }
+
 
     return (
         <div>
@@ -84,27 +95,27 @@ const AppointmentForm = props => {
                         <Form.Group as = {Col} controlId = 'formCubby'> 
                             <Form.Label> Cubby </Form.Label>
                             <Form.Control name = 'cubby' type = 'text' placeholder = '23' value = {appt.cubby} 
-                                onChange = {e => handleSetApptProp(e)} /> 
+                                onChange = {e => handleSetApptProp(e)} required/> 
                         </Form.Group>
                         <Form.Group as = {Col} controlId="formDogsName"> 
                             <Form.Label> Dog's Name </Form.Label>
                             <Form.Control name = 'dog_name' type = "text" placeholder = "Dro"  value = {appt.dog_name} 
-                                onChange = {e => handleSetApptProp(e)} readOnly/>  
+                                onChange = {e => handleSetApptProp(e)} readOnly = {appt.dog_name ? true : false} required/>  
                         </Form.Group> 
                         <Form.Group as = {Col} controlId="formOwnerFirstName"> 
                             <Form.Label> Owner First Name </Form.Label>
                             <Form.Control name = 'owner_first_name' type = "text" placeholder = "John" value = {appt.owner_first_name} 
-                                onChange = {e => handleSetApptProp(e)} readOnly/>  
+                                onChange = {e => handleSetApptProp(e)} readOnly= {appt.owner_first_name ? true : false} required/>  
                         </Form.Group> 
                         <Form.Group as = {Col} controlId="formOwnerLastName"> 
                             <Form.Label> Owner Last Name </Form.Label>
                             <Form.Control name = 'owner_last_name' type = "text" placeholder = "Doe" value = {appt.owner_last_name} 
-                                onChange = {e => handleSetApptProp(e)} readOnly/>  
+                                onChange = {e => handleSetApptProp(e)} readOnly = {appt.owner_last_name ? true : false} required/>  
                         </Form.Group> 
                         <Form.Group as = {Col} controlId="formBreed"> 
                             <Form.Label> Breed </Form.Label>
                             <Form.Control name = 'breed' type = "text" placeholder = "German Shephard" value = {appt.breed} 
-                                onChange = {e => handleSetApptProp(e)} readOnly/>  
+                                onChange = {e => handleSetApptProp(e)} readOnly = {appt.breed ? true : false} required/>  
                         </Form.Group> 
                     </Form.Row>
                     <Form.Row> 
@@ -204,8 +215,8 @@ const AppointmentForm = props => {
                                 onChange = {e => handleSetApptProp(e)} /> 
                         </Form.Group>
                     </Form.Row>
-                    <Button onClick = {submitAppointmentUpdate}> Submit </Button> 
-                </Form> 
+                    <Button onClick = {manageAppointmentSubmission}> Submit </Button>                
+                    </Form> 
             </Container>   
         </div> 
     )

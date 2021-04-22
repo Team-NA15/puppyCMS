@@ -20,11 +20,8 @@ const Dashboard = (prop) => {
     const [filterBy, setFilterBy] = useState('');
     const [filteredList, setFilteredList] = useState([])
 
-    //const card = <Appointment name={dog.name} type={dog.type} checkin={dog.checkin} dropoff={dog.dropoff} pickup={dog.pickup} />
-
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        // setSearchText(evt.target.value)
         searchFilter(); 
     } 
     const handleChange = (evt) => {

@@ -32,7 +32,7 @@ const search = ([name, owner_first_name, owner_last_name]) => {
         const foundDogs = await Dogs.findAll({
             where: {
                 [Op.and]: [
-                    Sequelize.where(Sequelize.fn('lower', Sequelize.col('name')),{
+                    Sequelize.where(Sequelize.fn('lower', Sequelize.col('dog_name')),{
                         [Op.like]: `%${name}%`
                     }), 
                     Sequelize.where(Sequelize.fn('lower', Sequelize.col('owner_first_name')),{

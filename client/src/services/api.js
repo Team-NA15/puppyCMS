@@ -47,13 +47,22 @@ const create = baseURL => {
         })
     } 
 
+    const searchDogs = search => {
+        console.log('query: ', search); 
+        return api.get(`/search-dogs?search=${search ? search : ''}`)
+    }
+
+    const checkInWithAppointment = appt => api.put('/check-in-appointment', appt); 
+
 
     return {
         signIn, 
         setAuthToken, 
         removeAuthToken,
         getTodaysAppointments,
-        updateAppointment 
+        updateAppointment, 
+        searchDogs,
+        checkInWithAppointment,  
     }
 }
 
