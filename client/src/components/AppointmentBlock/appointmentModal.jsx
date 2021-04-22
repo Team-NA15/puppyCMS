@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';  
+import { useDispatch, useSelector } from 'react-redux';  
 import { Modal, Row, Col, Button } from 'react-bootstrap'; 
 import AppointmentTable from './appointmentTable'; 
 import AppointmentForm from './appointmentForm'; 
 import Actions from '../../reducers/reducers'; 
 
 const AppointmentModal = props => {
-    const [update, setUpdate] = useState(false);
-    const dispatch = useDispatch(); 
+    const [update, setUpdate] = useState(props.update);
+    const [isCheckIn, setIsCheckIn] = useState(props.isCheckIn); 
+    const dispatch = useDispatch();
+    const {updateAppointmentSuccess, checkInWithAppointmentSuccess} = useSelector(state => state.session);  
 
     const handleUpdate = () => setUpdate(!update); 
-    //TODO fix modal shifting background to the left due to scroll bar
+    
+    const handleExit = () => {
+        setIsCheckIn(false); 
+        setUpdate(false); 
+        handleShowModal(); 
+    }
+
+    const handleShowModal = () => props.handleShowModal(); 
     
 
     return (
@@ -19,7 +28,8 @@ const AppointmentModal = props => {
                 <Modal.Title> {props.dog_name} </Modal.Title>
             </Modal.Header>
             <Modal.Body> 
-                {!update ? <AppointmentTable {...props} /> : <AppointmentForm {...props} /> }  
+                {!update ? <AppointmentTable {...props} /> : <AppointmentForm {...props} update = {update} 
+                    checkIn = {isCheckIn} onExit = {isCheckIn ? handleExit : handleUpdate}/> }  
             </Modal.Body>
             <Modal.Footer> 
                 <Button onClick = {props.handleShowModal}> Close </Button> 

@@ -1,20 +1,31 @@
-
-import bodyParser from 'body-parser';
 import React, { useEffect, useState } from 'react';
+import {useDispatch, useSelector} from 'react-redux'; 
 import { ButtonGroup, Card, Button, Row, Col, Badge } from 'react-bootstrap';
 import './appointment.scss';
 import  AppointmentModal from './appointmentModal'; 
+import Actions from '../../reducers/reducers'; 
 
-// const Appointment = ({dog_name, service, owner_last_name, cubby, arrival_date, depart_date, checked_in, ...prop}) => {
 const Appointment = props => {
-    const {dog_name, service, owner_last_name, cubby, arrival_date, depart_date, checked_in} = props; 
+    const {dog_name, service, owner_last_name, cubby, arrival_date, depart_date, checked_in} = props;    
+    const [showMore, setShowMore] = useState(false);
+    const [checkIn, setCheckIn] = useState(!checked_in);  
+    const dispatch = useDispatch();
     let arrival = new Date(arrival_date); 
-    let departure = new Date(depart_date);   
-    const [showMore, setShowMore] = useState(false); 
+    let departure = new Date(depart_date); 
 
     const handleShowMoreModal = () => {
         setShowMore(!showMore);   
     }
+
+    const checkInHandler = () => {
+        setCheckIn(!checkIn);
+        handleShowMoreModal();  
+    } 
+
+    const checkOutHandler = () => {
+          
+    }
+
 
     return (
         <Card style={{ width: '50%'}}>
@@ -41,11 +52,13 @@ const Appointment = props => {
                         }
                     </Col>
                     <Col> 
-                        <Button style = {{whiteSpace: 'nowrap'}}> {!checked_in ? 'Check In' : 'Check Out'} </Button> 
+                        <Button style = {{whiteSpace: 'nowrap'}} onClick = {checked_in ? checkOutHandler : checkInHandler}> 
+                            {checked_in ? 'Check Out' : 'Check In'} </Button> 
                     </Col>
                     <Col> 
-                        <Button onClick = {handleShowMoreModal}> More </Button> 
-                        <AppointmentModal {...props} show = {showMore} handleShowModal = {handleShowMoreModal}/>
+                        <Button onClick = {handleShowMoreModal} disabled = {checkIn}> More </Button> 
+                        <AppointmentModal {...props} show = {showMore} handleShowModal = {handleShowMoreModal} isCheckIn = {checkIn} 
+                            update = {checkIn} />
                     </Col>
                 </Row>
             </Card.Body>
