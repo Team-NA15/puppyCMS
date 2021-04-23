@@ -49,14 +49,14 @@ const Appointment = props => {
 
 
     return (
-        <Card style={{ width: '50%'}}>
+        <Card style={{ width: '100%'}}>
             <Card.Body>
                 <Badge pill variant="info">
                     {cubby}
                 </Badge>
                 <Row>
                     <Col>
-                        <Button className={service}> {service.charAt(0).toUpperCase()}</Button>
+                        <Button className = {service} > {service.charAt(0).toUpperCase()}</Button>
                         <Card.Text style = {{paddingLeft: '2rem'}}> {dog_name} </Card.Text>
                     </Col>                    
                 </Row>       

@@ -1,9 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'; 
-import { ButtonGroup, InputGroup, Button, Container, Form, CardDeck } from 'react-bootstrap';
+import { ButtonGroup, InputGroup, Button, Container, Form } from 'react-bootstrap';
 import { Appointment } from '../../components/components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFilter, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import './dashboard.scss';
 import Actions from '../../reducers/reducers'; 
 
