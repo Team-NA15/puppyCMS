@@ -77,7 +77,7 @@ const Appointment = props => {
                             {checked_in ? 'Check Out' : 'Check In'} </Button> 
                     </Col>
                     <Col> 
-                        <Button onClick = {handleShowMoreModal} disabled = {!checked_in}> More </Button> 
+                        {checked_in ? <Button onClick = {handleShowMoreModal}> More </Button> : ''} 
                         <AppointmentModal {...props} show = {showMore} handleShowModal = {handleShowMoreModal} isCheckIn = {checkIn} 
                             update = {checkIn} />
                         <BasicModal show = {checkOut} handleShowModal = {checkOutHandler} title = {'Confirm Check Out'} 
