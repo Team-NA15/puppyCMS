@@ -121,8 +121,12 @@ const AppointmentForm = props => {
                     <Form.Row> 
                         <Form.Group as = {Col} controlId="formService"> 
                             <Form.Label> Service </Form.Label>
-                            <Form.Control name = 'service' type = "text" placeholder = "Service"  value = {appt.service} 
-                                onChange = {e => handleSetApptProp(e)}/>  
+                            <Form.Control as = 'select' name = 'service' type = "text" placeholder = "Service"  defaultValue = {appt.service || '...'} 
+                                onChange = {e => handleSetApptProp(e)}>  
+                                <option>Boarding</option> 
+                                <option>Daycare</option> 
+                                <option>Grooming</option>
+                            </Form.Control>
                         </Form.Group> 
                         <Form.Group as = {Col} controlId="formArrivalDate"> 
                             <Form.Label> Arrival Date </Form.Label>
