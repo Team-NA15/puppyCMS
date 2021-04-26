@@ -53,13 +53,12 @@ const Dashboard = (prop) => {
     }
 
     const searchFilter = () => {
-        let filterNames = searchText.split(' '); 
+        let filterNames = searchText.trim().split(' ').join('|') 
         let newList = []; 
-        for(let name of filterNames){
-            newList = newList.concat(filteredList.filter(appt => appt.dog_name.toLowerCase() == name.toLowerCase()  
-            || appt.owner_last_name.toLowerCase() == name.toLowerCase())) 
-        } 
-        setFilteredList(newList);  
+        const list = session.todaysAppointments; 
+        let regex = new RegExp(filterNames); 
+        newList = newList.concat(list.filter(appt => regex.test(appt.dog_name.toLowerCase()) || regex.test(appt.owner_last_name.toLowerCase()))); 
+        setFilteredList(newList); 
     }
 
 
