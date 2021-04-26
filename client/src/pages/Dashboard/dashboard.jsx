@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ButtonGroup, InputGroup, Button, Container, Form } from 'react-bootstrap';
 import { Appointment } from '../../components/components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons'
 import './dashboard.scss';
 import Actions from '../../reducers/reducers'; 
 
@@ -28,13 +28,15 @@ const Dashboard = (prop) => {
         setSearchText(evt.target.value)
     }
 
+    const clearFilter = () => {
+        setSearchText(''); 
+        setFilterBy(''); 
+        filterApts(filterBy); 
+    } 
+
     useEffect(() => {
         filterApts(filterBy);
     }, [filterBy, setFilterBy]); 
-
-    // useEffect(() => {
-    //     console.log("Filtered List: " + filteredList)
-    // }, [filteredList, setFilteredList]); 
 
     useEffect(() => {
         filterApts(filterBy); 
@@ -67,6 +69,11 @@ const Dashboard = (prop) => {
                 <Form onSubmit={handleSubmit}>
                     <InputGroup>
                         <Form.Control value={searchText} size="lg" onChange={handleChange} type="text" placeholder="Find a Dog" id="searchbox" />
+                        <InputGroup.Append> 
+                            <Button variant = 'danger' type = 'button' onClick = {() => clearFilter()}> 
+                                <FontAwesomeIcon icon ={faTimes} /> 
+                            </Button>
+                        </InputGroup.Append> 
                         <InputGroup.Append>
                             <Button type="submit">
                                 <FontAwesomeIcon icon={faSearch} />
@@ -74,8 +81,6 @@ const Dashboard = (prop) => {
                         </InputGroup.Append>
                     </InputGroup>
                 </Form>
-                
-
                 <h2 className="display-4 mt-3">{date()}</h2>
  
                 

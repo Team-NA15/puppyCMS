@@ -57,26 +57,34 @@ const Appointment = props => {
                 <Row>
                     <Col>
                         <Button className = {service} > {service.charAt(0).toUpperCase()}</Button>
-                        <Card.Text style = {{paddingLeft: '2rem'}}> {dog_name} </Card.Text>
+                        <Card.Text style = {{paddingLeft: '2rem', fontWeight: 'bold'}}> {dog_name} {owner_last_name} </Card.Text>
                     </Col>                    
                 </Row>       
                 <Row>
-                    <Col>
-                        <Card.Text style = {{fontWeight: 'bold'}}> Dropoff: </Card.Text>
-                        <Card.Text> {arrival.toDateString()} <br /> {arrival.toLocaleTimeString()} </Card.Text>
+                    <Col style = {{paddingLeft: '4rem', paddingTop: '1rem'}}>
+                        <Row> 
+                            <Card.Text style = {{fontWeight: 'bold'}}> Dropoff: </Card.Text>
+                        </Row> 
+                        <Row> 
+                            <Card.Text> {arrival.toDateString()} <br /> {arrival.toLocaleTimeString()} </Card.Text>
+                        </Row> 
                     </Col>
-                    <Col>
-                        <Card.Text style = {{fontWeight: 'bold'}}> Pickup: </Card.Text>
-                        {
-                            departure < arrival ? <Card.Text> No pickup date </Card.Text>: 
-                            <Card.Text> {departure.toDateString()} <br /> {departure.toLocaleTimeString()} </Card.Text>
-                        }
+                    <Col style = {{paddingTop: '1rem'}}>
+                        <Row> 
+                            <Card.Text style = {{fontWeight: 'bold'}}> Pickup: </Card.Text>
+                        </Row> 
+                        <Row> 
+                            {
+                                departure < arrival ? <Card.Text> No pickup date </Card.Text>: 
+                                <Card.Text> {departure.toDateString()} <br /> {departure.toLocaleTimeString()} </Card.Text>
+                            }
+                        </Row> 
                     </Col>
-                    <Col> 
+                    <Col style = {{paddingTop: '1rem'}}> 
                         <Button style = {{whiteSpace: 'nowrap'}} onClick = {checked_in ? checkOutHandler : checkInHandler} disabled = {checked_out}> 
                             {checked_in ? 'Check Out' : 'Check In'} </Button> 
                     </Col>
-                    <Col> 
+                    <Col style = {{paddingTop: '1rem'}}> 
                         {checked_in ? <Button onClick = {handleShowMoreModal}> More </Button> : ''} 
                         <AppointmentModal {...props} show = {showMore} handleShowModal = {handleShowMoreModal} isCheckIn = {checkIn} 
                             update = {checkIn} />
