@@ -207,8 +207,7 @@ export const actionCheckOutAppointmentFailure = (state, {checkOutAppointmentFail
     }); 
 }
 
-export const actionNewDogSignUpRequest = (state, {newDogSignUpRequest}) => {
-    console.log(ActionTypes); 
+export const actionNewDogSignUpRequest = (state, {newDogSignUpRequest}) => { 
     return state.merge({
         newDogSignUpFetching: true, 
     }); 

@@ -70,7 +70,9 @@ function* checkOutAppointment(api, {checkOutAppointmentRequest}){
 }
 
 function* newDogSignUp(api, {newDogSignUpRequest}){
-    
+    const response = yield call(api.newDogSignUp, newDogSignUpRequest); 
+    if (response && response.ok) yield put(Actions.actionNewDogSignUpSuccess(response)); 
+    else yield put(Actions.actionNewDogSignUpFailure(response)); 
 }
 
 export default function* root(){
