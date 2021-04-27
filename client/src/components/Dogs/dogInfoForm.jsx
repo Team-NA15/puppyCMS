@@ -15,7 +15,7 @@ const DogInfoForm = ({submitForm, resetForm = true, ...props}) => {
         color: props.color || '', 
         breed: props.breed || '', 
         gender: props.gender || '', 
-        weight: props.weight || 0, 
+        weight: props.weight || '', 
         age: props.age || '', 
         neutered_spayed: props.neutered_spayed || false, 
     }
@@ -39,8 +39,12 @@ const DogInfoForm = ({submitForm, resetForm = true, ...props}) => {
         e.preventDefault(); 
         if (submitForm === undefined) alert('cannot submit form'); 
         else submitForm(dog); 
-        if (resetForm === true) setDog({});  
-    }
+        if (resetForm === true) {
+            setDog({}); 
+            Array.from(document.querySelectorAll('input')).forEach(input => input.value = ''); 
+            Array.from(document.querySelectorAll('select')).forEach(input => input.value = ''); 
+        } 
+    }  
 
     
     return (
@@ -53,7 +57,7 @@ const DogInfoForm = ({submitForm, resetForm = true, ...props}) => {
                         <Form.Group as={Col}>
                             <Form.Label>Dog's Name</Form.Label>
                             <Form.Control name = 'dog_name' type="text" placeholder="Rex, Jupiter, etc" 
-                                defaultValue = {dog.dog_name} onChange = {updateDog} required/>
+                                defaultValue = {dog.dog_name}  onChange = {updateDog} required/>
                         </Form.Group>
 
                         <Form.Group as={Col}>
@@ -64,7 +68,7 @@ const DogInfoForm = ({submitForm, resetForm = true, ...props}) => {
                         <Form.Group as={Col}> 
                             <Form.Label>Owner Last Name </Form.Label>
                             <Form.Control name = 'owner_last_name' type = 'text' placeholder = 'Smith' 
-                            defaultValue = {dog.owner_last_name} onChange = {updateDog} required/> 
+                                defaultValue = {dog.owner_last_name} onChange = {updateDog} required/> 
                         </Form.Group>
                     </Form.Row>
 

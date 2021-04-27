@@ -3,26 +3,27 @@ import { Form, Row, Col, Container, Button } from 'react-bootstrap';
 import DogInfoForm from '../../components/Dogs/dogInfoForm'; 
 import { useDispatch, useSelector } from 'react-redux'; 
 import Actions from '../../reducers/reducers'; 
+import BasicModal from '../../components/Generics/basicModal'; 
 
 const NewDog = props => {
-    const [submissionSuccess, setSubmissionSuccess] = useState(false); 
+    const [submissionSent, setSubmissionSent] = useState(false); 
     const dispatch = useDispatch(); 
-    const session = useSelector(state => state.session); 
+    let success = useSelector(state => state.session.newDogSignUpSuccess); 
 
-    const submitNewDogForm = dog => {
-        dispatch(Actions.actionNewDogSignUpRequest(dog)); 
+    const submitNewDogForm = async dog => {
+        await dispatch(Actions.actionNewDogSignUpRequest(dog)); 
+        setSubmissionSent(true);  
     }
 
-    useEffect(() => {
-        const success = session.newDogSignUpSuccess; 
-        const failure = session.newDogSignUpFailure; 
-        if (success === true && failure === false) setSubmissionSuccess(true); 
-        else setSubmissionSuccess(false); 
-    },[session.newDogSignUpSuccess, session.newDogSignUpFailure])
+    const submissionStateHandler = () => setSubmissionSent(false); 
 
     return (
         <Container> 
             <DogInfoForm submitForm = {submitNewDogForm} /> 
+            <BasicModal show = {submissionSent} handleShowModal = {submissionStateHandler} title = {success ? 'Success' : 'Failure'}
+                body = {success ? 'Dog Saved Successfully!' : 'Something went wrong.'} 
+                    handleFailure = {submissionStateHandler} failureText = {'Close'} 
+            /> 
         </Container> 
     )
 }
