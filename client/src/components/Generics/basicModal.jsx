@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'; 
 import { Modal, Container, Button } from 'react-bootstrap'; 
 
+
 const BasicModal = ({show, handleShowModal, title, body, handleFailure, failureText, handleSuccess, successText, ...props}) => {
 
     return (

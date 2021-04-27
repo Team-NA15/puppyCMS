@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Row, Col, Container, Button } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import DogInfoForm from '../../components/Dogs/dogInfoForm'; 
 import { useDispatch, useSelector } from 'react-redux'; 
 import Actions from '../../reducers/reducers'; 
