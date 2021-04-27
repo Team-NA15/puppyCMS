@@ -4,6 +4,7 @@ import DogInfoForm from '../../components/Dogs/dogInfoForm';
 import { useDispatch, useSelector } from 'react-redux'; 
 import Actions from '../../reducers/reducers'; 
 import BasicModal from '../../components/Generics/basicModal'; 
+import './newDog.scss'
 
 const NewDog = props => {
     const [submissionSent, setSubmissionSent] = useState(false); 
