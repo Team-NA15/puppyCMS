@@ -25,6 +25,9 @@ const {Types, Creators} = createActions({
     actionCheckOutAppointmentRequest: ['checkOutAppointmentRequest'],
     actionCheckOutAppointmentSuccess: ['checkOutAppointmentSuccess'], 
     actionCheckOutAppointmentFailure: ['checkOutAppointmentFailure'], 
+    actionNewDogSignUpRequest: ['newDogSignUpRequest'], 
+    actionNewDogSignUpSuccess: ['newDogSignUpSuccess'], 
+    actionNewDogSignUpFailure: ['newDogSignUpFailure'], 
 }); 
 
 export const ActionTypes = Types; 
@@ -52,6 +55,9 @@ export const INITIAL_STATE = Immutable({
     checkOutAppointmentFetching: null, 
     checkOutAppointmentSuccess: null, 
     checkOutAppointmentFailure: null, 
+    newDogSignUpFetching: null, 
+    newDogSignUpSuccess: null, 
+    newDogSignUpFailure: null, 
 });
 
 
@@ -201,6 +207,28 @@ export const actionCheckOutAppointmentFailure = (state, {checkOutAppointmentFail
     }); 
 }
 
+export const actionNewDogSignUpRequest = (state, {newDogSignUpRequest}) => {
+    console.log(ActionTypes); 
+    return state.merge({
+        newDogSignUpFetching: true, 
+    }); 
+}
+
+export const actionNewDogSignUpSuccess = (state, {newDogSignUpSuccess}) => {
+    return state.merge({
+        newDogSignUpFetching: false, 
+        newDogSignUpSuccess: true, 
+        newDogSignUpFailure: false, 
+    }); 
+}
+
+export const actionNewDogSignUpFailure = (state, {newDogSignUpFailure}) => {
+    return state.merge({
+        newDogSignUpFetching: false, 
+        newDogSignUpSuccess: false, 
+        newDogSignUpFailure: {...newDogSignUpFailure}
+    }); 
+}
 
 export const reducer = createReducer(INITIAL_STATE, {
     [Types.ACTION_SIGN_IN_REQUEST]: actionSignInRequest, 
@@ -226,4 +254,7 @@ export const reducer = createReducer(INITIAL_STATE, {
     [Types.ACTION_CHECK_OUT_APPOINTMENT_REQUEST]: actionCheckOutAppointmentRequest, 
     [Types.ACTION_CHECK_OUT_APPOINTMENT_SUCCESS]: actionCheckOutAppointmentSuccess, 
     [Types.ACTION_CHECK_OUT_APPOINTMENT_FAILURE]: actionCheckOutAppointmentFailure, 
+    [Types.ACTION_NEW_DOG_SIGN_UP_REQUEST]: actionNewDogSignUpRequest, 
+    [Types.ACTION_NEW_DOG_SIGN_UP_SUCCESS]: actionNewDogSignUpSuccess, 
+    [Types.ACTION_NEW_DOG_SIGN_UP_FAILURE]: actionNewDogSignUpFailure, 
 }); 

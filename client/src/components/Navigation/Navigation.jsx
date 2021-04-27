@@ -25,9 +25,9 @@ const Navigation = () => {
                     <FontAwesomeIcon icon={faHome} size='3x' />
                     <p>Home</p>
                 </Nav.Link>
-                <Nav.Link as={Link} to="/add" eventKey="/add">
+                <Nav.Link as={Link} to="/new-dog-form" eventKey="/add">
                     <FontAwesomeIcon icon={faPaw} size='3x' />
-                    <p>Add Dog</p>
+                    <p>New Dog</p>
                 </Nav.Link>
                 <Nav.Link as={Link} to="/add-appointment" eventKey="/addappointment">
                     <FontAwesomeIcon icon={faPlus} size="3x"/>

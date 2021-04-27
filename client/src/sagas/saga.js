@@ -69,6 +69,10 @@ function* checkOutAppointment(api, {checkOutAppointmentRequest}){
     else yield put(Actions.actionCheckOutAppointmentFailure(response)); 
 }
 
+function* newDogSignUp(api, {newDogSignUpRequest}){
+    
+}
+
 export default function* root(){
     yield all([
         // takeLatest(ActionTypes.ACTION_SIGN_IN_REQUEST, signIn, api), 
@@ -81,5 +85,6 @@ export default function* root(){
         takeLatest('ACTION_SEARCH_DOGS_REQUEST', searchDogs, api), 
         takeLatest('ACTION_CHECK_IN_WITH_APPOINTMENT_REQUEST', checkInWithAppointment, api), 
         takeLatest('ACTION_CHECK_OUT_APPOINTMENT_REQUEST', checkOutAppointment, api), 
+        takeLatest('ACTION_NEW_DOG_SIGN_UP_REQUEST', newDogSignUp, api), 
     ]); 
 }

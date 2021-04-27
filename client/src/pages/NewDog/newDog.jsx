@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Row, Col, Container, Button } from 'react-bootstrap';
 
 
-const AddDog = () => {
+const NewDog = () => {
     return (
         <section className="main mt-3">
             <Container>
@@ -13,12 +13,12 @@ const AddDog = () => {
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridEmail">
                             <Form.Label>Dog's Name</Form.Label>
-                            <Form.Control type="text" placeholder="Rex, Jupiter, etc" />
+                            <Form.Control name = 'dog_name' type="text" placeholder="Rex, Jupiter, etc" />
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="formGridPassword">
                             <Form.Label>Owner's Name</Form.Label>
-                            <Form.Control type="text" placeholder="John Smith" />
+                            <Form.Control name = 'owner_first_name' type="text" placeholder="John Smith" />
                         </Form.Group>
                     </Form.Row>
 
@@ -161,4 +161,4 @@ const AddDog = () => {
     )
 }
 
-export default AddDog;
+export default NewDog;
