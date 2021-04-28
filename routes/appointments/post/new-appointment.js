@@ -14,8 +14,9 @@ module.exports = async (req, res) => {
         }
         else{
             req.body.new_dog = false; 
-            [dog, [appt, created]] = await Promise.all([findDogByOwner(req.body.dog_name, req.body.owner_first_name, req.body.owner_last_name),
-                newAppointment(req.body)]);
+            dog = await findDogByOwner(req.body.dog_name, req.body.owner_first_name, req.body.owner_last_name); 
+            if (!dog) return res.status(400).send({name: 'Error', message: 'Error finding dog for appointment, is this dog new?'}); 
+            [appt, created] = await newAppointment(req.body); 
             if (created === false && appt instanceof Appt) return res.status(400).send({name: 'Error', message: 'Appointment already exists', appt});  
             dog.addAppointment(appt.id);  
             return res.status(201).send();

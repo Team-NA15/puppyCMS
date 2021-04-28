@@ -3,12 +3,14 @@ import { Container, Form, Col, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'; 
 import Actions from '../../reducers/reducers'; 
+import { Redirect } from 'react-router-dom'
 
 
-const Login = () => {
+const Login = (props) => {
     const [email, setEmail] = useState(''); 
     const [password, setPassword] = useState(''); 
     const dispatch = useDispatch(); 
+    const session = useSelector((state) => state.session); 
 
     const emailHandler = e => {
         setEmail(e.target.value); 
@@ -24,13 +26,22 @@ const Login = () => {
                 email, 
                 password
             })
-        );
- 
+        ); 
     }
 
+    useEffect(() => {
+        
+    },[session.access_token])
+
+    const redirect = () => {
+        return (
+            <Redirect to = '/'/> 
+        )
+    }
 
     return (
         <section className="main w-50 m-auto">
+            {session.access_token != null || session.access_token != undefined ? redirect() : null}
             <Container>
                 <h2 className="display-4">Login</h2>
 

@@ -7,6 +7,7 @@
 module.exports = async (appt, updates) => {
     const updated = await appt.update(updates)
     .catch(err => {
+        console.log(err); 
         throw new Error('Error updating appointment'); 
     }) 
     return updated; 
