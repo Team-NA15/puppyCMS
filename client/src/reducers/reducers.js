@@ -45,7 +45,7 @@ export const INITIAL_STATE = Immutable({
     updatingAppointment: null,  
     updateAppointmentSuccess: null, 
     updateAppointmentFailure: null, 
-    searchDogsList: null, 
+    searchDogsList: [], 
     searchDogsFetching: null, 
     searchDogsSuccess: null, 
     searchDogsFailure: null, 
