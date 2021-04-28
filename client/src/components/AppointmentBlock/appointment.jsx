@@ -81,8 +81,8 @@ const Appointment = props => {
                         </Row> 
                     </Col>
                     <Col style = {{paddingTop: '1rem'}}> 
-                        <Button style = {{whiteSpace: 'nowrap'}} onClick = {checked_in ? checkOutHandler : checkInHandler} disabled = {checked_out}> 
-                            {checked_in ? 'Check Out' : 'Check In'} </Button> 
+                        {checked_out ? '' : <Button style = {{whiteSpace: 'nowrap'}} onClick = {checked_in ? checkOutHandler : checkInHandler}> 
+                            {checked_in ? 'Check Out' : 'Check In'} </Button> }
                     </Col>
                     <Col style = {{paddingTop: '1rem'}}> 
                         {checked_in ? <Button onClick = {handleShowMoreModal}> More </Button> : ''} 
