@@ -23,8 +23,8 @@ const AppointmentForm = props => {
         morn_meds_dir: props.morn_meds_dir || "", 
         noon_meds: props.noon_meds || false, 
         noon_meds_dir: props.noon_meds_dir || "", 
-        dinner_meds: props.dinner_meds || false, 
-        dinner_meds_dir: props.dinner_meds_dir || "", 
+        night_meds: props.night_meds || false, 
+        night_meds_dir: props.night_meds_dir || "", 
         special_instructions: props.special_instructions || '', 
         belongings: props.belongings || "",  
     }
@@ -53,7 +53,7 @@ const AppointmentForm = props => {
         dinner_quant: (value) => handleSetApptProp({ target: { name: 'dinner', value } }), 
         morn_meds_dir: (value) => handleSetApptProp({ target: { name: 'morn_meds', value } }), 
         noon_meds_dir: (value) => handleSetApptProp({ target: { name: 'noon_meds', value } }), 
-        dinner_meds_dir: (value) => handleSetApptProp({ target: { name: 'dinner_meds', value } })
+        night_meds_dir: (value) => handleSetApptProp({ target: { name: 'night_meds', value } })
     }
 
     const handleUpdateMealMedsInstructions = e => {
@@ -121,8 +121,12 @@ const AppointmentForm = props => {
                     <Form.Row> 
                         <Form.Group as = {Col} controlId="formService"> 
                             <Form.Label> Service </Form.Label>
-                            <Form.Control name = 'service' type = "text" placeholder = "Service"  value = {appt.service} 
-                                onChange = {e => handleSetApptProp(e)}/>  
+                            <Form.Control as = 'select' name = 'service' type = "text" placeholder = "Service"  defaultValue = {appt.service || '...'} 
+                                onChange = {e => handleSetApptProp(e)}>  
+                                <option>Boarding</option> 
+                                <option>Daycare</option> 
+                                <option>Grooming</option>
+                            </Form.Control>
                         </Form.Group> 
                         <Form.Group as = {Col} controlId="formArrivalDate"> 
                             <Form.Label> Arrival Date </Form.Label>
@@ -194,12 +198,12 @@ const AppointmentForm = props => {
                                 onChange = {e => handleUpdateMealMedsInstructions(e)} /> 
                         </Form.Group>
                         <Form.Group as = {Col} controlId = 'formDinnerMeds'> 
-                            <Form.Check name = 'dinner_meds' defaultChecked = {appt.dinner_meds} checked = {appt.dinner_meds} label = 'Dinner Meds' 
+                            <Form.Check name = 'night_meds' defaultChecked = {appt.night_meds} checked = {appt.night_meds} label = 'Dinner Meds' 
                                 onChange = {e => handleUpdateMealMeds(e)} /> 
                         </Form.Group>
                         <Form.Group as = {Col} controlId = 'formDinnerMedsDir'> 
                             <Form.Label> Dinner Meds Directions </Form.Label>
-                            <Form.Control name = 'dinner_meds_dir' type = 'text' as = 'textarea' rows = {3} value = {appt.dinner_meds_dir}
+                            <Form.Control name = 'night_meds_dir' type = 'text' as = 'textarea' rows = {3} value = {appt.night_meds_dir}
                                 onChange = {e => handleUpdateMealMedsInstructions(e)} /> 
                         </Form.Group>
                     </Form.Row>

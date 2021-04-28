@@ -48,12 +48,18 @@ const create = baseURL => {
     } 
 
     const searchDogs = search => {
-        console.log('query: ', search); 
         return api.get(`/search-dogs?search=${search ? search : ''}`)
     }
 
     const checkInWithAppointment = appt => api.put('/check-in-appointment', appt); 
 
+    const checkOutAppointment = appt => api.put('/check-out-appointment', appt); 
+
+    const newDogSignUp = dogData => api.post('/new-dog', dogData); 
+
+    const newAppointment = apptData => api.post('/new-appointment', apptData); 
+
+    const fetchAppointmentHistory = dogData => console.log('called'); 
 
     return {
         signIn, 
@@ -63,6 +69,9 @@ const create = baseURL => {
         updateAppointment, 
         searchDogs,
         checkInWithAppointment,  
+        checkOutAppointment, 
+        newDogSignUp, 
+        newAppointment, 
     }
 }
 
