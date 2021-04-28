@@ -28,6 +28,12 @@ const {Types, Creators} = createActions({
     actionNewDogSignUpRequest: ['newDogSignUpRequest'], 
     actionNewDogSignUpSuccess: ['newDogSignUpSuccess'], 
     actionNewDogSignUpFailure: ['newDogSignUpFailure'], 
+    actionNewAppointmentRequest: ['newAppointmentRequest'], 
+    actionNewAppointmentSuccess: ['newAppointmentSuccess'], 
+    actionNewAppointmentFailure: ['newAppointmentFailure'], 
+    actionAppointmentHistoryRequest: ['appointmentHistoryRequest'], 
+    actionAppointmentHistorySuccess: ['appointmentHistorySuccess'], 
+    actionAppointmentHistoryFailure: ['appointmentHistoryFailure'], 
 }); 
 
 export const ActionTypes = Types; 
@@ -36,10 +42,10 @@ export default Creators;
 export const INITIAL_STATE = Immutable({
     signInSuccess: null,
     signInFailure: null,
-    signInFetching: false,
+    signInFetching: null,
     signedIn: false,
     access_token: null,
-    todaysAppointments: null,
+    todaysAppointments: [],
     getTodaysAppointmentsSuccess: null, 
     getTodaysAppointmentsFailure: null, 
     updatingAppointment: null,  
@@ -58,6 +64,13 @@ export const INITIAL_STATE = Immutable({
     newDogSignUpFetching: null, 
     newDogSignUpSuccess: null, 
     newDogSignUpFailure: null, 
+    newAppointmentFetching: null, 
+    newAppointmentSuccess: null, 
+    newAppointmentFailure: null,
+    appointmentHistory: [],  
+    appointmentHistoryFetching: null, 
+    appointmentHistorySuccess: null, 
+    appointmentHistoryFailure: null, 
 });
 
 
@@ -229,6 +242,53 @@ export const actionNewDogSignUpFailure = (state, {newDogSignUpFailure}) => {
     }); 
 }
 
+export const actionNewAppointmentRequest = (state, {newAppointmentRequest}) => {
+    return state.merge({
+        newAppointmentFetching: true, 
+    }); 
+}
+
+export const actionNewAppointmentSuccess = (state, {newAppointmentSuccess}) => {
+    return state.merge({
+        newAppointmentFetching: false, 
+        newAppointmentSuccess: true, 
+        newAppointmentFailure: false 
+    }); 
+}
+
+export const actionNewAppointmentFailure = (state, {newAppointmentFailure}) => {
+    return state.merge({
+        newAppointmentFetching: false, 
+        newAppointmentSuccess: false, 
+        newAppointmentFailure: {...newAppointmentFailure}
+    }); 
+}
+
+export const actionAppointmentHistoryRequest = (state, {appointmentHistoryRequest}) => {
+    return state.merge({
+        appointmentHistoryFetching: true, 
+    }); 
+}
+
+export const actionAppointmentHistorySuccess = (state, {appointmentHistorySuccess}) => {
+    return state.merge({
+        appointmentHistory: appointmentHistorySuccess, 
+        appointmentHistoryFetching: false, 
+        appointmentHistorySuccess: true, 
+        appointmentHistoryFailure: false, 
+    }); 
+}
+
+export const actionAppointmentHistoryFailure = (state, {appointmentHistoryFailure}) => {
+    return state.merge({
+        appointmentHistoryFetching: false, 
+        appointmentHistorySuccess: false, 
+        appointmentHistoryFailure: {...appointmentHistoryFailure}
+    }); 
+}
+
+
+
 export const reducer = createReducer(INITIAL_STATE, {
     [Types.ACTION_SIGN_IN_REQUEST]: actionSignInRequest, 
     [Types.ACTION_SIGN_IN_SUCCESS]: actionSignInSuccess,
@@ -256,4 +316,10 @@ export const reducer = createReducer(INITIAL_STATE, {
     [Types.ACTION_NEW_DOG_SIGN_UP_REQUEST]: actionNewDogSignUpRequest, 
     [Types.ACTION_NEW_DOG_SIGN_UP_SUCCESS]: actionNewDogSignUpSuccess, 
     [Types.ACTION_NEW_DOG_SIGN_UP_FAILURE]: actionNewDogSignUpFailure, 
+    [Types.ACTION_NEW_APPOINTMENT_REQUEST]: actionNewAppointmentRequest, 
+    [Types.ACTION_NEW_APPOINTMENT_SUCCESS]: actionNewAppointmentSuccess, 
+    [Types.ACTION_NEW_APPOINTMENT_FAILURE]: actionNewAppointmentFailure, 
+    [Types.ACTION_APPOINTMENT_HISTORY_REQUEST]: actionAppointmentHistoryRequest, 
+    [Types.ACTION_APPOINTMENT_HISTORY_SUCCESS]: actionAppointmentHistorySuccess, 
+    [Types.ACTION_APPOINTMENT_HISTORY_FAILURE]: actionAppointmentHistoryFailure, 
 }); 

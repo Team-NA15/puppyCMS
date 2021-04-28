@@ -1,15 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux'; 
 import { Container, Form, Row, Col, Card, Button } from 'react-bootstrap';
-import Appointment  from '../../components/AppointmentBlock/appointment'; 
-import './appointments.scss'
+import Appointment  from '../../components/AppointmentBlock/appointment';
+import DogInfoCard from '../../components/Dogs/dogInfoCard';  
+import './appointments.scss'; 
 import Actions from '../../reducers/reducers'; 
 
-const AppointmentPage = () => {
+const AppointmentHistory = () => {
     const dispatch = useDispatch(); 
-    const searchDogList = useSelector(state => state.session.searchDogList); 
+    const session = useSelector(state => state.session); 
     const [search, setSearch] = useState(''); 
-    const [dogList, setDogList] = useState(searchDogList); 
+    const [dogList, setDogList] = useState([]); 
     const [apptHistory, setApptHistory] = useState([]); 
     const [searchDogs, setSearchDogs] = useState(false); 
     const [searchAppts, setSearchingAppts] = useState(false); 
@@ -19,29 +20,23 @@ const AppointmentPage = () => {
     const executeDogSearch = e => {
         e.preventDefault(); 
         dispatch(Actions.actionSearchDogsRequest(search))
+        setSearchDogs(true); 
     }
 
-    const showDogList = () => (
-        dogList.map(dog => {
-            return (
-                <Card> 
-                    <Card.Title> {dog.dog_name} </Card.Title>
-                    <Card.Body> 
-                        <p> owner first name, owner last name </p> 
-                        <p> Breed, color, gender </p> 
-                    </Card.Body>
-                </Card>  
-            )
-        })
-    )
+    const showDogList = () => ( <div> {dogList.map(dog => <DogInfoCard {...dog} clickAction = {onDogClick} /> ) } </div> ); 
 
-    const showApptHistory = () => (
-        apptHistory.map(appt => {
-            return (
-                <Appointment {...appt} /> 
-            )
-        })
-    )
+    const onDogClick = dog => {
+        
+        //here we will get the dog's appointment history 
+    } 
+    
+    const showApptHistory = () => ( <div> {apptHistory.map(appt => <Appointment {...appt} /> ) } </div> ); 
+
+
+
+    useEffect(() => {
+        setDogList(session.searchDogsList); 
+    },[session.searchDogsList])
 
     return (
         <section className="main mt-3 mb-4">
@@ -73,4 +68,4 @@ const AppointmentPage = () => {
         </section>
     )
 }
-export default AppointmentPage;
+export default AppointmentHistory;

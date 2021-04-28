@@ -33,9 +33,9 @@ const Navigation = () => {
                     <FontAwesomeIcon icon={faPlus} size="3x"/>
                     <p>Add Appointment</p>
                 </Nav.Link>
-                <Nav.Link as={Link} to="/appointments" eventKey="/appointments">
+                <Nav.Link as={Link} to="/appointment-history" eventKey="/appointments">
                     <FontAwesomeIcon icon={faCalendarCheck} size="3x"/>
-                    <p>All Appointments</p>
+                    <p>Appointment History</p>
                 </Nav.Link>
             </Nav>
             </Navbar.Collapse>
