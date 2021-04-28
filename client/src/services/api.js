@@ -48,7 +48,6 @@ const create = baseURL => {
     } 
 
     const searchDogs = search => {
-        console.log('query: ', search); 
         return api.get(`/search-dogs?search=${search ? search : ''}`)
     }
 
