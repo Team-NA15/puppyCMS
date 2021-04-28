@@ -20,8 +20,8 @@ const App = () => {
         <Router>
             <Navigation />
             <Switch>
-                <Route path="/login" component={Login} />
-                <ProtectedRoute exact path="/" component={Dashboard} />
+                <Route path="/" component={Login} />
+                <ProtectedRoute exact path="/dashboard" component={Dashboard} />
                 <Route path="/login" component={Login} />
                 <ProtectedRoute path="/appointments" component={AppointmentsPage} />
                 <ProtectedRoute path="/addappointment" component={AddAppointment} />
