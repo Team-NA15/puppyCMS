@@ -22,20 +22,11 @@ const App = () => {
         <Router>
             <Navigation />
             <Switch>
-<<<<<<< HEAD
-                <Route path="/" component={Login} />
-                <ProtectedRoute exact path="/dashboard" component={Dashboard} />
-                <Route path="/login" component={Login} />
-                <ProtectedRoute path="/appointments" component={AppointmentsPage} />
-                <ProtectedRoute path="/addappointment" component={AddAppointment} />
-                <ProtectedRoute path="/add" component={AddDog} />
-=======
                 <Route path="/login" component={Login} />
                 <ProtectedRoute exact path="/" component={Dashboard} />
                 <ProtectedRoute path="/appointment-history" component={AppointmentHistory} />
                 <ProtectedRoute path="/add-appointment" component={AddAppointment} />
                 <ProtectedRoute path="/new-dog-form" component={NewDog} />
->>>>>>> 616d64701fc486fe8adcb014703aa86ead328878
             </Switch>
         </Router>
         </PersistGate> 

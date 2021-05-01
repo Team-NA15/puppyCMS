@@ -31,7 +31,7 @@ const Navigation = () => {
                 </Nav.Link>
                 <Nav.Link as={Link} to="/add-appointment" eventKey="/addappointment">
                     <FontAwesomeIcon icon={faPlus} size="3x"/>
-                    <p>Add Appointment</p>
+                    <p>New Appointment</p>
                 </Nav.Link>
                 <Nav.Link as={Link} to="/appointment-history" eventKey="/appointments">
                     <FontAwesomeIcon icon={faCalendarCheck} size="3x"/>
