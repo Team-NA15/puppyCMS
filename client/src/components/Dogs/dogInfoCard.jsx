@@ -1,8 +1,6 @@
-import React from 'react'; 
+import React, {useRef} from 'react'; 
 import { Card, Row, Col, Table, } from 'react-bootstrap'; 
 import './dogInfo.scss'; 
-import React, {useRef} from 'react'; 
-import { Card, Table, } from 'react-bootstrap'; 
 
 const DogInfoCard = ({clickAction, ...props}) => {
     const {dog_name, owner_first_name, owner_last_name, breed, color, gender } = props; 
