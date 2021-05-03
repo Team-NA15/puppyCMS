@@ -218,10 +218,6 @@ const DogInfoForm = ({submitForm, resetForm = true, ...props}) => {
                         </Form.Group>
                     </Form.Row>
 
-                    <Form.Group>
-                        <Form.Check name = 'neutered_spayed' type="checkbox" label="Do you agree to the terms and conditons of service." required/>
-                    </Form.Group>
-
                     <Button variant="primary" type="submit">
                         Submit
                     </Button>
