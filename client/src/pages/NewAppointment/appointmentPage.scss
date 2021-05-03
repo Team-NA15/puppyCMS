@@ -1,0 +1,37 @@
+#head {
+    min-height: 80vh;
+    margin-top: 2rem;
+}
+
+
+#appointmentParent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    
+    .col {
+        
+        text-align: center;
+    }
+}
+
+.option-apt {
+    background-color: cornsilk;
+    min-width: 80%;
+    padding: 1.5em;
+    min-height: 6.5rem;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+
+    svg {
+        margin: auto;
+        color: black
+    }
+
+    p {
+        color: black;
+        font-size: large;
+    }
+}

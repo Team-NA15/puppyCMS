@@ -1,14 +1,26 @@
 import React from 'react'; 
 import { Card, Row, Col, Table, } from 'react-bootstrap'; 
 import './dogInfo.scss'; 
+import React, {useRef} from 'react'; 
+import { Card, Table, } from 'react-bootstrap'; 
 
 const DogInfoCard = ({clickAction, ...props}) => {
     const {dog_name, owner_first_name, owner_last_name, breed, color, gender } = props; 
+    const dogCard = useRef(null); 
+    
+    const enterHover = () => {
+        dogCard.current.style.backgroundColor = 'rgba(255,255,255,0.5)'; 
+    }
+
+
+    const exitHover = () => {
+        dogCard.current.style.backgroundColor = '#fff'; 
+    }
 
     return (
         <div> 
-            <a hover style = {{cursor: 'pointer'}} onClick = {clickAction ? clickAction : () => {}}> 
-                <Card className = 'dog-info-card' border = 'light'> 
+            <a style = {{cursor: 'pointer', }} onClick = {clickAction ? clickAction : () => {}}> 
+                <Card ref = {dogCard} onMouseEnter = {enterHover} onMouseLeave = {exitHover} border = 'light'> 
                     <Card.Header> <b> {dog_name} </b> </Card.Header>
                     <Card.Body> 
                         <Table bordered> 

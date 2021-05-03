@@ -1,7 +1,8 @@
-import React, {useEffect, useState } from 'react'; 
-import { Form, Row, Col, Container, Button } from 'react-bootstrap';
+import React, { useState } from 'react'; 
+import { Form, Col, Container, Button } from 'react-bootstrap';
 
 const DogInfoForm = ({submitForm, resetForm = true, ...props}) => {
+    console.log('print props: ', props); 
     const dogData = {
         dog_name: props.dog_name || '', 
         owner_first_name: props.owner_first_name || '', 
