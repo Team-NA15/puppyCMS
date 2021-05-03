@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import {useDispatch, useSelector} from 'react-redux'; 
-import { ButtonGroup, Card, Button, Row, Col, Badge } from 'react-bootstrap';
+import {useDispatch, useSelector} from 'react-redux';
+import { Redirect, useHistory } from 'react-router-dom';  
+import { Card, Button, Row, Col, Badge } from 'react-bootstrap';
 import './appointment.scss';
 import  AppointmentModal from './appointmentModal'; 
 import Actions from '../../reducers/reducers'; 
 import BasicModal from '../../components/Generics/basicModal';
 
 const Appointment = props => {
-    const {dog_name, service, owner_last_name, cubby, arrival_date, depart_date, checked_in, checked_out} = props;    
+    const {dog_name, service, owner_last_name, cubby, arrival_date, depart_date, 
+        checked_in, checked_out, new_dog} = props;    
     const [showMore, setShowMore] = useState(false);
     const [checkIn, setCheckIn] = useState(!checked_in);
     const [checkOut, setCheckOut] = useState(false); 
     const [appt, setAppt] = useState(props); 
       
     const dispatch = useDispatch();
+    const history = useHistory(); 
     let arrival = new Date(arrival_date); 
     let departure = new Date(depart_date); 
 
@@ -21,9 +24,17 @@ const Appointment = props => {
         setShowMore(!showMore);   
     }
 
+    const redirectNewDogForm = () => history.push('/new-dog-form', props); 
+
     const checkInHandler = () => {
-        setCheckIn(!checkIn);
-        handleShowMoreModal();  
+        if (new_dog == true){
+            // alert('Dog is new, create a file for the dog'); 
+            redirectNewDogForm(); 
+        }
+        else{
+            setCheckIn(!checkIn);
+            handleShowMoreModal();
+        }  
     } 
 
     const checkOutHandler = () => setCheckOut(!checkOut); 
@@ -81,8 +92,10 @@ const Appointment = props => {
                         </Row> 
                     </Col>
                     <Col style = {{paddingTop: '1rem'}}> 
-                        <Button style = {{whiteSpace: 'nowrap'}} onClick = {checked_in ? checkOutHandler : checkInHandler} disabled = {checked_out}> 
-                            {checked_in ? 'Check Out' : 'Check In'} </Button> 
+                        <Button style = {{whiteSpace: 'nowrap'}} onClick = {checked_in ? checkOutHandler : 
+                                () => checkInHandler() } disabled = {checked_out}> 
+                            {checked_in ? 'Check Out' : 'Check In'} 
+                        </Button> 
                     </Col>
                     <Col style = {{paddingTop: '1rem'}}> 
                         {checked_in ? <Button onClick = {handleShowMoreModal}> More </Button> : ''} 

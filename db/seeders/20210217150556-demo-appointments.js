@@ -171,6 +171,7 @@ module.exports = {
       depart_date: new Date(2021,4,3,17,30,0), 
       special_instructions: 'Bath', 
       checked_in: false, 
+      new_dog: true, 
     },
    ])
   },

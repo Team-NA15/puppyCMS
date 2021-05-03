@@ -103,6 +103,7 @@ const NewAppointment = () => {
     }
 
     useEffect(() => { 
+        //is not updated when already set to True, find way to get around this to update appointment success
         setAppointmentSuccess(session.newAppointmentSuccess); 
     },[session.newAppointmentSuccess])
 

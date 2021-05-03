@@ -1,7 +1,7 @@
 // General Imports
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'; 
+import { BrowserRouter as Router, Switch, Route, withRouter } from 'react-router-dom'; 
 //Redux Imports 
 import createStore from './reducers';
 import { Provider } from 'react-redux';  
