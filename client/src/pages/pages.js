@@ -1,7 +1,7 @@
 import Login from './Login/login'
 import Dashboard from './Dashboard/dashboard.jsx'
-import AppointmentsPage from './Appointments/appointmentsPage'
-import AddDog from './AddDog/addDog'
-import AddAppointment from './AddAppointment/addAppointment'
+import AppointmentHistory from './Appointments/appointmentHistory.jsx'
+import NewDog from './NewDog/newDog.jsx'
+import NewAppointment from './NewAppointment/newAppointment.jsx'; 
 
-export { Login, Dashboard, AddAppointment, AppointmentsPage, AddDog}
+export { Login, Dashboard, NewAppointment, AppointmentHistory, NewDog }

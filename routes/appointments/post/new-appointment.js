@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
             req.body.new_dog = true;
             [appt, created] = await newAppointment(req.body);  
             if (created === false && appt instanceof Appt) return res.status(400).send({name: 'Error', message: 'Appointment already exists', appt});  
-            return res.status(201).send(); 
+            return res.status(201).send({}); 
         }
         else{
             req.body.new_dog = false; 
@@ -19,7 +19,7 @@ module.exports = async (req, res) => {
             [appt, created] = await newAppointment(req.body); 
             if (created === false && appt instanceof Appt) return res.status(400).send({name: 'Error', message: 'Appointment already exists', appt});  
             dog.addAppointment(appt.id);  
-            return res.status(201).send();
+            return res.status(201).send({});
         }
     }
     catch(err){

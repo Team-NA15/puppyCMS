@@ -1,9 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'; 
-import { ButtonGroup, InputGroup, Button, Container, Form, CardDeck } from 'react-bootstrap';
+import { ButtonGroup, InputGroup, Button, Container, Form } from 'react-bootstrap';
 import { Appointment } from '../../components/components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFilter, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons'
 import './dashboard.scss';
 import Actions from '../../reducers/reducers'; 
 
@@ -20,24 +20,23 @@ const Dashboard = (prop) => {
     const [filterBy, setFilterBy] = useState('');
     const [filteredList, setFilteredList] = useState([])
 
-    //const card = <Appointment name={dog.name} type={dog.type} checkin={dog.checkin} dropoff={dog.dropoff} pickup={dog.pickup} />
-
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        setSearchText(evt.target.value)
+        searchFilter(); 
     } 
     const handleChange = (evt) => {
         setSearchText(evt.target.value)
     }
 
+    const clearFilter = () => {
+        setSearchText(''); 
+        setFilterBy(''); 
+        filterApts(filterBy); 
+    } 
+
     useEffect(() => {
         filterApts(filterBy);
-
     }, [filterBy, setFilterBy]); 
-
-    useEffect(() => {
-        console.log("Filtered List: " + filteredList)
-    }, [filteredList, setFilteredList]); 
 
     useEffect(() => {
         filterApts(filterBy); 
@@ -53,6 +52,15 @@ const Dashboard = (prop) => {
         setFilteredList(filteredList); 
     }
 
+    const searchFilter = () => {
+        let filterNames = searchText.trim().split(' ').join('|') 
+        let newList = []; 
+        const list = session.todaysAppointments; 
+        let regex = new RegExp(filterNames); 
+        newList = newList.concat(list.filter(appt => regex.test(appt.dog_name.toLowerCase()) || regex.test(appt.owner_last_name.toLowerCase()))); 
+        setFilteredList(newList); 
+    }
+
 
     return (
         <section className="main mt-3 mb-4">
@@ -60,6 +68,11 @@ const Dashboard = (prop) => {
                 <Form onSubmit={handleSubmit}>
                     <InputGroup>
                         <Form.Control value={searchText} size="lg" onChange={handleChange} type="text" placeholder="Find a Dog" id="searchbox" />
+                        <InputGroup.Append> 
+                            <Button variant = 'danger' type = 'button' onClick = {() => clearFilter()}> 
+                                <FontAwesomeIcon icon ={faTimes} /> 
+                            </Button>
+                        </InputGroup.Append> 
                         <InputGroup.Append>
                             <Button type="submit">
                                 <FontAwesomeIcon icon={faSearch} />
@@ -67,8 +80,6 @@ const Dashboard = (prop) => {
                         </InputGroup.Append>
                     </InputGroup>
                 </Form>
-                
-
                 <h2 className="display-4 mt-3">{date()}</h2>
  
                 
@@ -81,8 +92,7 @@ const Dashboard = (prop) => {
 
                     {
                          filteredList ? filteredList.map(appt => {
-                            return <Appointment name = {appt.dog_name} type = {appt.service} arrival = {appt.arrival_date} 
-                            departure = {appt.depart_date} cubby = {appt.cubby} />  
+                            return <Appointment {...appt} />  
                         }) : ''
                     }
                

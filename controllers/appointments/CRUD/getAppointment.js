@@ -1,4 +1,5 @@
 const Appt = require('../../../db/models').Appointments; 
+const { Op } = require('sequelize'); 
 /**
  * 
  * @param {Object} apptInfo key value pairs of apptInfo to make query for
@@ -12,7 +13,7 @@ async function getOneAppointment(apptInfo){
             dog_name, owner_last_name, breed, service, arrival_date
         }
     })
-    .catch(err => {
+    .catch(err => { 
         throw new Error('Error retrieving appointment'); 
     }); 
     return appt; 
@@ -28,6 +29,12 @@ async function getTodaysAppointments(){
                 arrival_date: {
                     [Op.between]: [startOf, endOf]
                 },
+                [Op.and]: {
+                    checked_out: true, 
+                    depart_date: {
+                        [Op.between]: [startOf, endOf]
+                    }
+                }
             }
         }
     }); 

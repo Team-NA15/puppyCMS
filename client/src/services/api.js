@@ -23,13 +23,12 @@ const create = baseURL => {
     }); 
 
     api.addRequestTransform((request) => {
-        console.log(request)
+        console.log('request', request)
 
     }); 
 
     const setAuthToken = token => api.setHeader('Authorization', token); 
         
-    
 
     const removeAuthToken = () => api.deleteHeader('Authorization'); 
     
@@ -41,12 +40,39 @@ const create = baseURL => {
 
     const getTodaysAppointments = () => api.get('/get-todays-appointments'); 
 
+    const updateAppointment = requestData => { 
+        return api.put('/appointment', {
+            prevAppt: requestData.prevAppt ? requestData.prevAppt : {}, 
+            updates: requestData.updates ? requestData.updates : {}
+        })
+    } 
+
+    const searchDogs = search => {
+        return api.get(`/search-dogs?search=${search ? search : ''}`)
+    }
+
+    const checkInWithAppointment = appt => api.put('/check-in-appointment', appt); 
+
+    const checkOutAppointment = appt => api.put('/check-out-appointment', appt); 
+
+    const newDogSignUp = dogData => api.post('/new-dog', dogData); 
+
+    const newAppointment = ({appt, newDog}) => api.post(`/new-appointment?newDog=${newDog}`, appt); 
+
+    const fetchAppointmentHistory = dogData => console.log('called'); 
 
     return {
         signIn, 
         setAuthToken, 
         removeAuthToken,
-        getTodaysAppointments, 
+        getTodaysAppointments,
+        updateAppointment, 
+        searchDogs,
+        checkInWithAppointment,  
+        checkOutAppointment, 
+        newDogSignUp, 
+        newAppointment, 
+        fetchAppointmentHistory, 
     }
 }
 
