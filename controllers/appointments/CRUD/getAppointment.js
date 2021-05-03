@@ -33,8 +33,21 @@ async function getTodaysAppointments(){
     }); 
     return appts; 
 }
-
+async function getAppointmentHistory(dogInfo){
+    const {dog_name,owner_first_name, owner_last_name,breed} =dogInfo
+    
+    const appts = await Appt.findAll({
+        where: { 
+            dog_name, owner_first_name, owner_last_name, breed
+        }
+    })
+    .catch(err =>{
+        throw new Error("Error retrieving appointment History");
+    });
+    return appts;
+}
 module.exports = {
     getOneAppointment,
     getTodaysAppointments,
+    getAppointmentHistory,
 }
