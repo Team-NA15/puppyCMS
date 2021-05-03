@@ -8,8 +8,8 @@ import { Provider } from 'react-redux';
 
 // Styles and Components
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navigation, Appointment, ProtectedRoute} from './components/components';
-import { Login, AddAppointment, AppointmentHistory, Dashboard, NewDog} from './pages/pages'
+import { Navigation, ProtectedRoute} from './components/components';
+import { Login, NewAppointment, AppointmentHistory, Dashboard, NewDog} from './pages/pages'
 import './index.scss'
 import { PersistGate } from 'redux-persist/integration/react'; 
 
@@ -25,7 +25,7 @@ const App = () => {
                 <Route path="/login" component={Login} />
                 <ProtectedRoute exact path="/" component={Dashboard} />
                 <ProtectedRoute path="/appointment-history" component={AppointmentHistory} />
-                <ProtectedRoute path="/add-appointment" component={AddAppointment} />
+                <ProtectedRoute path="/new-appointment" component={NewAppointment} />
                 <ProtectedRoute path="/new-dog-form" component={NewDog} />
             </Switch>
         </Router>

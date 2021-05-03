@@ -3,7 +3,7 @@ import { Form, Row, Col, Container, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';   
 import Actions from '../../reducers/reducers'; 
 
-const TheForm = props => {
+const NewAppointmentForm = ({newDog = false, ...props}) => {
     const apptData = {
         dog_name: props.dog_name || "", 
         owner_first_name: props.owner_first_name || "", 
@@ -27,39 +27,41 @@ const TheForm = props => {
         setAppt(prevAppt => ({...prevAppt, [name]: value})); 
     }
 
-    const submitAppointmentCheckIn = () => {
+    const submitNewAppointment = e => {
+        e.preventDefault(); 
         appt.arrival_date = new Date(arrivalDate + " " + arrivalTime).toISOString(); 
-        appt.depart_date = new Date(departDate + " " + departTime).toISOString(); 
-        dispatch(Actions.actionCheckInWithAppointmentRequest(appt)); 
+        appt.depart_date = new Date(departDate + " " + departTime).toISOString();  
+        dispatch(Actions.actionNewAppointmentRequest({
+            appt, 
+            newDog
+        })); 
     }
-
- 
 
 
     return (
         <div>
             <Container> 
-                <Form> 
+                <Form onSubmit = {submitNewAppointment}> 
                     <Form.Row> 
                         <Form.Group as = {Col} controlId="formDogsName"> 
                             <Form.Label> Dog's Name </Form.Label>
                             <Form.Control name = 'dog_name' type = "text" placeholder = "Dro"  value = {appt.dog_name} 
-                                onChange = {e => handleSetApptProp(e)} readOnly = {appt.dog_name ? true : false} required/>  
+                                onChange = {e => handleSetApptProp(e)} readOnly = {apptData.dog_name ? true : false} required/>  
                         </Form.Group> 
                         <Form.Group as = {Col} controlId="formOwnerFirstName"> 
                             <Form.Label> Owner First Name </Form.Label>
                             <Form.Control name = 'owner_first_name' type = "text" placeholder = "John" value = {appt.owner_first_name} 
-                                onChange = {e => handleSetApptProp(e)} readOnly= {appt.owner_first_name ? true : false} required/>  
+                                onChange = {e => handleSetApptProp(e)} readOnly= {apptData.owner_first_name ? true : false} required/>  
                         </Form.Group> 
                         <Form.Group as = {Col} controlId="formOwnerLastName"> 
                             <Form.Label> Owner Last Name </Form.Label>
                             <Form.Control name = 'owner_last_name' type = "text" placeholder = "Doe" value = {appt.owner_last_name} 
-                                onChange = {e => handleSetApptProp(e)} readOnly = {appt.owner_last_name ? true : false} required/>  
+                                onChange = {e => handleSetApptProp(e)} readOnly = {apptData.owner_last_name ? true : false} required/>  
                         </Form.Group> 
                         <Form.Group as = {Col} controlId="formBreed"> 
                             <Form.Label> Breed </Form.Label>
                             <Form.Control name = 'breed' type = "text" placeholder = "German Shephard" value = {appt.breed} 
-                                onChange = {e => handleSetApptProp(e)} readOnly = {appt.breed ? true : false} required/>  
+                                onChange = {e => handleSetApptProp(e)} readOnly = {apptData.breed ? true : false} required/>  
                         </Form.Group> 
                     </Form.Row>
                     <Form.Row> 
@@ -100,7 +102,7 @@ const TheForm = props => {
                                 onChange = {e => handleSetApptProp(e)} /> 
                         </Form.Group>
                     </Form.Row>
-                    <Button> Submit </Button>                
+                    <Button type = 'submit' onSubmit = {submitNewAppointment}> Submit </Button>                
                     </Form> 
             </Container>   
         </div> 
@@ -108,4 +110,4 @@ const TheForm = props => {
 }
 
 
-export default TheForm; 
+export default NewAppointmentForm; 
