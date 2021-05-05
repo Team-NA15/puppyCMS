@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import { Redirect, useHistory } from 'react-router-dom';  
+import { useDispatch } from 'react-redux';
+import { Redirect, useHistory, Link } from 'react-router-dom';  
 import { Card, Button, Row, Col, Badge } from 'react-bootstrap';
 import './appointment.scss';
 import  AppointmentModal from './appointmentModal'; 
@@ -24,17 +24,22 @@ const Appointment = props => {
         setShowMore(!showMore);   
     }
 
-    const redirectNewDogForm = () => history.push('/new-dog-form', props); 
+    const redirectNewDogForm = () => {
+        return (
+            <Redirect to = '/new-dog-form' {...appt} /> 
+        )
+    }
 
     const checkInHandler = () => {
-        if (new_dog == true){
-            // alert('Dog is new, create a file for the dog'); 
-            redirectNewDogForm(); 
-        }
-        else{
-            setCheckIn(!checkIn);
-            handleShowMoreModal();
-        }  
+        alert('perform check in'); 
+        // if (new_dog == true){
+        //     // alert('Dog is new, create a file for the dog'); 
+        //     redirectNewDogForm(); 
+        // }
+        // else{
+        //     setCheckIn(!checkIn);
+        //     handleShowMoreModal();
+        // }  
     } 
 
     const checkOutHandler = () => setCheckOut(!checkOut); 
@@ -92,10 +97,17 @@ const Appointment = props => {
                         </Row> 
                     </Col>
                     <Col style = {{paddingTop: '1rem'}}> 
-                        <Button style = {{whiteSpace: 'nowrap'}} onClick = {checked_in ? checkOutHandler : 
-                                () => checkInHandler() } disabled = {checked_out}> 
-                            {checked_in ? 'Check Out' : 'Check In'} 
-                        </Button> 
+                        {
+                            (checked_in || !checked_in) && !new_dog ? 
+                            <Button style = {{whiteSpace: 'nowrap'}} onClick = {checked_in ? checkOutHandler : 
+                                    checkInHandler } disabled = {checked_out}> 
+                                {checked_in ? 'Check Out' : 'Check In'} 
+                            </Button>
+                            : 
+                            <Link to = {{pathname: '/new-dog-form', state: {beforeCheckIn: true, ...appt}}} className = 'btn btn-primary'>
+                                Check In 
+                            </Link>  
+                        } 
                     </Col>
                     <Col style = {{paddingTop: '1rem'}}> 
                         {checked_in ? <Button onClick = {handleShowMoreModal}> More </Button> : ''} 

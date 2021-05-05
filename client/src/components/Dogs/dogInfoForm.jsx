@@ -1,12 +1,12 @@
 import React, { useState } from 'react'; 
 import { Form, Col, Container, Button } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom'; 
 
 const DogInfoForm = ({submitForm, resetForm = true, ...props}) => {
-    console.log('print props: ', props); 
     const dogData = {
-        dog_name: props.dog_name || '', 
-        owner_first_name: props.owner_first_name || '', 
-        owner_last_name: props.owner_last_name || '', 
+        dog_name: props.dog_name || props.location.state.dog_name || '', 
+        owner_first_name: props.owner_first_name || props.location.state.owner_first_name || '', 
+        owner_last_name: props.owner_last_name || props.location.state.owner_last_name || '', 
         address: props.address || '', 
         city: props.city || '', 
         state: props.state || '', 
@@ -14,14 +14,15 @@ const DogInfoForm = ({submitForm, resetForm = true, ...props}) => {
         phone_number: props.phone_number || '', 
         email: props.email || '', 
         color: props.color || '', 
-        breed: props.breed || '', 
+        breed: props.breed || props.location.state.breed || '', 
         gender: props.gender || '', 
         weight: props.weight || '', 
         age: props.age || '', 
         neutered_spayed: props.neutered_spayed || false, 
     }
 
-    const [dog, setDog] = useState(dogData); 
+    const [dog, setDog] = useState(dogData);
+    const [beforeCheckIn, setBeforeCheckIn] = useState(props.location.state.beforeCheckIn || null);  
 
     const dogHandler = (name, value) => setDog(prev => ({...prev, [name]: value})); 
 
@@ -45,8 +46,10 @@ const DogInfoForm = ({submitForm, resetForm = true, ...props}) => {
             Array.from(document.querySelectorAll('input')).forEach(input => input.value = ''); 
             Array.from(document.querySelectorAll('select')).forEach(input => input.value = ''); 
         } 
+        if (beforeCheckIn) props.history.goBack();  
     }  
 
+    console.log(props); 
     
     return (
         <section className="main mt-3">
@@ -233,4 +236,4 @@ const DogInfoForm = ({submitForm, resetForm = true, ...props}) => {
     )
 }
 
-export default DogInfoForm;  
+export default withRouter(DogInfoForm);  
