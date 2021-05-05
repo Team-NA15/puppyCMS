@@ -58,6 +58,9 @@ export const INITIAL_STATE = Immutable({
     checkInAppointmentFetching: null, 
     checkInAppointmentSuccess: null, 
     checkInAppointmentFailure: null, 
+    checkInNoAppointmentFetching: null, 
+    checkInNoAppointmentSuccess: null, 
+    checkInNoAppointmentFailure: null, 
     checkOutAppointmentFetching: null, 
     checkOutAppointmentSuccess: null, 
     checkOutAppointmentFailure: null, 
@@ -87,13 +90,13 @@ export const actionSignInSuccess = (state, { signInSuccess }) =>
     state.merge({
         signInFetching: false,
         signInFailure: null,
-        signInSuccess,
+        signInSuccess: true,
         signedIn: true,
     });
 
 export const actionSignInFailure = (state, { signInFailure }) =>
     state.merge({
-        signInSuccess: null,
+        signInSuccess: false,
         signInFetching: false, 
         signInFailure 
     });
@@ -191,6 +194,33 @@ export const actionCheckInWithAppointmentFailure = (state, {checkInWithAppointme
         checkInWithAppointmentSuccess: false, 
         checkInWithAppointmentFailure: {...checkInWithAppointmentFailure},
     }); 
+}
+
+export const actionCheckInNoAppointmentRequest = (state, {checkInNoAppointmentRequest}) => {
+    return state.merge({
+        checkInNoAppointmentFetching: true, 
+    })
+}
+
+export const actionCheckInNoAppointmentSuccess = (state, {checkInNoAppointmentSuccess}) => {
+    const updated = checkInNoAppointmentSuccess.data.updated; 
+    return state.merge({
+        checkInNoAppointmentFetching: null, 
+        checkInNoAppointmentSuccess: true, 
+        checkInNoAppointmentFailure: false, 
+        todaysAppointments: state.todaysAppointments.map(appt => {
+            if (appt.dog_name === updated.dog_name && appt.owner_last_name == updated.owner_last_name && appt.breed == updated.breed) return updated; 
+            else return appt; 
+        })
+    }); 
+}
+
+export const actionCheckInNoAppointmentFailure = (state, {checkInNoAppointmentFailure}) => {
+    return state.merge({
+        checkInNoAppointmentFetching: null, 
+        checkInNoAppointmentSuccess: false, 
+        checkInNoAppointmentFailure: {...checkInNoAppointmentFailure}
+    })
 }
 
 export const actionCheckOutAppointmentRequest = (state, {checkOutAppointmentRequest}) => {
@@ -307,9 +337,9 @@ export const reducer = createReducer(INITIAL_STATE, {
     [Types.ACTION_CHECK_IN_WITH_APPOINTMENT_REQUEST]: actionCheckInWithAppointmentRequest, 
     [Types.ACTION_CHECK_IN_WITH_APPOINTMENT_SUCCESS]: actionCheckInWithAppointmentSuccess, 
     [Types.ACTION_CHECK_IN_WITH_APPOINTMENT_FAILURE]: actionCheckInWithAppointmentFailure, 
-    // [Types.ACTION_CHECK_IN_NO_APPOINTMENT_REQUEST]: actionCheckInNoAppointmentRequest, 
-    // [Types.ACTION_CHECK_IN_NO_APPOINTMENT_SUCCESS]: actionCheckInNoAppointmentSuccess, 
-    // [Types.ACTION_CHECK_IN_NO_APPOINTMENT_FAILURE]: actionCheckInNoAppointmentFailure, 
+    [Types.ACTION_CHECK_IN_NO_APPOINTMENT_REQUEST]: actionCheckInNoAppointmentRequest, 
+    [Types.ACTION_CHECK_IN_NO_APPOINTMENT_SUCCESS]: actionCheckInNoAppointmentSuccess, 
+    [Types.ACTION_CHECK_IN_NO_APPOINTMENT_FAILURE]: actionCheckInNoAppointmentFailure, 
     [Types.ACTION_CHECK_OUT_APPOINTMENT_REQUEST]: actionCheckOutAppointmentRequest, 
     [Types.ACTION_CHECK_OUT_APPOINTMENT_SUCCESS]: actionCheckOutAppointmentSuccess, 
     [Types.ACTION_CHECK_OUT_APPOINTMENT_FAILURE]: actionCheckOutAppointmentFailure, 

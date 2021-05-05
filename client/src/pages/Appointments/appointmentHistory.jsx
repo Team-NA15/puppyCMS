@@ -13,21 +13,27 @@ const AppointmentHistory = () => {
     const [dogList, setDogList] = useState([]); 
     const [apptHistory, setApptHistory] = useState([]); 
     const [searchDogs, setSearchDogs] = useState(false); 
-    const [searchAppts, setSearchingAppts] = useState(false); 
+    const [searchAppts, setSearchAppts] = useState(false); 
 
     const searchHandler = e => setSearch(e.target.value); 
 
     const executeDogSearch = e => {
         e.preventDefault(); 
         dispatch(Actions.actionSearchDogsRequest(search))
+        setSearchAppts(false); 
         setSearchDogs(true); 
     }
 
     const showDogList = () => ( <div> {dogList.map(dog => <DogInfoCard {...dog} clickAction = {onDogClick} /> ) } </div> ); 
 
     const onDogClick = dog => {
-        
-        //here we will get the dog's appointment history 
+        // dispatch(Actions.actionAppointmentHistoryRequest(dog));
+        // setApptHistory([{dog_name: 'Dro', owner_first_name: 'Brandon', owner_last_name: 'Corn',service: 'Boarding', checked_out: true}, 
+        // {dog_name: 'Dro', owner_first_name: 'Brandon', owner_last_name: 'Corn',service: 'Boarding', checked_out: true}, 
+        // {dog_name: 'Dro', owner_first_name: 'Brandon', owner_last_name: 'Corn',service: 'Boarding', checked_out: true},
+        // {dog_name: 'Dro', owner_first_name: 'Brandon', owner_last_name: 'Corn',service: 'Boarding', checked_out: true}])
+        setSearchDogs(false); 
+        setSearchAppts(true);  
     } 
     
     const showApptHistory = () => ( <div> {apptHistory.map(appt => <Appointment {...appt} /> ) } </div> ); 
@@ -37,6 +43,10 @@ const AppointmentHistory = () => {
     useEffect(() => {
         setDogList(session.searchDogsList); 
     },[session.searchDogsList])
+
+    // useEffect(() => {
+    //     setApptHistory(session.appointmentHistory); 
+    // },[session.appointmentHistory])
 
     return (
         <section className="main mt-3 mb-4">
@@ -50,7 +60,6 @@ const AppointmentHistory = () => {
                                 <Form onSubmit = {executeDogSearch}> 
                                     <Card.Title as = 'h5'> Enter a dog's name to retrieve their appointment history </Card.Title>
                                     <Form.Group> 
-                                        {/* <Form.Label> Enter a dog's name to retrieve their appointment history </Form.Label>  */}
                                         <Form.Control name = 'search' placeholder = "Enter dog's name" defaultValue = ''
                                             onChange = {searchHandler} /> 
                                     </Form.Group>

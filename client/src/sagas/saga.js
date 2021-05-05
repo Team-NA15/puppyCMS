@@ -40,6 +40,7 @@ function* updateAppointment(api, {updateAppointment}){
     const response = yield call(api.updateAppointment, updateAppointment); 
     if (response && response.ok){
         yield put(Actions.actionUpdateAppointmentSuccess(response));  
+        yield put(Actions.actionGetTodaysAppointmentsRequest(response)); 
     }
     else { 
         yield put(Actions.actionUpdateAppointmentFailure(response)); 
@@ -76,7 +77,10 @@ function* newDogSignUp(api, {newDogSignUpRequest}){
 
 function* newAppointment(api, {newAppointmentRequest}){
     const response = yield call(api.newAppointment, newAppointmentRequest); 
-    if(response && response.ok) yield put(Actions.actionNewAppointmentSuccess(response)); 
+    if(response && response.ok) {
+        yield put(Actions.actionNewAppointmentSuccess(response));
+        yield put(Actions.actionGetTodaysAppointmentsRequest(response)); 
+    } 
     else yield put(Actions.actionNewAppointmentFailure(response)); 
 }
 

@@ -29,6 +29,12 @@ const NewAppointmentForm = ({newDog = false, ...props}) => {
 
     const submitNewAppointment = e => {
         e.preventDefault(); 
+        if (!departDate) setDepartDate(arrivalDate); 
+        if (!departTime) setDepartTime(arrivalTime); 
+        console.log(departDate); 
+        console.log(departTime); 
+        console.log(new Date(arrivalDate + " " + arrivalTime).toISOString()); 
+        console.log(new Date(departDate + " " + departTime).toISOString()); 
         appt.arrival_date = new Date(arrivalDate + " " + arrivalTime).toISOString(); 
         appt.depart_date = new Date(departDate + " " + departTime).toISOString();  
         dispatch(Actions.actionNewAppointmentRequest({
@@ -77,12 +83,12 @@ const NewAppointmentForm = ({newDog = false, ...props}) => {
                         <Form.Group as = {Col} controlId="formArrivalDate"> 
                             <Form.Label> Arrival Date </Form.Label>
                             <Form.Control name = 'arrival_date' type = "date" value = {arrivalDate} 
-                                onChange = {e =>  setArrivalDate(e.target.value)} />  
+                                onChange = {e =>  setArrivalDate(e.target.value)} required/>  
                         </Form.Group> 
                         <Form.Group as = {Col} controlId="formDepartDate"> 
                             <Form.Label> Arrival Time </Form.Label>
                             <Form.Control name = 'arrival_time' type = "time"  value = {arrivalTime} 
-                                onChange = {e => setArrivalTime(e.target.value)} />  
+                                onChange = {e => setArrivalTime(e.target.value)} required/>  
                         </Form.Group> 
                         <Form.Group as = {Col} controlId="formDepartDate"> 
                             <Form.Label> Depart Date </Form.Label>

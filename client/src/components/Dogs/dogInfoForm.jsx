@@ -1,8 +1,10 @@
-import React, { useState } from 'react'; 
+import React, { useEffect, useState } from 'react'; 
+import { useDispatch } from 'react-redux'; 
 import { Form, Col, Container, Button } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom'; 
+import Actions from '../../reducers/reducers'; 
 
 const DogInfoForm = ({submitForm, resetForm = true, ...props}) => {
-    console.log('print props: ', props); 
     const dogData = {
         dog_name: props.dog_name || '', 
         owner_first_name: props.owner_first_name || '', 
@@ -21,7 +23,9 @@ const DogInfoForm = ({submitForm, resetForm = true, ...props}) => {
         neutered_spayed: props.neutered_spayed || false, 
     }
 
-    const [dog, setDog] = useState(dogData); 
+    const [dog, setDog] = useState(dogData);
+    const [beforeCheckIn, setBeforeCheckIn] = useState(null); 
+    const dispatch = useDispatch();  
 
     const dogHandler = (name, value) => setDog(prev => ({...prev, [name]: value})); 
 
@@ -45,8 +49,25 @@ const DogInfoForm = ({submitForm, resetForm = true, ...props}) => {
             Array.from(document.querySelectorAll('input')).forEach(input => input.value = ''); 
             Array.from(document.querySelectorAll('select')).forEach(input => input.value = ''); 
         } 
-    }  
+        if (beforeCheckIn) {
+            dispatch(Actions.actionUpdateAppointment({
+                prevAppt: dog, 
+                updates: {new_dog: false}
+            }));
+            props.history.goBack();  
+        }  
+    } 
+    
+    const getBeforeCheckInDogInfo = () => {
+        if (props.location.state) {
+            setDog(prev => ({...prev, ...props.location.state})); 
+            setBeforeCheckIn(props.location.state.beforeCheckIn); 
+        }
+    }
 
+    useEffect(() => {
+        getBeforeCheckInDogInfo(); 
+    },[]) 
     
     return (
         <section className="main mt-3">
@@ -219,10 +240,6 @@ const DogInfoForm = ({submitForm, resetForm = true, ...props}) => {
                         </Form.Group>
                     </Form.Row>
 
-                    <Form.Group>
-                        <Form.Check name = 'neutered_spayed' type="checkbox" label="Do you agree to the terms and conditons of service." required/>
-                    </Form.Group>
-
                     <Button variant="primary" type="submit">
                         Submit
                     </Button>
@@ -233,4 +250,4 @@ const DogInfoForm = ({submitForm, resetForm = true, ...props}) => {
     )
 }
 
-export default DogInfoForm;  
+export default withRouter(DogInfoForm);  
