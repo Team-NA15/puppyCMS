@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Container, Form, Col, Button } from 'react-bootstrap'
+import { Container, Form, Col, Button, OverlayTrigger, Popover } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'; 
 import Actions from '../../reducers/reducers'; 
@@ -9,6 +9,7 @@ import { Redirect } from 'react-router-dom'
 const Login = (props) => {
     const [email, setEmail] = useState(''); 
     const [password, setPassword] = useState(''); 
+    const [invalidLogin, setInvalidLogin] = useState(null); 
     const dispatch = useDispatch(); 
     const session = useSelector((state) => state.session); 
 
@@ -30,8 +31,13 @@ const Login = (props) => {
     }
 
     useEffect(() => {
+        if(session.signInSuccess === false) setInvalidLogin(true);  
+    },[session.signInSuccess])
+
+    useEffect(() => {
         
     },[session.access_token])
+
 
     const redirect = () => {
         return (
@@ -60,6 +66,11 @@ const Login = (props) => {
                             <Link to="/forgot-password">Forget Your Password?</Link>
                         </Form.Group>
                     </Form.Row>
+                    { invalidLogin ? 
+                        <h4 className = 'text-danger py-3'> Invalid email address or password </h4> 
+                       : 
+                       ''
+                    }
                     <Button variant="primary" type= 'Submit' >Login</Button>
                 </Form>
 

@@ -90,13 +90,13 @@ export const actionSignInSuccess = (state, { signInSuccess }) =>
     state.merge({
         signInFetching: false,
         signInFailure: null,
-        signInSuccess,
+        signInSuccess: true,
         signedIn: true,
     });
 
 export const actionSignInFailure = (state, { signInFailure }) =>
     state.merge({
-        signInSuccess: null,
+        signInSuccess: false,
         signInFetching: false, 
         signInFailure 
     });
