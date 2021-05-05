@@ -5,7 +5,8 @@ import Actions from '../reducers/reducers';
 import runtimeEnv from '@mars/heroku-js-runtime-env'; 
 
 const env = runtimeEnv(); 
-export const api =  API.create(`${env.REACT_APP_HOSTNAME}:${env.REACT_APP_PORT}` || 'http://localhost:5000'); 
+
+export const api =  API.create('http://localhost:5000'); 
 
 function* signIn(api, {signInRequest}){
     const response = yield call(api.signIn, signInRequest); 
