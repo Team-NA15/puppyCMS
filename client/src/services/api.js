@@ -59,7 +59,10 @@ const create = baseURL => {
 
     const newAppointment = ({appt, newDog}) => api.post(`/new-appointment?newDog=${newDog}`, appt); 
 
-    const fetchAppointmentHistory = dogData => console.log('called'); 
+    const fetchAppointmentHistory = dogData => {
+        return api.get(`/get-appointment-history?dog_name=${dogData.dog_name}&owner_first_name=${dogData.owner_first_name}
+            &owner_last_name=${dogData.owner_last_name}&breed=${dogData.breed}`); 
+    }
 
     return {
         signIn, 

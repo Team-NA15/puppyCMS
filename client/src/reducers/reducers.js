@@ -301,8 +301,9 @@ export const actionAppointmentHistoryRequest = (state, {appointmentHistoryReques
 }
 
 export const actionAppointmentHistorySuccess = (state, {appointmentHistorySuccess}) => {
+    const appointmentHistory = appointmentHistorySuccess.data.appointmentHistory;  
     return state.merge({
-        appointmentHistory: appointmentHistorySuccess, 
+        appointmentHistory, 
         appointmentHistoryFetching: false, 
         appointmentHistorySuccess: true, 
         appointmentHistoryFailure: false, 
