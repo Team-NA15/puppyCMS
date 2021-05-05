@@ -24,7 +24,7 @@ const Appointment = props => {
         setShowMore(!showMore);   
     }
 
-    const redirectNewDogForm = () => history.push('/new-dog-form', props); 
+    const redirectNewDogForm = () => <Redirect to = '/new-dog-form' {...props} /> ) 
 
     const checkInHandler = () => {
         if (new_dog == true){
