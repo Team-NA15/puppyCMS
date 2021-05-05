@@ -6,21 +6,10 @@ const encryptPassword = require('../../util/encrypt');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-   const password = await encryptPassword('password', config.SALT); 
+   const check = parseInt(config.SALT); 
+   const password = await encryptPassword('password', check); 
    const newID = () => uuid.v4(); 
-   await queryInterface.bulkInsert('Users', [ 
-    {
-      id: newID(), 
-      email: 'cornbrandonk@gmail.com', 
-      password: 'XtJs]DjR@nZ6,7y~', 
-      first_name: 'Brandon', 
-      last_name: 'Corn', 
-      address: "4225 University Ave.", 
-      phone_number: '706-761-2848', 
-      role: 'admin', 
-      created_at: new Date(), 
-      updated_at: new Date()
-    }, 
+   await queryInterface.bulkInsert('Users', [  
   {
     id: newID(), 
     email: 'charlie_day@gmail.com', 
