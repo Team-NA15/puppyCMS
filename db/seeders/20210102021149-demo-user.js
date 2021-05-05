@@ -4,10 +4,11 @@ const uuid = require('uuid');
 const config = require('../../config/keys'); 
 const encryptPassword = require('../../util/encrypt'); 
 
-module.exports = {
+module.exports = {  
   up: async (queryInterface, Sequelize) => {
-   const check = parseInt(config.SALT); 
-   const password = await encryptPassword('password', check); 
+    console.log(config.SALT);
+    console.log(typeof config.SALT); 
+   const password = await encryptPassword('password', config.SALT); 
    const newID = () => uuid.v4(); 
    await queryInterface.bulkInsert('Users', [  
   {
