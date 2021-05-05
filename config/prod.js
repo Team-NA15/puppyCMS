@@ -9,7 +9,7 @@ module.exports = {
         DB_NAME: process.env.MYSQL_DB_NAME
     },
     JWT_SECRET: process.env.SECRET, 
-    SALT: process.env.SALT, 
+    SALT: parseInt(process.env.SALT), 
     ORG_EMAIL: {
         EMAIL: process.env.ORG_EMAIL, 
         PASSWORD: process.env.ORG_EMAIL_PASSWORD
