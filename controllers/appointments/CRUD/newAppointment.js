@@ -14,7 +14,8 @@ module.exports = async dogInfo => {
         defaults: {
             owner_first_name, 
             depart_date: dogInfo.depart_date || null, 
-            special_instructions: dogInfo.special_instructions || ''
+            special_instructions: dogInfo.special_instructions || '', 
+            new_dog: dogInfo.new_dog
         }
     })
     .catch(error => {

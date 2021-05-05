@@ -31,12 +31,8 @@ const NewAppointmentForm = ({newDog = false, ...props}) => {
         e.preventDefault(); 
         if (!departDate) setDepartDate(arrivalDate); 
         if (!departTime) setDepartTime(arrivalTime); 
-        console.log(departDate); 
-        console.log(departTime); 
-        console.log(new Date(arrivalDate + " " + arrivalTime).toISOString()); 
-        console.log(new Date(departDate + " " + departTime).toISOString()); 
         appt.arrival_date = new Date(arrivalDate + " " + arrivalTime).toISOString(); 
-        appt.depart_date = new Date(departDate + " " + departTime).toISOString();  
+        appt.depart_date = new Date(departDate + " " + departTime).toISOString();   
         dispatch(Actions.actionNewAppointmentRequest({
             appt, 
             newDog

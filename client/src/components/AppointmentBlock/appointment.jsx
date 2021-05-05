@@ -91,7 +91,7 @@ const Appointment = props => {
                     </Col>
                     <Col style = {{paddingTop: '1rem'}}> 
                         {
-                            (checked_in || !checked_in) && !new_dog ? 
+                            (checked_in || !checked_in) && new_dog == false ? 
                             <Button style = {{whiteSpace: 'nowrap'}} onClick = {checked_in ? checkOutHandler : 
                                     checkInHandler } disabled = {checked_out}> 
                                 {checked_in ? 'Check Out' : 'Check In'} 
