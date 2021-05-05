@@ -4,7 +4,7 @@ import {ActionTypes} from '../reducers/reducers';
 import Actions from '../reducers/reducers'; 
 
 
-export const api =  API.create('http://localhost:5000'); 
+export const api =  API.create(`${process.env.HOSTNAME}:${process.env.PORT}` || 'http://localhost:5000'); 
 
 function* signIn(api, {signInRequest}){
     const response = yield call(api.signIn, signInRequest); 
