@@ -24,19 +24,18 @@ const AppointmentHistory = () => {
         setSearchDogs(true); 
     }
 
-    const showDogList = () => ( <div> {dogList.map(dog => <DogInfoCard {...dog} clickAction = {onDogClick} /> ) } </div> ); 
+    const showDogList = () => ( <div> {dogList.map(dog => <DogInfoCard {...dog} clickAction = {() => onDogClick(dog)} /> ) } </div> ); 
 
     const onDogClick = dog => {
-        // dispatch(Actions.actionAppointmentHistoryRequest(dog));
-        // setApptHistory([{dog_name: 'Dro', owner_first_name: 'Brandon', owner_last_name: 'Corn',service: 'Boarding', checked_out: true}, 
-        // {dog_name: 'Dro', owner_first_name: 'Brandon', owner_last_name: 'Corn',service: 'Boarding', checked_out: true}, 
-        // {dog_name: 'Dro', owner_first_name: 'Brandon', owner_last_name: 'Corn',service: 'Boarding', checked_out: true},
-        // {dog_name: 'Dro', owner_first_name: 'Brandon', owner_last_name: 'Corn',service: 'Boarding', checked_out: true}])
+        dispatch(Actions.actionAppointmentHistoryRequest(dog));
         setSearchDogs(false); 
-        setSearchAppts(true);  
+        setSearchAppts(true); 
     } 
     
-    const showApptHistory = () => ( <div> {apptHistory.map(appt => <Appointment {...appt} /> ) } </div> ); 
+    const showApptHistory = () => {
+        if (apptHistory.length < 1) return ('No appointments for this dog'); 
+        else return ( <div> {apptHistory.map(appt => <Appointment {...appt} /> ) } </div> );
+    } 
 
 
 
@@ -44,9 +43,9 @@ const AppointmentHistory = () => {
         setDogList(session.searchDogsList); 
     },[session.searchDogsList])
 
-    // useEffect(() => {
-    //     setApptHistory(session.appointmentHistory); 
-    // },[session.appointmentHistory])
+    useEffect(() => {
+        setApptHistory(session.appointmentHistory); 
+    },[session.appointmentHistory])
 
     return (
         <section className="main mt-3 mb-4">
