@@ -2,9 +2,10 @@ import { put, takeLatest, call, all } from 'redux-saga/effects';
 import API from '../services/api'; 
 import {ActionTypes} from '../reducers/reducers';
 import Actions from '../reducers/reducers'; 
+import runtimeEnv from '@mars/heroku-js-runtime-env'; 
 
-
-export const api =  API.create(`${process.env.HOSTNAME}:${process.env.PORT}` || 'http://localhost:5000'); 
+const env = runtimeEnv(); 
+export const api =  API.create(`${env.REACT_APP_HOSTNAME}:${env.REACT_APP_PORT}` || 'http://localhost:5000'); 
 
 function* signIn(api, {signInRequest}){
     const response = yield call(api.signIn, signInRequest); 
