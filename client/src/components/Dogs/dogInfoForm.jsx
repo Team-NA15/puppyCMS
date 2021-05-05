@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'; 
+import { useDispatch } from 'react-redux'; 
 import { Form, Col, Container, Button } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom'; 
+import Actions from '../../reducers/reducers'; 
 
 const DogInfoForm = ({submitForm, resetForm = true, ...props}) => {
     const dogData = {
@@ -22,7 +24,8 @@ const DogInfoForm = ({submitForm, resetForm = true, ...props}) => {
     }
 
     const [dog, setDog] = useState(dogData);
-    const [beforeCheckIn, setBeforeCheckIn] = useState(null);  
+    const [beforeCheckIn, setBeforeCheckIn] = useState(null); 
+    const dispatch = useDispatch();  
 
     const dogHandler = (name, value) => setDog(prev => ({...prev, [name]: value})); 
 
@@ -46,7 +49,13 @@ const DogInfoForm = ({submitForm, resetForm = true, ...props}) => {
             Array.from(document.querySelectorAll('input')).forEach(input => input.value = ''); 
             Array.from(document.querySelectorAll('select')).forEach(input => input.value = ''); 
         } 
-        if (beforeCheckIn) props.history.goBack();  
+        if (beforeCheckIn) {
+            dispatch(Actions.actionUpdateAppointment({
+                prevAppt: dog, 
+                updates: {new_dog: false}
+            }));
+            props.history.goBack();  
+        }  
     } 
     
     const getBeforeCheckInDogInfo = () => {

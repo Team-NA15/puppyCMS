@@ -40,6 +40,7 @@ function* updateAppointment(api, {updateAppointment}){
     const response = yield call(api.updateAppointment, updateAppointment); 
     if (response && response.ok){
         yield put(Actions.actionUpdateAppointmentSuccess(response));  
+        yield put(Actions.actionGetTodaysAppointmentsRequest(response)); 
     }
     else { 
         yield put(Actions.actionUpdateAppointmentFailure(response)); 
