@@ -29,6 +29,8 @@ const NewAppointmentForm = ({newDog = false, ...props}) => {
 
     const submitNewAppointment = e => {
         e.preventDefault(); 
+        if (!arrivalTime) setArrivalTime("09:00:AM"); 
+        if (!departTime) setDepartTime("05:00:PM"); 
         appt.arrival_date = new Date(arrivalDate + " " + arrivalTime).toISOString(); 
         appt.depart_date = new Date(departDate + " " + departTime).toISOString();  
         dispatch(Actions.actionNewAppointmentRequest({

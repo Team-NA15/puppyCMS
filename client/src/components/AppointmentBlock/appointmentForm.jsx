@@ -122,7 +122,7 @@ const AppointmentForm = props => {
                         <Form.Group as = {Col} controlId="formService"> 
                             <Form.Label> Service </Form.Label>
                             <Form.Control as = 'select' name = 'service' type = "text" placeholder = "Service"  defaultValue = {appt.service || '...'} 
-                                onChange = {e => handleSetApptProp(e)}>  
+                                onChange = {e => handleSetApptProp(e)} required>  
                                 <option>Boarding</option> 
                                 <option>Daycare</option> 
                                 <option>Grooming</option>
@@ -131,28 +131,28 @@ const AppointmentForm = props => {
                         <Form.Group as = {Col} controlId="formArrivalDate"> 
                             <Form.Label> Arrival Date </Form.Label>
                             <Form.Control name = 'arrival_date' type = "date" value = {arrivalDate} 
-                                onChange = {e =>  setArrivalDate(e.target.value)} />  
+                                onChange = {e =>  setArrivalDate(e.target.value)} required/>  
                         </Form.Group> 
                         <Form.Group as = {Col} controlId="formDepartDate"> 
                             <Form.Label> Arrival Time </Form.Label>
                             <Form.Control name = 'arrival_time' type = "time"  value = {arrivalTime} 
-                                onChange = {e => setArrivalTime(e.target.value)} />  
+                                onChange = {e => setArrivalTime(e.target.value)} required/>  
                         </Form.Group> 
                         <Form.Group as = {Col} controlId="formDepartDate"> 
                             <Form.Label> Depart Date </Form.Label>
                             <Form.Control name = 'depart_date' type = "date"  value = {departDate} 
-                                onChange = {e => setDepartDate(e.target.value)} />  
+                                onChange = {e => setDepartDate(e.target.value)} required/>  
                         </Form.Group> 
                         <Form.Group as = {Col} controlId="formDepartDate"> 
                             <Form.Label> Depart Time </Form.Label>
                             <Form.Control name = 'depart_time' type = "time"  value = {departTime} 
-                                onChange = {e => setDepartTime(e.target.value)} />  
+                                onChange = {e => setDepartTime(e.target.value)} required/>  
                         </Form.Group> 
                     </Form.Row>
                     <Form.Row> 
                         <Form.Group as = {Col} controlId = 'formBreakfastBoolean'> 
                             <Form.Check name = 'breakfast' defaultChecked = {appt.breakfast} checked = {appt.breakfast} label = 'Breakfast' 
-                                onChange = {e => handleUpdateMealMeds(e)}/> 
+                                onChange = {e => handleUpdateMealMeds(e)} /> 
                         </Form.Group>
                         <Form.Group as = {Col} controlId = 'formBreakfastQuant'> 
                             <Form.Label> Breakfast Quantity </Form.Label>
