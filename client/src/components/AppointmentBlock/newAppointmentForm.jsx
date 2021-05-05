@@ -27,12 +27,22 @@ const NewAppointmentForm = ({newDog = false, ...props}) => {
         setAppt(prevAppt => ({...prevAppt, [name]: value})); 
     }
 
+    const handlerDepartDate = val => setDepartDate(val); 
+    const handlerDepartTime = val => setDepartTime(val); 
+
+    const setDates = () => {
+        const arrival = new Date(arrivalDate + " " + arrivalTime); 
+        const departure = new Date(departDate + " " + departTime); 
+        appt.arrival_date = arrival.toISOString(); 
+        appt.depart_date = departure.toISOString(); 
+    }
+
     const submitNewAppointment = e => {
         e.preventDefault(); 
-        if (!departDate) setDepartDate(arrivalDate); 
-        if (!departTime) setDepartTime(arrivalTime); 
-        appt.arrival_date = new Date(arrivalDate + " " + arrivalTime).toISOString(); 
-        appt.depart_date = new Date(departDate + " " + departTime).toISOString();   
+        if (!departDate) handlerDepartDate(arrivalDate); 
+        if (!departTime) handlerDepartTime(arrivalTime); 
+
+        setDates();   
         dispatch(Actions.actionNewAppointmentRequest({
             appt, 
             newDog
@@ -89,12 +99,12 @@ const NewAppointmentForm = ({newDog = false, ...props}) => {
                         <Form.Group as = {Col} controlId="formDepartDate"> 
                             <Form.Label> Depart Date </Form.Label>
                             <Form.Control name = 'depart_date' type = "date"  value = {departDate} 
-                                onChange = {e => setDepartDate(e.target.value)} />  
+                                onChange = {e => setDepartDate(e.target.value)} required/>  
                         </Form.Group> 
                         <Form.Group as = {Col} controlId="formDepartDate"> 
                             <Form.Label> Depart Time </Form.Label>
                             <Form.Control name = 'depart_time' type = "time"  value = {departTime} 
-                                onChange = {e => setDepartTime(e.target.value)} />  
+                                onChange = {e => setDepartTime(e.target.value)} required/>  
                         </Form.Group> 
                     </Form.Row>
                     <Form.Row> 
