@@ -31,15 +31,8 @@ const Appointment = props => {
     }
 
     const checkInHandler = () => {
-        alert('perform check in'); 
-        // if (new_dog == true){
-        //     // alert('Dog is new, create a file for the dog'); 
-        //     redirectNewDogForm(); 
-        // }
-        // else{
-        //     setCheckIn(!checkIn);
-        //     handleShowMoreModal();
-        // }  
+        setCheckIn(!checkIn);
+        handleShowMoreModal();  
     } 
 
     const checkOutHandler = () => setCheckOut(!checkOut); 

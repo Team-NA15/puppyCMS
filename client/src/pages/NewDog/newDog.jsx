@@ -19,6 +19,7 @@ const NewDog = props => {
     const submissionStateHandler = () => setSubmissionSent(false); 
 
     return (
+        <section className="main mt-3 mb-4">
         <Container> 
             <DogInfoForm submitForm = {submitNewDogForm} /> 
             <BasicModal show = {submissionSent} handleShowModal = {submissionStateHandler} title = {success ? 'Success' : 'Failure'}
@@ -26,6 +27,7 @@ const NewDog = props => {
                     handleFailure = {submissionStateHandler} failureText = {'Close'} 
             /> 
         </Container> 
+        </section> 
     )
 }
 
