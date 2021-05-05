@@ -12,7 +12,7 @@
     "db:migrate:undo": "cd db && npx sequelize-cli db:migrate:undo:all",
     "db:seed": "cd db && npx sequelize-cli db:seed:all",
     "db:seed:undo": "cd db && npx sequelize-cli db:seed:undo:all",
-    "database:undo": "cd db && npx sequelize-cli db:migrate:undo", 
+    "database:undo": "cd db && npx sequelize-cli db:migrate:undo:all", 
     "database": "cd db && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all ",
     "heroku-postbuild": "npm run database:undo && npm run database && cd client/ && npm install && npm run build",
     "dev": "concurrently \"npm run start\" \"npm run client\"",
