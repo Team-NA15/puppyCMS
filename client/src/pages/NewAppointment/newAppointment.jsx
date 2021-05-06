@@ -18,7 +18,8 @@ const FormBody = props => {
     const [found, setFound] = useState(false); 
     const [existingDog, setExistingDog] = useState({}); 
     const dispatch = useDispatch(); 
-    const session = useSelector(state => state.session); 
+    const session = useSelector(state => state.session);  
+
 
     const handleSearchTextChange = e => setSearchText(e.target.value); 
 
@@ -56,7 +57,8 @@ const FormBody = props => {
         <section id="results" className="m-3">
         {
             results && !found ? results.map(dog => {
-                return <DogInfoCard clickAction = {() => generateAppointmentForm(dog)} key = {dog.dog_name + dog.breed} {...dog} />  
+                return <DogInfoCard 
+                clickAction = {() => generateAppointmentForm(dog)} key = {dog.dog_name + dog.breed} {...dog} />  
             }) : ''
         }
         </section>

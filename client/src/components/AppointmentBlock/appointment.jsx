@@ -7,7 +7,7 @@ import  AppointmentModal from './appointmentModal';
 import Actions from '../../reducers/reducers'; 
 import BasicModal from '../../components/Generics/basicModal';
 
-const Appointment = props => {
+const Appointment = ({disableCheckInOut = false, ...props}) => {
     const {dog_name, service, owner_last_name, cubby, arrival_date, depart_date, 
         checked_in, checked_out, new_dog} = props;    
     const [showMore, setShowMore] = useState(false);
@@ -89,9 +89,9 @@ const Appointment = props => {
                             }
                         </Row> 
                     </Col>
-                    <Col style = {{paddingTop: '1rem'}}> 
+                    <Col style = {{paddingTop: '1rem'}} hidden = {disableCheckInOut}> 
                         {
-                            (checked_in || !checked_in) && new_dog == false ? 
+                            (checked_in || !checked_in) && !new_dog ? 
                             <Button style = {{whiteSpace: 'nowrap'}} onClick = {checked_in ? checkOutHandler : 
                                     checkInHandler } disabled = {checked_out}> 
                                 {checked_in ? 'Check Out' : 'Check In'} 
@@ -103,7 +103,7 @@ const Appointment = props => {
                         } 
                     </Col>
                     <Col style = {{paddingTop: '1rem'}}> 
-                        {checked_in ? <Button onClick = {handleShowMoreModal}> More </Button> : ''} 
+                        {checked_in || disableCheckInOut ? <Button onClick = {handleShowMoreModal}> More </Button> : ''} 
                         <AppointmentModal {...props} show = {showMore} handleShowModal = {handleShowMoreModal} isCheckIn = {checkIn} 
                             update = {checkIn} />
                         <BasicModal show = {checkOut} handleShowModal = {checkOutHandler} title = {'Confirm Check Out'} 

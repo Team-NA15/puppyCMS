@@ -7,7 +7,7 @@ const DogInfoCard = ({clickAction, ...props}) => {
     const dogCard = useRef(null); 
     
     const enterHover = () => {
-        dogCard.current.style.backgroundColor = 'rgba(255,255,255,0.5)'; 
+        dogCard.current.style.backgroundColor = 'rgba(0,0,0,0.3)'; 
     }
 
 

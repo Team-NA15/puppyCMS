@@ -34,7 +34,8 @@ const AppointmentHistory = () => {
     
     const showApptHistory = () => {
         if (apptHistory.length < 1) return ('No appointments for this dog'); 
-        else return ( <div> {apptHistory.map(appt => <Appointment {...appt} /> ) } </div> );
+        else return ( <div> {apptHistory.map(appt => <Appointment disableCheckInOut = {true} 
+            {...appt} /> ) } </div> );
     } 
 
 

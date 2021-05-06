@@ -2,12 +2,9 @@ import { put, takeLatest, call, all } from 'redux-saga/effects';
 import API from '../services/api'; 
 import {ActionTypes} from '../reducers/reducers';
 import Actions from '../reducers/reducers'; 
-import runtimeEnv from '@mars/heroku-js-runtime-env'; 
 
-const env = runtimeEnv(); 
-
-export const api =  API.create('https://obscure-springs-15052.herokuapp.com'); 
-// export const api = API.create('http://localhost:5000'); 
+// export const api =  API.create('https://obscure-springs-15052.herokuapp.com'); 
+export const api = API.create('http://localhost:5000'); 
 
 function* signIn(api, {signInRequest}){
     const response = yield call(api.signIn, signInRequest); 
