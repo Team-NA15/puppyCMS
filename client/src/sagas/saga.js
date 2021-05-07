@@ -4,7 +4,6 @@ import {ActionTypes} from '../reducers/reducers';
 import Actions from '../reducers/reducers'; 
 
 export const api =  API.create('https://obscure-springs-15052.herokuapp.com'); 
- 
 
 function* signIn(api, {signInRequest}){
     const response = yield call(api.signIn, signInRequest); 
