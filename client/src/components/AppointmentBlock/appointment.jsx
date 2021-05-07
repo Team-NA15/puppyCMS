@@ -44,14 +44,7 @@ const Appointment = ({disableCheckInOut = false, ...props}) => {
         else return 'Are you ready to check out?'; 
     }
 
-    const updateDepartDateCheckOutEarly = () => {
-        const newDepart = new Date(Date.now()).toISOString(); 
-        if (Date.now() < departure.valueOf()) setAppt(prevAppt => ({...prevAppt, depart_date: newDepart}))
-        return Promise.resolve(); 
-    }
-
-    const submitCheckOut = async () => {  
-        await updateDepartDateCheckOutEarly(); 
+    const submitCheckOut = () => {  
         dispatch(Actions.actionCheckOutAppointmentRequest(appt)); 
         checkOutHandler();  
     }
