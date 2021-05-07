@@ -14,4 +14,8 @@ app.use(express.static(path.resolve(__dirname, 'public')));
 
 app.use(require('./routes'));
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+})
+
 module.exports = app; 
