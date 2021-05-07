@@ -17,7 +17,7 @@ const Navigation = () => {
 
     return (
         <Navbar className="navigation flex-column sticky-top" variant="dark" expand="lg">
-            <Navbar.Brand>puppyCMS</Navbar.Brand>
+            <Navbar.Brand>Playful Pups CMS</Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse>
             <Nav defaultActiveKey="/" className="flex-column" expand>

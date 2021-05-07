@@ -91,14 +91,14 @@ const NewAppointment = () => {
         if (appointmentSuccess){
             return (
                 <div> 
-                    <h3> Appointment Created Successfully! </h3> 
+                    <p> Appointment Created Successfully! </p> 
                 </div>
             )
         }
         else {
             return (
                 <div> 
-                    <h3> Error Creating Appointment </h3> 
+                    <p> Error Creating Appointment </p> 
                 </div> 
             )
         }
