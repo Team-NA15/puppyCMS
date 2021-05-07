@@ -14,7 +14,7 @@
     "db:seed:undo": "cd db && npx sequelize-cli db:seed:undo:all",
     "database:undo": "cd db && npx sequelize-cli db:migrate:undo:all", 
     "database": "cd db && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all ",
-    "heroku-postbuild": "npm run database:undo && npm run database && npm install && cd client/ && npm install && npm run build",
+    "heroku-postbuild": "npm run database:undo && npm install && cd client/ && npm install && npm run build",
     "dev": "concurrently \"npm run start\" \"npm run client\"",
     "production": "concurrently \"npm run start\" \"npm run client\""
   },
