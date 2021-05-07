@@ -9,9 +9,9 @@ export default (rootReducer, rootSaga) => {
     const sagaMiddleware = createSagaMiddleware(); 
 
     const transformConfig = {
-        whiteListPerReducer: {
-            session: ['signInSuccess, signInFailure, signInRequest'], 
-        }
+        // whiteListPerReducer: {
+        //     session: ['signInSuccess, signInFailure, signInRequest'], 
+        // }
     }
 
     const persistConfig = {
