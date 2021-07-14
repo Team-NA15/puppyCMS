@@ -1,3 +1,6 @@
+
+//THIS IS THE OG SETUP OF THE REDUCERS ON ONE PAGE
+
 import { createActions, createReducer } from "reduxsauce";
 import Immutable from "seamless-immutable";
 

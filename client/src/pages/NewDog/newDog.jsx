@@ -10,7 +10,7 @@ import './newDog.scss'
 const NewDog = props => { 
     const [submissionSent, setSubmissionSent] = useState(false); 
     const dispatch = useDispatch(); 
-    let success = useSelector(state => state.session.newDogSignUpSuccess); 
+    let success = useSelector(state => state.dogs.newDogSignUpSuccess); 
 
     const submitNewDogForm = async dog => {
         await dispatch(Actions.actionNewDogSignUpRequest(dog)); 

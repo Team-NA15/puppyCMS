@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage';
 import { persistStore, persistReducer } from 'redux-persist'; 
 import { seamlessImmutableReconciler, seamlessImmutableTransformCreator } from 'redux-persist-seamless-immutable'; 
 import { apply } from '@redux-saga/core/effects';
+import { composeWithDevTools } from 'redux-devtools-extension'; 
 
 export default (rootReducer, rootSaga) => {
     const sagaMiddleware = createSagaMiddleware(); 
@@ -22,7 +23,9 @@ export default (rootReducer, rootSaga) => {
     }
     const persistedReducer = persistReducer(persistConfig, rootReducer); 
     // const store = createStore(rootReducer, applyMiddleware(sagaMiddleware))
-    const store = createStore(persistedReducer, applyMiddleware(sagaMiddleware));  
+    const store = createStore(persistedReducer, composeWithDevTools(
+        applyMiddleware(sagaMiddleware)
+    ));  
 
     const sagaManager = sagaMiddleware.run(rootSaga); 
 

@@ -8,7 +8,9 @@ import Actions from '../../reducers/reducers';
 
 const AppointmentHistory = () => {
     const dispatch = useDispatch(); 
-    const session = useSelector(state => state.session); 
+    // const session = useSelector(state => state.session); 
+    const appointments = useSelector(state => state.appointments); 
+    const dogs = useSelector(state => state.dogs); 
     const [search, setSearch] = useState(''); 
     const [dogList, setDogList] = useState([]); 
     const [apptHistory, setApptHistory] = useState([]); 
@@ -33,7 +35,7 @@ const AppointmentHistory = () => {
     } 
     
     const showApptHistory = () => {
-        if (apptHistory.length < 1) return ('No appointments for this dog'); 
+        if (!apptHistory || apptHistory.length < 1) return ('No appointments for this dog'); 
         else return ( <div> {apptHistory.map(appt => <Appointment disableCheckInOut = {true} 
             {...appt} /> ) } </div> );
     } 
@@ -41,12 +43,12 @@ const AppointmentHistory = () => {
 
 
     useEffect(() => {
-        setDogList(session.searchDogsList); 
-    },[session.searchDogsList])
+        setDogList(dogs.searchDogsList); 
+    },[dogs.searchDogsList])
 
     useEffect(() => {
-        setApptHistory(session.appointmentHistory); 
-    },[session.appointmentHistory])
+        setApptHistory(appointments.appointmentHistory); 
+    },[appointments.appointmentHistory])
 
     return (
         <section className="main mt-3 mb-4">

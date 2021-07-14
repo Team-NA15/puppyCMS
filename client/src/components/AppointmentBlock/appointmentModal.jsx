@@ -9,8 +9,8 @@ const AppointmentModal = props => {
     const [update, setUpdate] = useState(props.update);
     const [isCheckIn, setIsCheckIn] = useState(props.isCheckIn); 
     const dispatch = useDispatch();
-    const {updateAppointmentSuccess, checkInWithAppointmentSuccess} = useSelector(state => state.session);  
-
+    // const {updateAppointmentSuccess, checkInWithAppointmentSuccess} = useSelector(state => state.session);  
+    const { updateAppointmentSuccess, checkInWithAppointmentSuccess } = useSelector(state => state.appointments); 
     const handleUpdate = () => setUpdate(!update); 
     
     const handleExit = () => {

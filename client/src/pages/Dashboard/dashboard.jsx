@@ -15,7 +15,8 @@ function date() {
 
 const Dashboard = (prop) => {
     const dispatch = useDispatch(); 
-    const session = useSelector(state => state.session); 
+    // const session = useSelector(state => state.session); 
+    const appointments = useSelector(state => state.appointments); 
     const [searchText, setSearchText] = useState('');
     const [filterBy, setFilterBy] = useState('');
     const [filteredList, setFilteredList] = useState([])
@@ -40,22 +41,22 @@ const Dashboard = (prop) => {
 
     useEffect(() => {
         filterApts(filterBy); 
-    },[session.todaysAppointments]); 
+    },[appointments.todaysAppointments]); 
 
 
     const filterApts = (filterKey) => {
         let filteredList;
-        if (filterBy == 'B') filteredList = session.todaysAppointments.filter(appt => appt.service == 'Boarding'); 
-        else if (filterBy == 'D') filteredList = session.todaysAppointments.filter(appt => appt.service == 'Daycare'); 
-        else if (filterBy == 'G') filteredList = session.todaysAppointments.filter(appt => appt.service == 'Grooming'); 
-        else filteredList = session.todaysAppointments; 
+        if (filterBy == 'B') filteredList = appointments.todaysAppointments.filter(appt => appt.service == 'Boarding'); 
+        else if (filterBy == 'D') filteredList = appointments.todaysAppointments.filter(appt => appt.service == 'Daycare'); 
+        else if (filterBy == 'G') filteredList = appointments.todaysAppointments.filter(appt => appt.service == 'Grooming'); 
+        else filteredList = appointments.todaysAppointments; 
         setFilteredList(filteredList); 
     }
 
     const searchFilter = () => {
         let filterNames = searchText.trim().split(' ').join('|') 
         let newList = []; 
-        const list = session.todaysAppointments; 
+        const list = appointments.todaysAppointments; 
         let regex = new RegExp(filterNames); 
         newList = newList.concat(list.filter(appt => regex.test(appt.dog_name.toLowerCase()) || regex.test(appt.owner_last_name.toLowerCase()))); 
         setFilteredList(newList); 

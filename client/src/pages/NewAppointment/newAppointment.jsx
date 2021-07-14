@@ -18,7 +18,8 @@ const FormBody = props => {
     const [found, setFound] = useState(false); 
     const [existingDog, setExistingDog] = useState({}); 
     const dispatch = useDispatch(); 
-    const session = useSelector(state => state.session);  
+    // const session = useSelector(state => state.session);  
+    const dogs = useSelector(state => state.dogs); 
 
 
     const handleSearchTextChange = e => setSearchText(e.target.value); 
@@ -41,8 +42,8 @@ const FormBody = props => {
     }
 
     useEffect(() => {
-        setResults(session.searchDogsList); 
-    },[session.searchDogsList])
+        setResults(dogs.searchDogsList); 
+    },[dogs.searchDogsList])
 
     return (
         <div> 
@@ -75,7 +76,7 @@ const NewAppointment = () => {
     const [isExistingDog, setIsExistingDog] = useState(false);
     const [isNewDog, setIsNewDog] = useState(false);
     const [appointmentSuccess, setAppointmentSuccess] = useState(null); 
-    const session = useSelector(state => state.session); 
+    const appointments = useSelector(state => state.appointments); 
 
     const handleNewDog = () => {
         setAppointmentSuccess(null); 
@@ -106,8 +107,8 @@ const NewAppointment = () => {
 
     useEffect(() => { 
         //is not updated when already set to True, find way to get around this to update appointment success
-        setAppointmentSuccess(session.newAppointmentSuccess); 
-    },[session.newAppointmentSuccess, session.newAppointmentFetching])
+        setAppointmentSuccess(appointments.newAppointmentSuccess); 
+    },[appointments.newAppointmentSuccess, appointments.newAppointmentFetching])
 
     return ( 
         <section className="main mt-3">

@@ -1,20 +1,24 @@
 import { put, takeLatest, call, all } from 'redux-saga/effects'; 
 import API from '../services/api'; 
 import {ActionTypes} from '../reducers/reducers';
-import Actions from '../reducers/reducers'; 
+// import Actions from '../reducers/reducers'; 
+import SessionActions from '../reducers/session'; 
+import ApptCrudActions from '../reducers/appointments/appointmentCrud'; 
+import ApptServiceActions from '../reducers/appointments/appointmentActions'; 
+import DogActions from '../reducers/dogs'; 
 
-export const api =  API.create('https://obscure-springs-15052.herokuapp.com'); 
-// export const api = API.create('http://localhost:5000'); 
+// export const api =  API.create('https://obscure-springs-15052.herokuapp.com'); 
+export const api = API.create('http://localhost:5000'); 
 
 function* signIn(api, {signInRequest}){
     const response = yield call(api.signIn, signInRequest); 
     if(response && response.ok) { 
-        yield put(Actions.actionSignInSuccess(response));  
-        yield put(Actions.actionSetApiToken(response.data.access_token));  
-        yield put(Actions.actionGetTodaysAppointmentsRequest(response)); 
+        yield put(SessionActions.actionSignInSuccess(response));  
+        yield put(SessionActions.actionSetApiToken(response.data.access_token));  
+        yield put(ApptCrudActions.actionGetTodaysAppointmentsRequest(response)); 
     }
     else{
-        yield put(Actions.actionSignInFailure(response)); 
+        yield put(SessionActions.actionSignInFailure(response)); 
     }
 }
 
@@ -29,65 +33,65 @@ function* signOut(api){
 function* todaysAppointments(api){
     const response = yield call(api.getTodaysAppointments); 
     if(response && response.ok){ 
-        yield put(Actions.actionGetTodaysAppointmentsSuccess(response.data.appts)); 
+        yield put(ApptCrudActions.actionGetTodaysAppointmentsSuccess(response.data.appts)); 
     }
     else {
-        yield put(Actions.actionGetTodaysAppointmentsFailure(response));
+        yield put(ApptCrudActions.actionGetTodaysAppointmentsFailure(response));
     } 
 }
 
 function* updateAppointment(api, {updateAppointment}){ 
     const response = yield call(api.updateAppointment, updateAppointment); 
     if (response && response.ok){
-        yield put(Actions.actionUpdateAppointmentSuccess(response));  
-        yield put(Actions.actionGetTodaysAppointmentsRequest(response)); 
+        yield put(ApptCrudActions.actionUpdateAppointmentSuccess(response));  
+        yield put(ApptCrudActions.actionGetTodaysAppointmentsRequest(response)); 
     }
     else { 
-        yield put(Actions.actionUpdateAppointmentFailure(response)); 
+        yield put(ApptCrudActions.actionUpdateAppointmentFailure(response)); 
     } 
 }
 
 function* searchDogs(api, {searchDogs}){
     const response = yield call(api.searchDogs, searchDogs); 
     if (response && response.ok){
-        yield put(Actions.actionSearchDogsSuccess(response)); 
+        yield put(DogActions.actionSearchDogsSuccess(response)); 
     } 
     else{
-        yield put(Actions.actionSearchDogsFailure(response)); 
+        yield put(DogActions.actionSearchDogsFailure(response)); 
     }
 }
 
 function* checkInWithAppointment(api, {checkInWithAppointmentRequest}){ 
     const response = yield call(api.checkInWithAppointment, checkInWithAppointmentRequest); 
-    if (response && response.ok) yield put(Actions.actionCheckInWithAppointmentSuccess(response)); 
-    else yield put(Actions.actionCheckInWithAppointmentFailure(response)); 
+    if (response && response.ok) yield put(ApptServiceActions.actionCheckInWithAppointmentSuccess(response)); 
+    else yield put(ApptServiceActions.actionCheckInWithAppointmentFailure(response)); 
 }
 
 function* checkOutAppointment(api, {checkOutAppointmentRequest}){
     const response = yield call(api.checkOutAppointment, checkOutAppointmentRequest); 
-    if (response && response.ok) yield put(Actions.actionCheckOutAppointmentSuccess(response)); 
-    else yield put(Actions.actionCheckOutAppointmentFailure(response)); 
+    if (response && response.ok) yield put(ApptServiceActions.actionCheckOutAppointmentSuccess(response)); 
+    else yield put(ApptServiceActions.actionCheckOutAppointmentFailure(response)); 
 }
 
 function* newDogSignUp(api, {newDogSignUpRequest}){
     const response = yield call(api.newDogSignUp, newDogSignUpRequest); 
-    if (response && response.ok) yield put(Actions.actionNewDogSignUpSuccess(response)); 
-    else yield put(Actions.actionNewDogSignUpFailure(response)); 
+    if (response && response.ok) yield put(DogActions.actionNewDogSignUpSuccess(response)); 
+    else yield put(DogActions.actionNewDogSignUpFailure(response)); 
 }
 
 function* newAppointment(api, {newAppointmentRequest}){
     const response = yield call(api.newAppointment, newAppointmentRequest); 
     if(response && response.ok) {
-        yield put(Actions.actionNewAppointmentSuccess(response));
-        yield put(Actions.actionGetTodaysAppointmentsRequest(response)); 
+        yield put(ApptCrudActions.actionNewAppointmentSuccess(response));
+        yield put(ApptCrudActions.actionGetTodaysAppointmentsRequest(response)); 
     } 
-    else yield put(Actions.actionNewAppointmentFailure(response)); 
+    else yield put(ApptCrudActions.actionNewAppointmentFailure(response)); 
 }
 
 function* appointmentHistory(api, {appointmentHistoryRequest}){
     const response = yield call(api.fetchAppointmentHistory, appointmentHistoryRequest); 
-    if (response && response.ok) yield put(Actions.actionAppointmentHistorySuccess(response)); 
-    else yield put(Actions.actionAppointmentHistoryFailure(response)); 
+    if (response && response.ok) yield put(ApptCrudActions.actionAppointmentHistorySuccess(response)); 
+    else yield put(ApptCrudActions.actionAppointmentHistoryFailure(response)); 
 }
 
 
